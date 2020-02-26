@@ -49,7 +49,7 @@ python3 setup.py install --user
 ```
 mkdir -p d/working/aisw/run
 cd  d/working/aisw/run
-~/.local/bin/xnnc-run --type caffe --layout NCHW --model /group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/deploy_keep_fixed_neuron/deploy.caffemodel --proto /group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/deploy_keep_fixed_neuron/deploy.prototxt --out resnet50.baseline9213_ck_compiled.xmodel
+~/.local/bin/xnnc-run --type caffe --layout NCHW --model /group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/decrypted/deploy.caffemodel --proto /group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/deploy_keep_fixed_neuron/deploy.prototxt --out resnet50.baseline9213_ck_compiled.xmodel
 ```
 
 ```
