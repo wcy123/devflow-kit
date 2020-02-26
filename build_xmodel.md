@@ -62,4 +62,14 @@ cp $HOME/d/working/aisw/unilog/cmake.sh  .
 
 ```
 
+
+build the model
+
+```
+mkdir -p d/working/aisw
+git clone gits@xcdl190260:dpdlf/model_zoo_builder
+git checkout br-xcompiler
+./cmake.sh --pack=tgz --clean
+```
+
 end
