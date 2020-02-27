@@ -63,7 +63,7 @@ cp $HOME/d/working/aisw/unilog/cmake.sh  .
 ```
 
 
-build the model
+build the model zoo
 
 ```
 mkdir -p d/working/aisw
@@ -72,4 +72,9 @@ git checkout br-xcompiler
 ./cmake.sh --pack=tgz --clean
 ```
 
+to extract the models to docker
+
+```
+tar -zxvf xilinx_model_zoo-1.0.0-Linux.tar.gz --strip-components=1  -C /tmp/tmp/usr/share/vitis_ai_library/.models/resnet50_acc/meta.json
+```
 end
