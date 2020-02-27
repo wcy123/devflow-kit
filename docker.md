@@ -3,8 +3,9 @@
 start docker
 
 ```
+ssh xcosda93
 cd /home/chunywan/build/vitis-ai-docker
-./docker_run.sh
+./docker_run.sh wcy_xdock
 cmake --version
 ```
 create working directory
