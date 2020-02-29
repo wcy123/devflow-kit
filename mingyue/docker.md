@@ -15,6 +15,8 @@ ls
 git clone gits@xcdl190260:aisw/unilog
 git clone gits@xcdl190260:aisw/xir
 git clone gits@xcdl190260:aisw/vart
+cd vart
+git checkout 645d636fc11fa2520da649e04b8a19334789e95e
 
 cd $HOME/vitis-ai-docker
 scp -r mingyue@xcosda13:/proj/rdi/staff/mingyue/d/working/mingyue/cloud_test/7E100M ./
@@ -43,7 +45,7 @@ cmake --version
 ls
 wget https://github.com/Kitware/CMake/releases/download/v3.16.4/cmake-3.16.4.tar.gz
 tar -zxvf cmake-3.16.4.tar.gz
-cdvitis-ai-docker cmake-3.16.4
+cd cmake-3.16.4
 mkdir build
 cd build
 cmake ..
@@ -66,6 +68,7 @@ wget https://github.com/protocolbuffers/protobuf/archive/v3.4.0.tar.gz
 tar -zxvf v3.4.0.tar.gz
 <!--cd .. -->
 <!--rm -rf protobuf-3.4.0 -->
+
 cd protobuf-3.4.0
 mkdir -p build
 cd build
@@ -113,37 +116,45 @@ mkdir .local
 mkdir build
 ls
 cd /workspace/d/working
+ls /usr/lib
+sudo mkdir /usr/lib/vitis_ai_lib_bak
+sudo mv /usr/lib/libunilog* /usr/lib/vitis_ai_lib_bak/
+sudo mv /usr/lib/libtarget-factory* /usr/lib/vitis_ai_lib_bak/
+sudo mv /usr/lib/libxir* /usr/lib/vitis_ai_lib_bak/
+sudo mv /usr/lib/libvart* /usr/lib/vitis_ai_lib_bak/
 
+ls /usr/share/cmake
+sudo mv /usr/share/cmake /usr/share/cmake.bak
+
+<!--rm -rf /workspace/.local/Debug
+rm -rf /workspace/build/build.Debug -->
+
+export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/local/lib:/usr/local/lib64:/workspace/.local/Ubuntu.18.04.x86_64.Debug/lib
 cd /workspace/d/working/unilog
-./cmake.sh --type=debug --build-dir=/workspace/build/build.Debug/unilog --install-prefix=/workspace/.local/Debug
+./cmake.sh --type=debug #--build-dir=/workspace/build/build.Debug/unilog --install-prefix=/workspace/.local/Debug
 
-cd  /workspace/d/working/xir
-./cmake.sh --build-python --clean --type=debug --build-dir=/workspace/build/build.Debug/xir --install-prefix=/workspace/.local/Debug
+cd /workspace/d/working/xir
+./cmake.sh --build-python --clean --type=debug #--build-dir=/workspace/build/build.Debug/xir --install-prefix=/workspace/.local/Debug
 
-export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/local/lib:/usr/local/lib64:/workspace/.local/Debug/lib/workspace/.local/Debug/workspace/.local/Debug
-protoc --version
 cd  /workspace/d/working/vart
-./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF --clean --type=debug --build-python --build-dir=/workspace/build/build.Debug/vart --install-prefix=/workspace/.local/Debug
+./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF --clean --type=debug #--build-python --build-dir=/workspace/build/build.Debug/vart --install-prefix=/workspace/.local/Debug
 
 
 cd /workspace
 sudo tar -zxvf xilinx_model_zoo-1.0.0-Linux.tar.gz --strip-components=1  -C /
-ls /usr/share/vitis_ai_library/models
+
+ls /usr/share/vitis_ai_library/models/resnet50
+cp /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel /home/mingyue/.local/Ubuntu.18.04.x86_64.Debug/share/vart/samples/resnet50/model_dir_for_U50/
+<!-- TODO update meta.json : path of resnet50.xmodel-->
 
 
-ls /workspace/.local/Debug/share/cmake/vart
-sudomingyue@xcosda93:/workspace/d/working/vart$ sudo
-sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set
-
-cd  /workspace/.local/Debug/share/cmake/vart/samples/resnet50
+cd /home/mingyue/.local/Ubuntu.18.04.x86_64.Debug/share/vart/samples/resnet50
+ls
 sudo bash build.sh
-export LD_LIBRARY_PATH=$HOME/.local/Debug/lib/:/opt/xilinx/xrt/lib
+
+<!--export LD_LIBRARY_PATH=$HOME/.local/Debug/lib/:/opt/xilinx/xrt/lib -->
+
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
-
-
-
-
-
 
 
 end
