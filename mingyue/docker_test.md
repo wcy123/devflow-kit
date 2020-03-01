@@ -1,3 +1,9 @@
+<style>
+ .red{color:#FF0000;}
+<style>
+
+<span class="red">red<span>
+
 ## CHECK DOCKER ENVIRONMENT
 ### Git clone vitis-ai-docker and Create work home
 ```
@@ -55,9 +61,9 @@ protoc --version
 > mingyue@xcosda93:/usr/lib$ protoc --version <br/>
 > &emsp;&emsp;libprotoc 3.0.0
 
-```
 $\color{#ff0000}{note: need protobuf 3.4.0}$
 
+```
 cd /usr/lib
 ls
 ldd libxir.so
