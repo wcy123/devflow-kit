@@ -1,4 +1,31 @@
 
+## install anaconda
+
+I found the most easy way to setup xcompiler environment is to use
+anaconda. please take to look at [install anaconda](anaconda_env.md)
+otherwise, you will run into errors, like, "No Python.h found", etc.
+
+
+##  install dependencies
+
+```
+conda install -y glog libprotobuf protobuf pybind11
+conda install -y 'marshmallow' 'tqdm>=4.31.1' 'numpy>=1.16.4' 'python-graphviz'
+```
+
+note: python-graphviz version is 0.8.3, which is lower than than the required version 0.11.1.
+marshmallow is 3.0.0b8, not as same as 3.0.0rc5.
+
+I will try to install them via pip.
+[How to install python, pip, pypi packages in XCD](https://confluence.xilinx.com/display/XCD/How+to+install+python%2C+pip%2C+pypi+packages+in+XCD)
+
+
+
+```
+which python # make sure python is /wrk/xcdhdnobkup1/chunywan/local/anaconda3/bin/python, provided by anaconda
+python -m pip install -r $HOME/d/working/aisw/xnnc4xir/requirements.txt
+```
+
 clone source code
 
 ```
@@ -8,48 +35,43 @@ git clone ssh://gits@xcdl190260/arch/xcompiler
 git clone ssh://gits@xcdl190260/aisw/unilog
 git clone ssh://gits@xcdl190260/aisw/xir
 git clone ssh://gits@xcdl190260/arch/target_factory
-git clone ssh://gits@xcdl190260/3rd-party/pybind11
 ```
 
 build xcompiler
 
 ```
-
-cd $HOME/d/working/aisw/
-cd pybind11
-mkdir build
-cd build
-cmake -DPYBIND11_TEST=off -DPYBIND11_INSTALL=on -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make
-make install
-
 cd  $HOME/d/working/aisw/unilog
-./cmake.sh
+git checkout br-conda-build
+./cmake.sh --cmake-options=-DCMAKE_PREFIX_PATH=$CONDA_PREFIX --clean  # TODO consider to make it default options
 
 cd  $HOME/d/working/aisw/xir
-git checkout 4b11298e
-./cmake.sh --build-python --clean
+git checkout br-conda-build
+./cmake.sh --build-python --cmake-options=-DPYTHON_EXECUTABLE=$CONDA_PYTHON_EXE --cmake-options=-DCMAKE_PREFIX_PATH=$CONDA_PREFIX --clean
 
 # http://xcdl190260/arch/ci-xcompiler/tree/6cebef889c95e830565149c8c40648d751766950
 cd $HOME/d/working/aisw/target_factory
-git checkout 1c8e00e2
-./cmake.sh
+git fetch --all
+git checkout br-conda-build
+./cmake.sh --cmake-options=-DCMAKE_PREFIX_PATH=$CONDA_PREFIX --clean
 
 cd $HOME/d/working/aisw/xcompiler
-git checkout 755d452a
-./cmake.sh
+git fetch --all
+git checkout br-conda-build
+./cmake.sh --cmake-options=-DCMAKE_PREFIX_PATH=$CONDA_PREFIX --clean
 
 cd $HOME/d/working/aisw/xnnc4xir
-git checkout 5c0d499e
-PIP_CONFIG_FILE=~/.config/pip/pip.conf /usr/bin/pip3 install --user "marshmallow>=3.0.0rc5" "tqdm>=4.31.1"  "numpy>=1.16.4" "graphviz>=0.11.1"  "protobuf>=3.6.1"
-python3 setup.py install --user
+git fetch --all
+git checkout br-conda-build
+$CONDA_PYTHON_EXE setup.py install
 
 ```
 
 ```
-mkdir -p d/working/aisw/run
-cd  d/working/aisw/run
+mkdir -p $HOME/d/working/aisw/run
+cd  $HOME/d/working/aisw/run
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:/home/chunywan/.local/Ubuntu.18.04.x86_64.Debug/lib
 ~/.local/bin/xnnc-run --type caffe --layout NCHW --model /group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/decrypted/deploy.caffemodel --proto /group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/deploy_keep_fixed_neuron/deploy.prototxt --out resnet50.baseline9213_ck_compiled.xmodel
+~/.local/Ubuntu.18.04.x86_64.Debug/bin/xcompiler -i resnet50.baseline9213_ck_compiled.xmodel -o resnet50.xmodel  -a "DPUv3e B4096"
 ```
 
 ```
