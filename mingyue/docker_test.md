@@ -2,7 +2,7 @@
  .red{color:#FF0000;}
 <style>
 
-<span class="red">red<span>
+<span class="red">red</span>
 
 ## CHECK DOCKER ENVIRONMENT
 ### Git clone vitis-ai-docker and Create work home
