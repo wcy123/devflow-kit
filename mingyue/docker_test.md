@@ -30,7 +30,7 @@ check protobuf version
 ```
 protoc --version
 ```
-> mingyue@xcosda93:/usr/lib$ protoc --version
+> mingyue@xcosda93:/usr/lib$ protoc --version <br/>
 > libprotoc 3.0.0
 
 ```
@@ -38,8 +38,8 @@ cd /usr/lib
 ls
 ldd libxir.so
 ```
-> mingyue@xcosda93:/usr/lib$ ldd libxir.so
->        linux-vdso.so.1 (0x00007ffd36103000)
+> mingyue@xcosda93:/usr/lib$ ldd libxir.so <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;       linux-vdso.so.1 (0x00007ffd36103000)
 >        libprotobuf.so.22 => not found
 >        libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f60d51fa000)
 >        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f60d4ff6000)
