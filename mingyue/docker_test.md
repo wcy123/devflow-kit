@@ -51,7 +51,7 @@ md5sum /usr/lib/dpu.xclbin /usr/lib/hbm_address_assignment.txt
 > INFO: Found total 1 card(s), 1 are usable <br/>
 > INFO: xbutil program succeeded. <br/>
 
----
+----
 
 ### Check protobuf version
 ```
@@ -62,7 +62,6 @@ protoc --version
 
 <!-- $\color{#ff0000}{note: need protobuf 3.4.0}$ -->
 <b  class="text-red" style="color:red;"> note: need protobuf 3.4.0</b>
-{: .gitlab-orange}
 
 ```
 cd /usr/lib
@@ -86,7 +85,7 @@ ldd libxir.so
 > &emsp;&emsp;        libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f60d357e000)<br/>
 > &emsp;&emsp;        liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f60d3356000)<br/>
 
----
+----
 
 ### Check json-c
 ```
@@ -139,15 +138,16 @@ sudo find . -iname "libgflags.so"
 > mingyue@xcosda93:/usr$ sudo find . -iname "libgflags.so" <br/>
 > ./lib/x86_64-linux-gnu/libgflags.so <br/>
 
----
+----
 
 ### Check resnet50 sample
 ```
 cd /workspace/d/working/samples/resnet50
 ls
 sudo bash build.sh
-<!-- sudo find / -iname "opencv.hpp" -->
 ```
+<!-- sudo find / -iname "opencv.hpp" -->
+
 > mingyue@xcosda93:/workspace/d/working/samples/resnet50$ sudo bash build.sh <br/>
 > No LSB modules are available. <br/>
 > No LSB modules are available. <br/>
