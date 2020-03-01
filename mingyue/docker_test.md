@@ -1,5 +1,5 @@
 ## CHECK DOCKER ENVIRONMENT
-### clone vitis-ai-docker and create work home
+### Git clone vitis-ai-docker and Create work home
 ```
 ssh mingyue@xcosda93
 cd /proj/xcohdstaff5/mingyue/nobkup/
@@ -9,7 +9,7 @@ git clone gits@xcdl190260:vitis/vitis-ai-docker.git
 cd $HOME
 ln -s /proj/xcohdstaff5/mingyue/nobkup/docker_test_0301/vitis-ai-docker docker_test_0301
 ```
-### prepare xclbin & models & samples
+### Preparing xclbin & models & samples
 ```
 cd docker_test_0301
 ls
@@ -22,9 +22,9 @@ cp -r /home/mingyue/vitis-ai-docker/d/working/vart/dpu-runner/samples ./
 ls
 ```
 > mingyue@xcosda93:working% ls <br/>
-> 7E100M  samples  xilinx_model_zoo-1.0.0-Linux.tar.gz
+> 7E100M &nbsp;&nbsp; samples &nbsp;&nbsp;  xilinx_model_zoo-1.0.0-Linux.tar.gz
 
-### start docker
+### Start docker
 ```
 cd $HOME/docker_test_0301
 ls
@@ -32,7 +32,7 @@ docker images
 ./docker_run.sh xdock.xilinx.com/vitis-ai-cpu:1.1.45
 
 ```
-### check XRT&shell&xclbin
+### Check XRT&shell&xclbin
 ```
 export INTERNAL_BUILD=1
 /opt/xilinx/xrt/bin/xbutil query
@@ -48,7 +48,7 @@ md5sum /usr/lib/dpu.xclbin /usr/lib/hbm_address_assignment.txt
 
 ---
 
-### check protobuf version
+### Check protobuf version
 ```
 protoc --version
 ```
@@ -56,13 +56,15 @@ protoc --version
 > &emsp;&emsp;libprotoc 3.0.0
 
 ```
+<font color=red>note: need protobuf 3.4.0</font>
+
 cd /usr/lib
 ls
 ldd libxir.so
 ```
 > mingyue@xcosda93:/usr/lib$ ldd libxir.so <br/>
 > &emsp;&emsp;        linux-vdso.so.1 (0x00007ffd36103000)<br/>
-> &emsp;&emsp;        <span style="color:red;">libprotobuf.so.22 => not found </span><br/>
+> &emsp;&emsp;        <font color=red>libprotobuf.so.22 => not found </font><br/>
 > &emsp;&emsp;        libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f60d51fa000)<br/>
 > &emsp;&emsp;        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f60d4ff6000)<br/>
 > &emsp;&emsp;        libcrypto.so.1.1 => /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 (0x00007f60d4b2b000)<br/>
@@ -79,14 +81,14 @@ ldd libxir.so
 
 ---
 
-check json-c
+### Check json-c
 ```
 ldd libvart-runner.so
 ```
 > mingyue@xcosda93:/usr/lib$ ldd libvart-runner.so <br/>
 > &emsp;&emsp;        linux-vdso.so.1 (0x00007fff04e54000) <br/>
 > &emsp;&emsp;        libglog.so.0 => /usr/lib/x86_64-linux-gnu/libglog.so.0 (0x00007ff2e152d000) <br/>
-> &emsp;&emsp;        <span style="color:red;">libjson-c.so.4 => not found </span><br/>
+> &emsp;&emsp;        <font color=red>libjson-c.so.4 => not found </font><br/>
 > &emsp;&emsp;        libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007ff2e1329000)<br/>
 > &emsp;&emsp;        libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007ff2e0fa0000)<br/>
 > &emsp;&emsp;        libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007ff2e0d88000)<br/>
@@ -103,7 +105,7 @@ ldd libunilog.so
 ldd libvart-util.so
 ```
 
-### check opencv version
+### Check opencv version
 ```
 pkg-config opencv --modversion
 cd /usr
@@ -113,9 +115,9 @@ sudo find . -iname "libopencv_imgproc*"
 > ./lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2.0 <br/>
 > ./lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2 <br/>
 
-<div style="color:red;">note: must opencv3.4 ?? </div>
+<font color=red>note: must opencv3.4 ?? </font>
 
-### check glog
+### Check glog
 ```
 cd /usr
 sudo find . -iname "libglog.so"
@@ -123,7 +125,7 @@ sudo find . -iname "libglog.so"
 > mingyue@xcosda93:/usr$ sudo find . -iname "libglog.so" <br/>
 > ./lib/x86_64-linux-gnu/libglog.so <br/>
 
-### check gflags
+### Check gflags
 ```
 sudo find . -iname "libgflags.so"
 ```
@@ -132,7 +134,7 @@ sudo find . -iname "libgflags.so"
 
 ---
 
-### check resnet50 sample
+### Check resnet50 sample
 ```
 cd /workspace/d/working/samples/resnet50
 ls
@@ -143,18 +145,15 @@ sudo bash build.sh
 > No LSB modules are available. <br/>
 > No LSB modules are available. <br/>
 > In file included from /workspace/d/working/samples/resnet50/src/main.cc:32:0: <br/>
-> /workspace/d/working/samples/resnet50/../common/common.h:22:10: <span style="color:red;">fatal error: </span>opencv2/opencv.hpp: No such file or directory <br/>
+> /workspace/d/working/samples/resnet50/../common/common.h:22:10: <font color=red>fatal error: </font>opencv2/opencv.hpp: No such file or directory <br/>
 >  #include <font style="color:red"> <opencv2/opencv.hpp> </font><br/>
 > &emsp;&emsp;&emsp;&emsp;         ^~~~~~~~~~~~~~~~~~~~ <br/>
 > compilation terminated.<br/>
 > In file included from /workspace/d/working/samples/resnet50/../common/common.cpp:17:0:<br/>
-> /workspace/d/working/samples/resnet50/../common/common.h:22:10: <span style="color:red;">fatal error:</span> opencv2/opencv.hpp: No such file or directory <br/>
->  #include <span style="color:red;"><opencv2/opencv.hpp></span> <br/>
+> /workspace/d/working/samples/resnet50/../common/common.h:22:10: <font color=red>fatal error:</font> opencv2/opencv.hpp: No such file or directory <br/>
+>  #include <font color=red><opencv2/opencv.hpp></font> <br/>
 > &emsp;&emsp;&emsp;&emsp;         ^~~~~~~~~~~~~~~~~~~~   <br/>
 > compilation terminated.<br/>
-
-
-
 
 
 end
