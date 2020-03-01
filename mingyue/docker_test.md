@@ -61,7 +61,7 @@ protoc --version
 > &emsp;&emsp;libprotoc 3.0.0
 
 <!-- $\color{#ff0000}{note: need protobuf 3.4.0}$ -->
-<b style="color:red;"> note: need protobuf 3.4.0</b>
+<b  class="text-red" style="color:red;"> note: need protobuf 3.4.0</b>
 
 ```
 cd /usr/lib
