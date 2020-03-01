@@ -113,7 +113,7 @@ sudo find . -iname "libopencv_imgproc*"
 > ./lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2.0 <br/>
 > ./lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2 <br/>
 
-<span style="color:red;">note: must opencv3.4 ?? </span>
+<div style="color:red;">note: must opencv3.4 ?? </div>
 
 ### check glog
 ```
@@ -144,13 +144,13 @@ sudo bash build.sh
 > No LSB modules are available. <br/>
 > In file included from /workspace/d/working/samples/resnet50/src/main.cc:32:0: <br/>
 > /workspace/d/working/samples/resnet50/../common/common.h:22:10: <span style="color:red;">fatal error: </span>opencv2/opencv.hpp: No such file or directory <br/>
->  #include<span style="color:red"> <opencv2/opencv.hpp> </span><br/>
->          ^~~~~~~~~~~~~~~~~~~~ <br/>
+>  #include <font style="color:red"> <opencv2/opencv.hpp> </font><br/>
+> &emsp;&emsp;&emsp;&emsp;         ^~~~~~~~~~~~~~~~~~~~ <br/>
 > compilation terminated.<br/>
 > In file included from /workspace/d/working/samples/resnet50/../common/common.cpp:17:0:<br/>
 > /workspace/d/working/samples/resnet50/../common/common.h:22:10: <span style="color:red;">fatal error:</span> opencv2/opencv.hpp: No such file or directory <br/>
 >  #include <span style="color:red;"><opencv2/opencv.hpp></span> <br/>
-> &emsp;&emsp;         ^~~~~~~~~~~~~~~~~~~~   <br/>
+> &emsp;&emsp;&emsp;&emsp;         ^~~~~~~~~~~~~~~~~~~~   <br/>
 > compilation terminated.<br/>
 
 
