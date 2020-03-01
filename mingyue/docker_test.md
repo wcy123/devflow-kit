@@ -1,6 +1,6 @@
 <style>
  .red{color:#FF0000;}
-<style>
+</style>
 
 <span class="red">red</span>
 
