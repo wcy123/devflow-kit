@@ -62,6 +62,7 @@ protoc --version
 
 <!-- $\color{#ff0000}{note: need protobuf 3.4.0}$ -->
 <b  class="text-red" style="color:red;"> note: need protobuf 3.4.0</b>
+{: .gitlab-orange}
 
 ```
 cd /usr/lib
