@@ -11,9 +11,10 @@ cd ~/bulid
 curl -Lo glog-v0.4.0.tar.gz https://github.com/google/glog/archive/v0.4.0.tar.gz
 tar -zxvf glog-v0.4.0.tar.gz
 cd glog-0.4.0
-
+```
 
 ## build for  petalinux
+
 ```
 mkdir build_for_petalinux
 cd build_for_petalinux
