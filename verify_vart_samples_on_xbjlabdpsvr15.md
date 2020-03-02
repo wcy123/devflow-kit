@@ -99,3 +99,19 @@ $HOME/build/build.${target_info}.Debug/vart/dpu-runner/test/show_kernel model_di
 bash -ex build.sh
 ./segmentation  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI/mpsoc/vitis_ai_samples_zcu102/./segmentation/video/traffic.mp4 model_dir_for_U50/
 ```
+
+
+build and run `pose detection`
+
+```
+cd $HOME/d/working/aisw/vart/dpu-runner/samples/pose_detection
+mkdir -p model_dir_for_U50
+cp -av model_dir_for_zcu102 model_dir_for_U50
+ln -s /scratch/chunywan/models/usr/share/vitis_ai_library/models/sp_net/sp_net.xmodel model_dir_for_U50/pose_0
+ln -s /scratch/chunywan/models/usr/share/vitis_ai_library/models/sp_net/sp_net.xmodel model_dir_for_U50/pose_2
+ln -s /scratch/chunywan/models/usr/share/vitis_ai_library/models/ssd_pedestrain_pruned_0_97/ssd_pedestrain_pruned_0_97.xmodel model_dir_for_U50/ssd
+$HOME/build/build.${target_info}.Debug/vart/dpu-runner/test/show_kernel model_dir_for_U50/pose_0/sp_net.xmodel
+$HOME/build/build.${target_info}.Debug/vart/dpu-runner/test/show_kernel model_dir_for_U50/ssd/ssd_pedestrain_pruned_0_97.xmodel
+bash -ex build.sh
+./pose_detection /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI/mpsoc/vitis_ai_samples_zcu102/pose_detection/video/pose.mp4 model_dir_for_U50/
+```
