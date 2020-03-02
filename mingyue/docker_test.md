@@ -66,7 +66,7 @@ protoc --version
 ```
 cd /usr/lib
 ls
-ldd libxir.so
+ldd /usr/lib/libxir.so
 ```
 > mingyue@xcosda93:/usr/lib$ ldd libxir.so <br/>
 > &emsp;&emsp;        linux-vdso.so.1 (0x00007ffd36103000)<br/>
@@ -89,7 +89,7 @@ ldd libxir.so
 
 ### Check json-c
 ```
-ldd libvart-runner.so
+ldd /usr/lib/libvart-runner.so
 ```
 > mingyue@xcosda93:/usr/lib$ ldd libvart-runner.so <br/>
 > &emsp;&emsp;        linux-vdso.so.1 (0x00007fff04e54000) <br/>
