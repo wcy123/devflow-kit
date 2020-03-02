@@ -9,7 +9,7 @@ otherwise, you will run into errors, like, "No Python.h found", etc.
 ##  install dependencies
 
 ```
-conda install -y glog libprotobuf protobuf pybind11
+conda install -y glog libprotobuf protobuf pybind11 cmake
 conda install -y 'marshmallow' 'tqdm>=4.31.1' 'numpy>=1.16.4' 'python-graphviz'
 ```
 
