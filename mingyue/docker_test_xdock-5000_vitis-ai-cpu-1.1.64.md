@@ -2,8 +2,9 @@
 ### Git clone vitis-ai-docker and Create work home
 
 ```
-ssh mingyue@xcosda93
-cd /proj/xcohdstaff5/mingyue/nobkup/
+echo $USER
+ssh $USER@xcosda93
+cd /proj/xcohdstaff5/$USER/nobkup/
 ls
 mkdir docker_test_0303
 cd docker_test_0303
@@ -13,7 +14,7 @@ docker images
 ls
 cd $HOME
 rm docker_test_0303
-ln -s /proj/xcohdstaff5/mingyue/nobkup/docker_test_0303/vitis-ai-docker docker_test_0303
+ln -s /proj/xcohdstaff5/$USER/nobkup/docker_test_0303/vitis-ai-docker docker_test_0303
 ```
 ### Preparing xclbin & models & samples
 ```
@@ -22,9 +23,9 @@ ls
 mkdir -p d/working
 cd d/working
 pwd
-scp -r mingyue@xcosda13:/proj/rdi/staff/mingyue/d/working/mingyue/cloud_test/7E100M ./
-cp /home/mingyue/docker_test_0302/d/working/xilinx_model_zoo-1.0.0-Linux.tar.gz ./
-cp -r /home/mingyue/docker_test_0302/d/working/samples ./
+scp -r $USER@xcosda13:/proj/rdi/staff/$USER/d/working/$USER/cloud_test/7E100M ./
+cp /home/$USER/docker_test_0302/d/working/xilinx_model_zoo-1.0.0-Linux.tar.gz ./
+cp -r /home/$USER/docker_test_0302/d/working/samples ./
 ls
 ```
 ### Start docker
@@ -53,7 +54,7 @@ export LD_LIBRARY_PATH=/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/en
 
 protoc --version
 ```
-> mingyue@xcosda93:/usr/lib$ protoc --version <br/>
+> $USER@xcosda93:/usr/lib$ protoc --version <br/>
 > &emsp;&emsp;libprotoc 3.0.0
 
 ```
@@ -65,7 +66,7 @@ ldd /usr/lib/libvart-util.so
 ldd /usr/lib/libvart-buffer-object.so
 ldd /usr/lib/libvart-dpu-runner.so
 ```
-> mingyue@xcosda93:/workspace$ ldd /usr/lib/libvart-buffer-object.so<br/>
+> $USER@xcosda93:/workspace$ ldd /usr/lib/libvart-buffer-object.so<br/>
 >         linux-vdso.so.1 (0x00007ffc2f4e5000)<br/>
 >         libglog.so.0 => /usr/lib/x86_64-linux-gnu/libglog.so.0 (0x00007fcea9dd6000)<br/>
 >         libxrt_core.so.2 => not found<br/>
@@ -163,15 +164,10 @@ ldd resnet50
 
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
 
-opencv_version -V
-opencv --verion
+<!--opencv_version -V
+opencv --verion -->
 
 ```
-> mingyue@xcosda93:/workspace/d/working/samples/resnet50$ env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/ <br/>
-> WARNING: Logging before InitGoogleLogging() is written to STDERR <br/>
-> F0302 06:34:30.823110   955 dpu_runner.cpp:109] Check failed: handle != NULL cannot open library! lib=/usr/lib/libvart-dpu-runner.so;error=/usr/lib/libvart-dpu-runner.so: cannot open shared object file: No such file or directory <br/>
-> *** Check failure stack trace: *** <br/>
-> Aborted  <br/>
 
 
 
