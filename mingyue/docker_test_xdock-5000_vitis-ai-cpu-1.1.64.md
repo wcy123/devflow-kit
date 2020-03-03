@@ -2,7 +2,6 @@
 ### Git clone vitis-ai-docker and Create work home
 
 ```
-echo $USER
 ssh $USER@xcosda93
 cd /proj/xcohdstaff5/$USER/nobkup/
 ls
@@ -40,17 +39,17 @@ docker pull xdock.xilinx.com/vitis-ai-cpu:1.1.59 -->
 ```
 ### Check XRT&shell&xclbin
 ```
-export INTERNAL_BUILD=1
+<b>export INTERNAL_BUILD=1</b>
 /opt/xilinx/xrt/bin/xbutil query
 
-sudo cp d/working/7E100M/* /usr/lib
+<b>sudo cp d/working/7E100M/* /usr/lib</b>
 md5sum /usr/lib/dpu.xclbin /usr/lib/hbm_address_assignment.txt
-/opt/xilinx/xrt/bin/xbutil program -d 0 -p  /usr/lib/dpu.xclbin
+<b>/opt/xilinx/xrt/bin/xbutil program -d 0 -p  /usr/lib/dpu.xclbin</b>
 ```
 
 ### Check environments
 ```
-export LD_LIBRARY_PATH=/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
+<b>export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/</b>
 
 protoc --version
 ```
@@ -82,7 +81,7 @@ ldd /usr/lib/libvart-dpu-runner.so
 >         librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fcea87ff000)<br/>
 
 ```
- export LD_LIBRARY_PATH=/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/:/opt/xilinx/xrt/lib
+
  ls /usr/lib
  ldd /usr/lib/libvart-buffer-object.so
  ldd /usr/lib/libvart-dpu-controller.so
@@ -94,10 +93,7 @@ ldd /usr/lib/libvart-dpu-runner.so
 
 ### Check resnet50 sample
 ```
-<!--cd /workspace
-sudo mkdir my_test
-sudo mkdir /usr/lib/my_test -->
-
+<b>
 cd /workspace/d/working
 sudo tar -zxvf xilinx_model_zoo-1.0.0-Linux.tar.gz --strip-components=1  -C /
 cp /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel /workspace/d/working/samples/resnet50/model_dir_for_U50/
@@ -105,7 +101,7 @@ cp /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel /workspace/d/work
 cd /workspace/d/working/samples/resnet50
 ls
 bash build.sh
-
+</b>
 ```
 
 > mingyue@xcosda93:/workspace/d/working/samples/resnet50$ sudo bash build.sh <br/>
@@ -124,9 +120,9 @@ bash build.sh
 
 ### Use solution from Jennifer
 ```
-sudo apt-get update
-sudo apt-cache search opencv | grep 3.2
-sudo apt-cache search opencv | grep 3.2 | grep dev
+<b>sudo apt-get update</b>
+<!--sudo apt-cache search opencv | grep 3.2
+sudo apt-cache search opencv | grep 3.2 | grep dev -->
 for i in `sudo apt-cache search  opencv|grep 3.2|grep dev|awk '{print $1}'`; do echo $i;sudo apt-get install -y $i; done
 
 bash build.sh
@@ -135,9 +131,9 @@ bash build.sh
 > mingyue@xcosda93:/workspace/d/working/samples/resnet50$ bash build.sh <br/>
 > No LSB modules are available. <br/>
 > No LSB modules are available. <br/>
-> /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8: undefined reference to `uuid_generate@UUID_1.0' <br/>
-> /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8: undefined reference to `uuid_parse@UUID_1.0' <br/>
-> /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8: undefined reference to `uuid_unparse@UUID_1.0' <br/>
+> /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8: undefined reference to 'uuid_generate@UUID_1.0' <br/>
+> /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8: undefined reference to 'uuid_parse@UUID_1.0' <br/>
+> /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8: undefined reference to 'uuid_unparse@UUID_1.0' <br/>
 > collect2: error: ld returned 1 exit status <br/>
 
 ----
@@ -152,18 +148,20 @@ ldd /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8
 > libuuid.so.1 => /opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/libuuid.so.1 (0x00007f5ad289a000)
 
 ```
+<b>
 cd /opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
 sudo mkdir backup.libuuid
 sudo mv libuuid* backup.libuuid
 
 cd /workspace/d/working/samples/resnet50
 bash build.sh
+</b>
 ls
 ldd resnet50
 
-
+<b>
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
-
+</b>
 <!--opencv_version -V
 opencv --verion -->
 
