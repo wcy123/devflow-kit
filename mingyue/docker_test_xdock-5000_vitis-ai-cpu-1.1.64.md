@@ -39,7 +39,7 @@ docker pull xdock.xilinx.com/vitis-ai-cpu:1.1.59 -->
 ```
 ### Check XRT&shell&xclbin
 ```
-<b>export INTERNAL_BUILD=1</b>
+`export INTERNAL_BUILD=1`
 /opt/xilinx/xrt/bin/xbutil query
 
 <b>sudo cp d/working/7E100M/* /usr/lib</b>
