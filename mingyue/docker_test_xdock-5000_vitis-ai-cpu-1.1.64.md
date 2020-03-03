@@ -1,58 +1,63 @@
 ## CHECK DOCKER ENVIRONMENT
 ### Git clone vitis-ai-docker and Create work home
 
-```
 ssh $USER@xcosda93
 cd /proj/xcohdstaff5/$USER/nobkup/
 ls
 mkdir docker_test_0303
 cd docker_test_0303
 rm -rf vitis-ai-docker
+`
 git clone gits@xcdl190260:vitis/vitis-ai-docker.git
+`
 docker images
 ls
 cd $HOME
 rm docker_test_0303
 ln -s /proj/xcohdstaff5/$USER/nobkup/docker_test_0303/vitis-ai-docker docker_test_0303
-```
+
 ### Preparing xclbin & models & samples
-```
+
 cd $HOME/docker_test_0303
 ls
 mkdir -p d/working
 cd d/working
 pwd
+`
 scp -r $USER@xcosda13:/proj/rdi/staff/$USER/d/working/$USER/cloud_test/7E100M ./
-cp /home/$USER/docker_test_0302/d/working/xilinx_model_zoo-1.0.0-Linux.tar.gz ./
-cp -r /home/$USER/docker_test_0302/d/working/samples ./
+cp /proj/xcohdstaff5/mingyue/nobkup/docker_test_0302/vitis-ai-docker/d/working/xilinx_model_zoo-1.0.0-Linux.tar.gz ./
+cp -r /proj/xcohdstaff5/mingyue/nobkup/docker_test_0302/vitis-ai-docker/d/working/samples ./
+`
 ls
-```
+
 ### Start docker
-```
+
 cd $HOME/docker_test_0303
 ls
 docker images
 <!--docker pull xdock:5000/vitis-ai-cpu:1.1.56
 docker pull xdock.xilinx.com/vitis-ai-cpu:1.1.59 -->
+`
 ./docker_run.sh xdock:5000/vitis-ai-cpu:1.1.64
+`
 
-```
 ### Check XRT&shell&xclbin
-```
-`export INTERNAL_BUILD=1`
+`
+export INTERNAL_BUILD=1
+`
 /opt/xilinx/xrt/bin/xbutil query
-
-<b>sudo cp d/working/7E100M/* /usr/lib</b>
+`
+sudo cp d/working/7E100M/* /usr/lib
+`
 md5sum /usr/lib/dpu.xclbin /usr/lib/hbm_address_assignment.txt
-<b>/opt/xilinx/xrt/bin/xbutil program -d 0 -p  /usr/lib/dpu.xclbin</b>
-```
+/opt/xilinx/xrt/bin/xbutil program -d 0 -p  /usr/lib/dpu.xclbin
+
 
 ### Check environments
-```
-<b>export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/</b>
-
+`
+export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
+`
 protoc --version
-```
 > $USER@xcosda93:/usr/lib$ protoc --version <br/>
 > &emsp;&emsp;libprotoc 3.0.0
 
@@ -81,7 +86,6 @@ ldd /usr/lib/libvart-dpu-runner.so
 >         librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fcea87ff000)<br/>
 
 ```
-
  ls /usr/lib
  ldd /usr/lib/libvart-buffer-object.so
  ldd /usr/lib/libvart-dpu-controller.so
@@ -92,8 +96,7 @@ ldd /usr/lib/libvart-dpu-runner.so
 
 
 ### Check resnet50 sample
-```
-<b>
+
 cd /workspace/d/working
 sudo tar -zxvf xilinx_model_zoo-1.0.0-Linux.tar.gz --strip-components=1  -C /
 cp /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel /workspace/d/working/samples/resnet50/model_dir_for_U50/
@@ -101,8 +104,8 @@ cp /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel /workspace/d/work
 cd /workspace/d/working/samples/resnet50
 ls
 bash build.sh
-</b>
-```
+
+
 
 > mingyue@xcosda93:/workspace/d/working/samples/resnet50$ sudo bash build.sh <br/>
 > No LSB modules are available. <br/>
@@ -119,15 +122,15 @@ bash build.sh
 > compilation terminated.<br/>
 
 ### Use solution from Jennifer
-```
-<b>sudo apt-get update</b>
+
+sudo apt-get update
 <!--sudo apt-cache search opencv | grep 3.2
 sudo apt-cache search opencv | grep 3.2 | grep dev -->
 for i in `sudo apt-cache search  opencv|grep 3.2|grep dev|awk '{print $1}'`; do echo $i;sudo apt-get install -y $i; done
-
+`
 bash build.sh
+`
 
-```
 > mingyue@xcosda93:/workspace/d/working/samples/resnet50$ bash build.sh <br/>
 > No LSB modules are available. <br/>
 > No LSB modules are available. <br/>
@@ -141,32 +144,21 @@ solution from Jennifer:
 
 > https://blog.csdn.net/qq_35170720/article/details/102636253
 
-```
 ldd /usr/lib/x86_64-linux-gnu/libgdcmMSFF.so.2.8
-
-```
 > libuuid.so.1 => /opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/libuuid.so.1 (0x00007f5ad289a000)
 
-```
-<b>
 cd /opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
 sudo mkdir backup.libuuid
 sudo mv libuuid* backup.libuuid
 
+----
+
+`
 cd /workspace/d/working/samples/resnet50
 bash build.sh
-</b>
-ls
-ldd resnet50
-
-<b>
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
-</b>
+`
 <!--opencv_version -V
 opencv --verion -->
-
-```
-
-
 
 end
