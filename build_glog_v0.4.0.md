@@ -7,7 +7,7 @@ v0.3.0 does not support `find_package(glog)`.
 ## download
 
 ```
-cd ~/bulid
+cd ~/build
 curl -Lo glog-v0.4.0.tar.gz https://github.com/google/glog/archive/v0.4.0.tar.gz
 tar -zxvf glog-v0.4.0.tar.gz
 cd glog-0.4.0
