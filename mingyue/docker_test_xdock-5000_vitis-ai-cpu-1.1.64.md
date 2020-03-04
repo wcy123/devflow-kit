@@ -23,7 +23,8 @@ cd d/working
 pwd
 scp -r $USER@xcosda13:/proj/rdi/staff/$USER/d/working/$USER/cloud_test/7E100M ./
 cp /proj/xcohdstaff5/mingyue/nobkup/docker_test_0302/vitis-ai-docker/d/working/xilinx_model_zoo-1.0.0-Linux.tar.gz ./
-cp -r /proj/xcohdstaff5/mingyue/nobkup/docker_test_0302/vitis-ai-docker/d/working/samples ./
+##cp -r /proj/xcohdstaff5/mingyue/nobkup/docker_test_0302/vitis-ai-docker/d/working/samples ./
+scp -r mingyue@xcosda13:/home/mingyue/d/working/mingyue/vart/dpu-runner/samples ./
 ls
 ```
 ### Start docker
@@ -150,6 +151,17 @@ sudo mv libuuid* backup.libuuid
 cd /workspace/d/working/samples/resnet50
 bash build.sh
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
+
+cd ../
+ls
+cd /workspace/d/working/samples/resnet50_mt_py
+ls
+sudo apt install python-opencv
+sudo pip install opencv-python
+python3
+python3 resnet50.py  1 ../resnet50/model_dir_for_U50
+
+
 ```
 <!--opencv_version -V
 opencv --verion -->
