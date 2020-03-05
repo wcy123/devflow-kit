@@ -9,26 +9,7 @@ tar -xvf /scratch/$USER/xilinx_model_zoo-0.1.1-Linux.tar.gz -C /scratch/$USER/mo
 ls -l /scratch/$USER/models
 ```
 
-## build unilog/xir/vart
-
-### on on host
-
-```
-cd $HOME/d/working/aisw/unilog
-git checkout dev
-git fetch --all; git pull --rebase
-./cmake.sh --clean
-
-cd $HOME/d/working/aisw/xir
-git fetch --all; git pull --rebase
-./cmake.sh  --clean # --build-python --
-
-cd $HOME/d/working/aisw/vart
-git pull --rebase
-./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF  --clean --type=debug --build-python
-
-```
-
+## bn
 ### for zcu102
 
 install petalinux sdk

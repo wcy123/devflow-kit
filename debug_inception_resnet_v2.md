@@ -29,5 +29,4 @@ d dump_results_0/InceptionResnetV2_Logits_AvgPool_1a_8x8_AvgPool_aquant.bin
 env XLNX_ENABLE_UPLOAD=1 XLNX_GOLDEN_DIR=dump_results_0 XLNX_ENABLE_DEBUG_MODE=1 XLNX_ENABLE_DUMP=1 $HOME/build/build.${target_info}.Debug/vart/dpu-runner/test/test_dpu_runner ./compiled_model.xmodel k_0 dump_results_0/input_aquant.bin 1 1 2>&1 | tee a2.log
 grep 'compare data' a2.log >c2.log
 
-
 ```
