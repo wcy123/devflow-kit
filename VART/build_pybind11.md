@@ -26,3 +26,19 @@ cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DPYBIND11_TEST=off -DPYBIND11_INSTALL
 unset LD_LIBRARY_PATH;source /group/xbjlab/dphi_software/software/workspace/$USER/petalinux-sdk/environment-setup-aarch64-xilinx-linux
 cp -av $HOME/d/working/aisw/pybind11/include/pybind11 $OECORE_TARGET_SYSROOT/usr/include
 ```
+
+
+### FAQ
+
+
+1. `Python.h` is not found. please install `python3-dev`.
+
+
+```
+/home/xbuild/.local/Ubuntu.18.04.x86_64.Release/include/pybind11/detail/common.h:112:10: fatal error: Python.h: No such file or directory
+ #include <Python.h>
+          ^~~~~~~~~~
+compilation terminated.
+runner/CMakeFiles/vitis-ai-runner-py.dir/build.make:62: recipe for target 'runner/CMakeFiles/vitis-ai-runner-py.dir/python/runner_py_module.cpp.o' failed
+
+```
