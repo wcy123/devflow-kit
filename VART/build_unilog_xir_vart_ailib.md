@@ -16,7 +16,7 @@ git clone ssh://gits@$gitlab/aisw/Vitis-AI-Library
 
 ## prerequsites
 
-1. [install glog 0.4.0](install glog 0.4.0)
+1. [install glog 0.4.0](build_glog_v0.4.0.md)
 2. [install pybind11](build_pybind11.md)
 
 ## environment setting
