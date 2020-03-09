@@ -1,7 +1,9 @@
 ## CHECK DOCKER ENVIRONMENT
 ### Git clone vitis-ai-docker and Create work home
+login vdi : XCD Asigned Linux
 ```
-ssh $USER@xcosda143
+xhost +
+ssh -X xcosda143
 cd /proj/xcohdstaff5/$USER/nobkup/
 ls
 mkdir docker_test_0309
@@ -85,29 +87,5 @@ bash build.sh
 ./pose_detection ../../videos/pose.mp4 model_dir_for_U50
 
 ```
-> mingyue@xcosda93:/workspace/d/working/samples/resnet50_mt_py$ /usr/bin/python3 resnet50.py  1 ../resnet50/model_dir_for_U50 <br/>
-> Traceback (most recent call last): <br/>
->  File "resnet50.py", line 20, in <module> <br/>
->    import runner  <br/>
-> ModuleNotFoundError: No module named 'runner' <br/>
-
-```
-cd /workspace/opt
-wget https://github.com/pybind/pybind11/archive/v2.4.3.tar.gz
-tar -zxvf v2.4.3.tar.gz
-cd pybind11-2.4.3
-mkdir build
-cd build
-cmake -DPYBIND11_TEST=off -DPYBIND11_INSTALL=on ..
-make
-chmod o+rwx .
-sudo make install
-```
-
-
-
-
-<!--opencv_version -V
-opencv --verion -->
 
 end
