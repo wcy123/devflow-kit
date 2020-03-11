@@ -36,7 +36,7 @@ ls
 ls images
 
 <!-- resnet_v1_50_tf-->
-env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=0 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch resnet_v1_50_tf images/001.JPEG images/002.JPEG images/003.JPEG
+env DEBUG_XRT_DEVICE_HANDLE=1 XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=0 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch resnet_v1_50_tf images/001.JPEG images/002.JPEG images/003.JPEG
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=1 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch resnet_v1_50_tf images/001.JPEG images/002.JPEG images/003.JPEG
 
 <!-- inception_v1_tf -->
