@@ -61,7 +61,7 @@ cd $HOME/d/working/aisw/unilog;
 
 ```
 cd $HOME/d/working/aisw/xir
-./cmake.sh --clean --pack=deb --build-python  # no need to --build-python if you don't build xcompiler
+./cmake.sh --clean --pack=deb  # no need to --build-python if you don't build xcompiler
 ```
 
 ### build `vart`
