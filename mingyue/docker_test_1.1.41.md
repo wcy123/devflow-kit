@@ -1,29 +1,31 @@
 ## CHECK DOCKER ENVIRONMENT  WITH VITIS AI LIBRARY
 ### Git clone vitis-ai-docker and Create work home
+
 login vdi : XCD Asigned Linux
 ```
 xhost +
-ssh -X xcosda153
+ssh -X xsjsda153
 cd /wrk/xsjhdnobkup6/mingyue
 ls
-mkdir docker_test_0310
-cd docker_test_0310
+mkdir docker_test_0311
+cd docker_test_0311
 rm -rf vitis-ai-docker
 git clone gits@xcdl190260:vitis/vitis-ai-docker.git
 cd vitis-ai-docker
 docker images
-docker pull xdock.xilinx.com/vitis-ai-cpu:1.1.37
+#git checkout gui
+#docker pull xdock.xilinx.com/vitis-ai-cpu:1.1.37
 
 ls
 cd $HOME
 ls
-rm docker_test_0310
-ln -s /wrk/xsjhdnobkup6/mingyue/docker_test_0310/vitis-ai-docker docker_test_0310
+rm docker_test_0311
+ln -s /wrk/xsjhdnobkup6/mingyue/docker_test_0311/vitis-ai-docker docker_test_0311
 
 ```
 ### Preparing xclbin & models & samples
 ```
-cd $HOME/docker_test_0310
+cd $HOME/docker_test_0311
 ls
 git clone gits@xcdl190260:aisw/Vitis-AI-Library.git
 git clone gits@xcdl190260:aisw/vitis-ai-library-samples-res.git
@@ -38,30 +40,55 @@ tar -zxvf vart_samples.tar.gz
 ### Start docker
 ```
 pwd
-cd $HOME/docker_test_0310
-ls
+cd $HOME/docker_test_0311
 docker images
-ls
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.45
+
+
+#./docker_run.sh xdock.xilinx.com/vitis-ai-cpu:1.1.44
+#./docker_run.sh -X hanxue-test:latest
 #./docker_run.sh xdock.xilinx.com/vitis-ai-cpu:1.1.37
-./docker_run.sh xdock.xilinx.com/vitis-ai-cpu:1.1.41
 
 ```
 ### Check XRT&shell&xclbin
 ```
 export INTERNAL_BUILD=1
 /opt/xilinx/xrt/bin/xbutil query
-sudo cp vart_samples/6E250M/* /usr/lib
+sudo cp vart_samples/7E100M/* /usr/lib
 md5sum /usr/lib/dpu.xclbin /usr/lib/hbm_address_assignment.txt
 /opt/xilinx/xrt/bin/xbutil program -d 0 -p  /usr/lib/dpu.xclbin
+export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
+
+cd /workspace/vart_samples/samples/resnet50
+bash build.sh
+env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
 
 ```
 ### Check environments
 ```
 export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
-ls
+
 sudo tar -zxvf xilinx_model_zoo-0.1.1-Linux.tar.gz --strip-components=1  -C /
 ls /usr/share/vitis_ai_library/models
 ```
+### Compiler Vitis AI Library and test samples
+Compiler vitis-ai-library
+```
+sudo chown -R $USER:vitis-ai-users $HOME
+cd  /workspace/Vitis-AI-Library
+./cmake.sh --type=release
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/Ubuntu.18.04.x86_64.Release/lib
+```
+test classification
+```
+cd /workspace
+$HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_jpeg_classification vgg_19_tf vitis-ai-library-samples-res/samples/classification/sample_classification.jpg
+cd vitis-ai-library-samples-res/samples/classification/
+$HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification resnet_v1_50_tf $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 4 -s 10
+
+ls $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification
+```
+test other samples:  test_jpeg  test_performance  test_video
 
 ### Test AI Library deb
 
@@ -74,58 +101,10 @@ ls
 cd vitis-ai-library-samples-res/samples/classification
 
 /usr/share/vitis_ai_library/samples/classification/test_jpeg_classification resnet_v1_50_tf sample_classification.jpg
-/usr/share/vitis_ai_library/samples/classification/test_performance_classification resnet_v1_50_tf /usr/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 1 -s 10
-
-cd /usr/share/
+/usr/share/vitis_ai_library/samples/classification/test_performance_classification resnet50 /usr/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 4 -s 10
 
 ```
-
-
-
-
-### Compiler Vitis AI Library
-```
-cd  /workspace
-ls
-cd Vitis-AI-Library
-./cmake.sh --type=release
-```
-> /workspace/Vitis-AI-Library/math/test/test_normalize.cpp:18:10: fatal error: gtest/gtest.h: No such file or directory <br/>
->  #include <gtest/gtest.h> <br/>
->           ^~~~~~~~~~~~~~~  <br/>
-> compilation terminated.<br/>
-
-```
-sudo apt update
-sudo apt install -y libgtest-dev
-cd /usr/src/gtest/
-sudo mkdir mybuild
-cd mybuild
-sudo cmake ..
-sudo make
-sudo make install
-
-```
-> /workspace/Vitis-AI-Library/overview/samples/tfssd/test_accuracy_tfssd.cpp:18:10: fatal error: json-c/json.h: No such file or directory
->  #include <json-c/json.h>
->           ^~~~~~~~~~~~~~~
-> compilation terminated.
-
-```
-sudo apt install -y libjson-c-dev
-
-./cmake.sh --type=release
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/Ubuntu.18.04.x86_64.Release/lib
-echo $LD_LIBRARY_PATH
-
-cd /workspace
-ls
-$HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_jpeg_classification vgg_19_tf vitis-ai-library-samples-res/samples/classification/sample_classification.jpg
-cd vitis-ai-library-samples-res/samples/classification/
-$HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification resnet_v1_50_tf $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 4 -s 10
-
-ls $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification
-```
+Add more test:   test_jpeg  test_performance test_video and  demo
 
 ### Check resnet50 sample
 ```
@@ -148,7 +127,6 @@ bash build.sh
 cd /workspace/vart_samples/samples/video_analysis
 bash build.sh
 ./video_analysis ../../videos/structure.mp4 model_dir_for_U50
-
 
 cd /workspace/vart_samples/samples/adas_detection
 bash build.sh

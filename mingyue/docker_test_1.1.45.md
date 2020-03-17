@@ -43,6 +43,7 @@ pwd
 cd $HOME/docker_test_0311
 docker images
 ./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.45
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.46
 
 
 #./docker_run.sh xdock.xilinx.com/vitis-ai-cpu:1.1.44
@@ -69,7 +70,7 @@ ls /usr/share/vitis_ai_library/models
 ### Compiler Vitis AI Library and test samples
 Compiler vitis-ai-library
 ```
-sudo chown -R $USER:vitis-ai-users $HOME
+#sudo chown -R $USER:vitis-ai-users $HOME
 cd  /workspace/Vitis-AI-Library
 ./cmake.sh --type=release
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/Ubuntu.18.04.x86_64.Release/lib
