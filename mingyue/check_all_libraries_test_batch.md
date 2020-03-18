@@ -17,7 +17,7 @@ cd $HOME/d/working/mingyue/Vitis-AI-Library
 g s
 g stash
 g p
-./cmake.sh --type=release
+./cmake.sh --type=release --cmake-options='-DENABLE_OVERVIEW=ON'
 ```
 ### prepare models & samples (from 152 /usr/share)
 ```
@@ -39,10 +39,14 @@ ls images
 env DEBUG_XRT_DEVICE_HANDLE=1 XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=0 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch resnet_v1_50_tf images/001.JPEG images/002.JPEG images/003.JPEG
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=1 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch resnet_v1_50_tf images/001.JPEG images/002.JPEG images/003.JPEG
 
+/home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/overview/test_performance_classification resnet_v1_50_tf test_performance_classification.list -t 4 -s 10
+
 <!-- inception_v1_tf -->
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=0 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch inception_v1_tf images/001.JPEG images/002.JPEG images/003.JPEG
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=1 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch inception_v1_tf images/001.JPEG images/002.JPEG images/003.JPEG
+/home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/overview/test_performance_classification inception_v1_tf test_performance_classification.list -t 4 -s 10
 
+/home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification
 
 <!-- inception_v1_tf-->
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=0 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/classification/test_classification_batch inception_v1 images/001.JPEG images/002.JPEG images/003.JPEG
@@ -60,11 +64,15 @@ env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEB
 
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=1 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/facedetect/test_facedetect_batch densebox_320_320 images/001.jpg images/002.jpg images/003.jpg
 
+/home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/overview/test_performance_facedetect densebox_320_320 test_performance_facedetect.list -t 4 -s 10
+
+
 <!-- densebox_640_360-->
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=0 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/facedetect/test_facedetect_batch densebox_640_360 images/001.jpg images/002.jpg images/003.jpg
 
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 DEBUG_DPU_CORE_ID=1 /home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/facedetect/test_facedetect_batch densebox_640_360 images/001.jpg images/002.jpg images/003.jpg
 
+/home/mingyue/build/build.RedHatEnterpriseWorkstation.7.4.x86_64.Release/Vitis-AI-Library/overview/test_performance_facedetect densebox_640_360 test_performance_facedetect.list -t 4 -s 10
 ```
 
 #### Test facelandmark
