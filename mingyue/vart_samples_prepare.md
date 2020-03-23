@@ -84,16 +84,40 @@ vi ./samples/video_analysis/model_dir_for_U50/meta.json
 cp ../102_models/usr/share/vitis_ai_library/models/ssd_traffic_pruned_0_9/ssd_traffic_pruned_0_9.elf ./samples/video_analysis/model_dir_for_zcu102/ssd_traffic_pruned_0_9.elf
 cp ../104_models/usr/share/vitis_ai_library/models/ssd_traffic_pruned_0_9/ssd_traffic_pruned_0_9.elf ./samples/video_analysis/model_dir_for_zcu104/ssd_traffic_pruned_0_9.elf
 
+cd ..
+cp -r vart_samples_and_models vart_samples_src
+cd vart_samples_src
+rm $(find . -iname *.xmodel)
+rm $(find . -iname *.elf)
+find . -iname *.xmodel
+find . -iname *.elf
+tree
+
+cd ../vart_samples_and_models
+tree
 
 
-
-cd samples
 ls
-cd adas_detection
-ls
-cd model_dir_for_U50
-ls
+cd ../
+scp -r 7E100M vart_samples_src vart_samples_and_models mingyue@xcdl190256:/group/dphi_software/vitis_ai_library/r1.1/
 
+
+ls
+cp -r vart_samples_and_models vart_samples_models
+cd vart_samples_models/samples
+rm -rf common
+rm $(find . -iname meta.json)
+rm -rf $(find . -iname build.sh)
+rm -rf $(find . -iname src)
+rm -rf $(find . -iname *.py)
+rm -rf $(find . -iname *.txt)
+rm -rf resnet50_mt_py
+
+scp -r vart_samples_models  mingyue@xcdl190256:/group/dphi_software/vitis_ai_library/r1.1/
+
+tree
+tree
+ls
 
 
 ```

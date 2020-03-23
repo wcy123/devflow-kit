@@ -43,6 +43,7 @@ pwd
 cd $HOME/docker_test_0311
 docker images
 ./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.45
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.50
 ./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.46
 
 
@@ -83,6 +84,9 @@ cd vitis-ai-library-samples-res/samples/classification/
 $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification resnet_v1_50_tf $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 4 -s 10
 
 ls $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification
+
+cd vitis-ai-library-samples-res/samples/multitask
+
 ```
 test other samples:  test_jpeg  test_performance  test_video
 
@@ -105,6 +109,7 @@ Add more test:   test_jpeg  test_performance test_video and  demo
 ### Check resnet50 sample
 ```
 cd /workspace/vart_samples/samples/resnet50
+sh -x ./build.sh
 bash build.sh
 env XLNX_CHECK_COMMIT_ID_ENABLE=0 ./resnet50 model_dir_for_U50/
 
