@@ -43,9 +43,21 @@ cd $HOME/docker_test_0317
 docker images
 #./docker_run_0301.sh xdock:5000/vitis-ai-cpu:1.1.24
 cp /proj/rdi/staff/hanxuel/devops/SR-908249/docker_run.sh ./
+### can compiler vart
 ./docker_run.sh -X vitis-ai-mingyue:latest
-#./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.48
+
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.48
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.51
+
+#### test use new vart
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.51_tmp
+
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.50
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.52
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:1.1.55
+
 ./docker_run.sh ubuntu-opencv-34:latest
+./docker_run.sh -X xdock.xilinx.com/vitis-ai-cpu:qiuyun_tmp
 ```
 ### Check XRT&shell&xclbin
 ```
@@ -56,10 +68,17 @@ cp vart_samples/6E250M/* /usr/lib
 md5sum /usr/lib/dpu.xclbin /usr/lib/hbm_address_assignment.txt
 /opt/xilinx/xrt/bin/xbutil program -d 1 -p  /usr/lib/dpu.xclbin
 
+
 ```
 ### Check environments
 ```
 export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
+./opendl /usr/lib/libvart-dpu-runner.so
+./opendl /usr/lib/libxir.so
+./opendl /usr/lib/libunilog.so
+
+
+cd /workspace
 sudo tar -zxvf xilinx_model_zoo-0.1.1-Linux.tar.gz --strip-components=1  -C /
 
 ls /usr/share/vitis_ai_library/models
@@ -121,6 +140,9 @@ cd vitis-ai-library-samples-res/samples/classification/
 $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification resnet_v1_50_tf $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 4 -s 10
 
 ls $HOME/.local/Ubuntu.18.04.x86_64.Release/share/vitis_ai_library/samples/classification
+
+
+cd /workspace/vitis-ai-library-samples-res/samples/multitask
 ```
 test other samples:  test_jpeg  test_performance  test_video
 
@@ -137,6 +159,8 @@ cd vitis-ai-library-samples-res/samples/classification
 /usr/share/vitis_ai_library/samples/classification/test_jpeg_classification resnet_v1_50_tf sample_classification.jpg
 /usr/share/vitis_ai_library/samples/classification/test_performance_classification resnet50 /usr/share/vitis_ai_library/samples/classification/test_performance_classification.list -t 4 -s 10
 
+cd /workspace/vitis-ai-library-samples-res/samples/multitask
+/usr/share/vitis_ai_library/samples/multitask/test_performance_multitask multi_task test_performance_multitask.list -t 4 -s 10
 ```
 Add more test:   test_jpeg  test_performance test_video and  demo
 
