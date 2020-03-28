@@ -32,11 +32,18 @@ tar xf clang-10.0.0.src.tar.xz -C llvm-10.0.0.src/tools/
 ll llvm-10.0.0.src/projects/
 mv llvm-10.0.0.src/tools/clang-10.0.0.src llvm-10.0.0.src/tools/clang
 tar xf clang-tools-extra-10.0.0.src.tar.xz -C llvm-10.0.0.src/tools/clang/tools
-mv llvm-10.0.0.src/tools/clang/tools/clang-tools-extra-10.0.0.src llvm-10.0.0.src/tools/clang/clang-tools-extra
+mv llvm-10.0.0.src/tools/clang/tools/clang-tools-extra-10.0.0.src llvm-10.0.0.src/tools/clang/tools/clang-tools-extra
+rm -fr build_out
 mkdir build_out
 cd build_out
 source /opt/rh/devtoolset-6/enable
 cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=MINSIZEREL -DBUILD_SHARED_LIBS=on  ../llvm-10.0.0.src 2>&1 | tee config.log
+ls -l ../llvm-10.0.0.src/tools/clang/tools/ | grep clang-tools-extra
+# it maybe a bug, we have to modify ../llvm-10.0.0.src/tools/clang/tools/CMakeLists.txt
+# change add_llvm_external_project(clang-tools-extra extra)
+# into add_llvm_external_project(clang-tools-extra)
+##
+ls -l tools/clang/tools/ | grep clang-tools-extra # make sure it is there.
 emacs config.log
 env LANG=C make VERBOSE=0  -j20 2>&1 | tee build.log && make install
 emacs build.log
