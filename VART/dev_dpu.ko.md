@@ -101,6 +101,7 @@ env DEBUG_XRT_DEVICE_HANDLE=1 DEBUG_DPU_CONTROLLER=1 XLNX_SHORT_CIRCUIT_DPU_CODE
 /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2019.2.aarch64.Debug/vart/dpu-runner/test/test_dpu_runner \
 /usr/share/vitis_ai_library/models/resnet50/resnet50.elf resnet50_0 dump_gpu/data.bin 1 1
 
+/group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2019.2.aarch64.Debug/Vitis-AI-Library/classification/test_classification resnet50 /group/xbjlab/dphi_software/software/workspace/chunywan/images/001.JPEG
 # enable dpu debug level
 
 ```
@@ -129,8 +130,6 @@ git clone ssh://gits@localhost:10260/SDK/vitis-ai-dnndk.git
 cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/dnndk/vitis-ai-dnndk/driver
 cat Makefile
 cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/dnndk/vitis-ai-dnndk/driver/;unset LD_LIBRARY_PATH;source /group/xbjlab/dphi_software/software/workspace/$USER/petalinux-sdk/environment-setup-aarch64-xilinx-linux;make KERNELDIR=/var/lib/docker/scratch/chunywan/linux-kernel/kernel-source ARCH=arm64 CROSS_COMPILE=aarch64-xilinx-linux-
-
-
 ```
 
 
@@ -159,4 +158,6 @@ dmesg -C; rmmod dpu;insmod  /group/xbjlab/dphi_software/software/workspace/chuny
 ls -l /sys/module/dpu
 ls -l /sys/module/dpu/parameters
 cat /sys/module/dpu/parameters/coremask | xxd
+
+ls
 ```
