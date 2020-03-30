@@ -385,4 +385,109 @@ make -j10
 /tools/xgs/bin/sudo make install
 python3-config  --ldflags
 ```
+
+```
+emacs
+xgud-gdb
+set env LD_LIBRARY_PATH /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/XIP/Butler/src/lib/:/usr/local/lib:/usr/local/lib64
+```
+
+```
+mkdir -p /opt/xilinx/dsa/
+sudo cp -av /usr/lib/dpu.xclbin /opt/xilinx/dsa/verify.xclbin
+```
+
+cannot detect any cards.
+
+rollback to origin version.
+
+```
+conda search xip --info -c file://scratch/chunywan/conda-channel/
+mkdir ~/tmp/xip.tar.gz
+tar -xvf /scratch/chunywan/conda-channel/linux-64/xip-2.0.5-py36_0.tar.bz2 -C ~/tmp/xip.tar.gz
+cd ~/tmp/xip.tar.gz/
+cat info/git
+
+cd ~/tmp/
+git clone ssh://gits@localhost:10260/vitis/XIP.git
+cd ~/tmp/XIP
+git checkout a6880c08f731ef9a132b3c3a2610fbae0e1563b9
+cd Butler/src
+source /opt/rh/devtoolset-6/enable
+make clean
+make DEBUG=1 -j30
+```
+
+it seems that we must ensure `XILINX_XRT=/opt/xilinx/xrt/`, at least, we must run `source /opt/xilinx/xrt/setup.sh`
+
+try again
+
+```
+export XILINX_XRT=/opt/xilinx/xrt/
+export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/d/working/XIP/Butler/src/lib/:/usr/local/lib:/usr/local/lib64:/opt/xilinx/xrt/lib
+cd $HOME/d/working/XIP/Butler/src
+bin/xbutler
+set env BUTLER_VERBOSE 1
+set env GLOG_logtostderr 1
+set env XILINX_XRT /opt/xilinx/xrt/
+```
+
+## compile and debug XRT
+
+```
+
+git clone https://github.com/Xilinx/XRT.git
+cd XRT
+cd build
+cat build.sh
+https://github.com/Xilinx/XRT.git
+source /opt/rh/devtoolset-6/enable
+mkdir Debug;cd Debug
+# CMake Error at /var/lib/docker/scratch/local/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:146 (message):
+#  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+#  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY) (found
+#  version "1.0.2k")
+
+##   /var/lib/docker/scratch/local/share/cmake-3.16/Modules/FindOpenSSL.cmake:449 (find_package_handle_standard_args)
+##  runtime_src/tools/xclbin/CMakeLists.txt:12 (find_package)
+
+sudo yum install openssl-devel
+cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON --trace-source=FindOpenSSL.cmake -D CMAKE_FIND_DEBUG_MODE=ON --trace-expand -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
+cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON --trace-source=FindOpenSSL.cmake -D CMAKE_FIND_DEBUG_MODE=ON -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
+cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON  -D CMAKE_FIND_DEBUG_MODE=ON -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
+strace -f -o a.log cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIB=on -DOPENSSL_ROOT_DIR=/usr ../../src 2>&1 | tee config.log
+
+sudo yum install openssl-static
+cd $HOME/d/working/XRT/build/Debug
+rm -fr CMakeCache.txt CMakeFiles
+cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIB=on -DOPENSSL_ROOT_DIR=/usr ../../src 2>&1 | tee config.log
+make -j30
+make install DESTDIR=$HOME/.local/xrt
+```
+
+
+
+```
+CMake Warning at CMake/coverity.cmake:5 (message):
+  -- coverity not found
+Call Stack (most recent call first):
+  CMake/nativeLnx.cmake:161 (include)
+  CMakeLists.txt:61 (include)
+
+
+CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake files:
+Z_LIB
+    linked by target "xclbinutil" in directory /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/XRT/src/runtime_src/tools/xclbin
+```
+
+
+```
+sudo yum install zlib-devel zlib-static
+```
+
+```
+export LD_LIBRARY_PATH=$HOME/.local/xrt/opt/xilinx/xrt/lib:/home/chunywan/.local/lib:/usr/local/lib:/usr/local/lib64:/opt/xilinx/xrt/lib:/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib
+emacs
+```
 end mark
