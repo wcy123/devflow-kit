@@ -221,3 +221,97 @@ meaningful. It is not even to try program the xclbin.
 +      butler::FPGASelectionPriorityDSANameFPGA0 algo;
 +      acquireResult = client.acquireFPGA(xclbin, nullptr, &algo);
 ```
+
+
+log from server side
+
+```
+chunywan@xbjlabdpsvr15:src% bin/xbutler
+Starting Butler...
+------------
+Version Info
+------------
+Butler Version: 9000.0.0
+Butler Build Version Date: Mar 30 2020
+Butler Build Version Time: 10:12:26
+
+-----------
+------------
+Config File
+------------
+Error reading config file from: /etc/xbutler/xbutler.config
+-----------
+System Info
+-----------
+FPGA #0: xilinx_u50_xdma_201920_1
+-----------
+Safe Mode Enabled.
+Starting Server Thread...
+Done Starting Butler!
+AcquireFPGA: Sending system...
+AcquireFPGA: Receiving UDF result...
+AcquireFPGA: UDF result is:
+0x7fb7e0b024d0
+AcquireFPGA: Validating UDF result...
+AcquireFPGA: UDF result is valid.
+AcquireFPGA: Programming FPGA...
+XRT build version: 2.3.0
+Build hash: 192e706aea53163a04c574f9b3fe9ed76b6ca471
+Build date: 2020-03-30 17:10:12
+Git branch: HEAD
+PID: 359095
+UID: 30870
+[Tue Mar 31 13:15:52 2020]
+HOST: xbjlabdpsvr15
+EXE: /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/XIP/Butler/src/bin/xbutler
+[XRT] ERROR: Wrong kernel argument index: 63
+[XRT] ERROR: kernel is nullptr
+AcquireFPGA: Sending response...
+AcquireFPGA: Response is: GET_NUM_KERNEL_ARGS_ERROR
+AcquireFPGA: Sending handle...
+AcquireFPGA: Handle is: 0
+AcquireFPGA: Sending result...
+Finishing AcquireFPGA.
+-------------------------------------
+-------------------------------------
+        New Message From Client
+-------------------------------------
+Server: got connection on Tue Mar 31 13:15:52 2020
+Server: got connection from 127.0.0.1 port 48120
+ServerBooklet: Already exist socket: 5.
+ServerBooklet: Already exist port: 63675.
+Servicing PID 359172
+-------------------------------------
+Starting AcquireCU...
+AcquireCU: Safe Mode Enabled.
+AcquireCU: Receiving user name...
+AcquireCU: user name is: chunywan
+ServerBooklet: Already exist socket: 5.
+ServerBooklet: Already exist username: chunywan.
+AcquireCU: Receiving kernel name...
+AcquireCU: Kernel name is: hello
+AcquireCU: Receiving xclbin batch...
+AcquireCU: Non-UDF Mode.
+AcquireCU: executing algo.
+ERROR: AcquireCU: FAILED!
+AcquireCU: Sending response...
+AcquireCU: Response is: INVALID
+AcquireCU: Sending handle...
+AcquireCU: Handle is: 0
+AcquireCU: Sending result...
+Finishing AcquireCU.
+-------------------------------------
+-------------------------------------
+        New Message From Client
+-------------------------------------
+Server: got connection on Tue Mar 31 13:15:52 2020
+Server: got connection from 127.0.0.1 port 48120
+ServerBooklet: Already exist socket: 5.
+ServerBooklet: Already exist port: 63675.
+-------------------------------------
+      Detected Dead Connection
+Removing socket: 5
+ServerBooklet: Removing socket: 5.
+-------------------------------------
+
+```
