@@ -427,9 +427,9 @@ export XILINX_XRT=/opt/xilinx/xrt/
 export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/d/working/XIP/Butler/src/lib/:/usr/local/lib:/usr/local/lib64:/opt/xilinx/xrt/lib
 cd $HOME/d/working/XIP/Butler/src
 bin/xbutler
-set env BUTLER_VERBOSE 1
-set env GLOG_logtostderr 1
-set env XILINX_XRT /opt/xilinx/xrt/
+export BUTLER_VERBOSE=1
+export GLOG_logtostderr=1
+
 ```
 
 ## compile and debug XRT

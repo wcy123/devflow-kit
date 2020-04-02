@@ -61,9 +61,21 @@ tar -zxvf resnet50.tar.gz
 
 cd /home/root//wcy/samples/bin
 cp -av /usr/share/vitis_ai_library/models/resnet50/resnet50.elf .
-env LD_LIBRARY_PATH=../lib ./resnet50 /home/root/wcy/sample_classification.jpg
-cat /proc/interrupts | grep dpu
+
+
+env LD_LIBRARY_PATH=../lib ./resnet50 /home/root/wcy/sample_classification.jpgscore[109]  =  0.982666     text: brain coral,
+score[973]  =  0.00850172   text: coral reef,
+score[955]  =  0.00662115   text: jackfruit, jak, jack,
+score[397]  =  0.000543497  text: puffer, pufferfish, blowfish, globefish,
+score[390]  =  0.000329648  text: eel,
+
+~/wcy/samples/bin# cat /proc/interrupts | grep dpu
+ 51:          2          0          0          0     GICv2 138 Edge      dpu_isr
+ 52:          0          0          0          0     GICv2 139 Edge      dpu_isr
+ 53:          0          0          0          0     GICv2 140 Edge      dpu_isr
+ 59:          0          0          0          0     GICv2 142 Edge      dpu_smfc
 ```
+
 
 
 end mark

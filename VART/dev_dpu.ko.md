@@ -77,6 +77,7 @@ on board
 ```
 mkdir -p /home/root/wcy
 cd /home/root/wcy
+touch /var/lib/dpkg/status # junpeng will fix this bug
 dpkg -i vitis_ai_model_ZCU102_2019.2-r1.1.0.deb
 ```
 
