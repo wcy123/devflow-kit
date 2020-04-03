@@ -9,9 +9,9 @@ it is already installed.
 
 ## anaconda
 
-refer to [anaconda](VART/anaconda_env.md)
+NOTE: refer to [anaconda](VART/anaconda_env.md)
 
-
+due to lib confilctions, we cannto use it.
 ## create anaconda mirror from xcd environment to bjlab
 
 refer to [how to create a mirror for conda repo](https://docs.anaconda.com/anaconda-repository/admin-guide/install/config/mirrors/mirror-anaconda-repository/)
@@ -78,6 +78,14 @@ conda list | grep xip
 xip                       2.0.4                    py37_0    file://scratch/chunywan/conda-channel
 (butler) chunywan@xbjlabdpsvr15:~%
 ```
+
+
+## prerequites
+
+```
+sudo yum -y install jsoncpp-devel
+```
+
 
 ## XIP/XButler
 
@@ -332,9 +340,6 @@ butler_config_file_parser_util.cpp:(.text+0x13f): undefined reference to `Json::
 butler_config_file_parser_util.cpp:(.text+0x167): undefined reference to `Json::Value::asString() const'
 ```
 
-```
-sudo yum install jsoncpp-devel
-```
 
 ```
 make
@@ -395,6 +400,14 @@ set env LD_LIBRARY_PATH /group/xbjlab/dphi_software/software/workspace/chunywan/
 ```
 mkdir -p /opt/xilinx/dsa/
 sudo cp -av /usr/lib/dpu.xclbin /opt/xilinx/dsa/verify.xclbin
+ssh xbjlabdpsvr15 ls -l /opt/xilinx/dsa/
+ls -la /opt/xilinx/dsa/
+sudo chmod o+rw /opt/xilinx/dsa/
+scp xbjlabdpsvr15:/opt/xilinx/dsa/dpu.xclbin.vitis.1.1 /opt/xilinx/dsa/
+cp /opt/xilinx/dsa/dpu.xclbin.vitis.1.1 /opt/xilinx/dsa/verify.xclbin
+md5sum /opt/xilinx/dsa/dpu.xclbin.vitis.1.1 /opt/xilinx/dsa/verify.xclbin
+# it should be b7229999dca837511de0ac716d904870
+/opt/xilinx/xrt/bin/xbutil query | less
 ```
 
 cannot detect any cards.
@@ -426,9 +439,9 @@ try again
 export XILINX_XRT=/opt/xilinx/xrt/
 export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/d/working/XIP/Butler/src/lib/:/usr/local/lib:/usr/local/lib64:/opt/xilinx/xrt/lib
 cd $HOME/d/working/XIP/Butler/src
-bin/xbutler
 export BUTLER_VERBOSE=1
 export GLOG_logtostderr=1
+bin/xbutler
 
 ```
 
