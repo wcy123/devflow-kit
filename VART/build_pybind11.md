@@ -5,7 +5,7 @@
 ## download `pybind11`
 
 ```
-gitlab=xcdl192026
+gitlab=xcdl190260
 git clone ssh://gits@$gitlab/3rd-party/pybind11
 ```
 
@@ -14,9 +14,16 @@ git clone ssh://gits@$gitlab/3rd-party/pybind11
 ```
 # you have to install python3-dev  as below
 # sudo apt-get install -y python3-dev
+cd $HOME/d/working/aisw
+git clone ssh://gits@$gitlab/3rd-party/pybind11
 cd $HOME/d/working/aisw/pybind11
 mkdir build;cd build;
 cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DPYBIND11_TEST=off -DPYBIND11_INSTALL=on ..
+cmake  -DPYBIND11_TEST=off -DPYBIND11_INSTALL=on ..
+make
+chmod o+rwx .
+/tools/xgs/bin/sudo make install
+/tools/xgs/bin/sudo yum install python34-dev
 ```
 
 

@@ -26,6 +26,7 @@ and
 Filesystem                 Size  Used Avail Use% Mounted on
 /dev/mapper/vg00-dockerlv  744G  269G  476G  37% /var/lib/docker
 ```
+
 It seems that we don't have enough storage, even for local disk.
 
 But without local mirrors and slow network, it is very challenging.
