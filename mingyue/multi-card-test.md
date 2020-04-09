@@ -1,0 +1,5 @@
+
+```
+ssh mingyue@xsjswmtech03
+
+```
