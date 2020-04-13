@@ -17,13 +17,10 @@ mkdir Debug;cd Debug
 ##   /var/lib/docker/scratch/local/share/cmake-3.16/Modules/FindOpenSSL.cmake:449 (find_package_handle_standard_args)
 ##  runtime_src/tools/xclbin/CMakeLists.txt:12 (find_package)
 
-sudo yum install openssl-devel
-cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON --trace-source=FindOpenSSL.cmake -D CMAKE_FIND_DEBUG_MODE=ON --trace-expand -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
-cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON --trace-source=FindOpenSSL.cmake -D CMAKE_FIND_DEBUG_MODE=ON -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
-cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON  -D CMAKE_FIND_DEBUG_MODE=ON -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
-strace -f -o a.log cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIB=on -DOPENSSL_ROOT_DIR=/usr ../../src 2>&1 | tee config.log
+sudo yum install openssl-devel openssl-static json-glib-devel
 
-sudo yum install openssl-static
+cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON  -D CMAKE_FIND_DEBUG_MODE=ON -DBUILD_SHARED_LIB=on  ../../src 2>&1 | tee config.log
+
 cd $HOME/d/working/XRT/build/Debug
 rm -fr CMakeCache.txt CMakeFiles
 cmake -DCMAKE_BUILD_TYPE=Debug  EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIB=on -DOPENSSL_ROOT_DIR=/usr ../../src 2>&1 | tee config.log
