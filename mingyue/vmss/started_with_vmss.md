@@ -1,4 +1,3 @@
-
 ## ssh xbjlabdpsvr15
 ```
 ssh -p 10115 mingyue@xbj-pvapjmp11
@@ -6,13 +5,25 @@ ssh -p 10115 mingyue@xbj-pvapjmp11
 ## start mongodb
 ```
 mongo -version
+
+
 systemctl start mongod
 systemctl status mongod
 ```
 
 ## build vitis-ai-library
 ```
-#rsync -e 'ssh -p 10115'  $HOME/build/glog-v0.4.0.tar.gz xbj-pvapjmp11:/home/mingyue/build
+#clear .local && build
+rm -rf /group/xbjlab/dphi_software/software/workspace/mingyue/build
+mkdir /group/xbjlab/dphi_software/software/workspace/mingyue/build
+ls -l
+rm -rf /group/xbjlab/dphi_software/software/workspace/mingyue/.local
+mkdir /group/xbjlab/dphi_software/software/workspace/mingyue/.local
+ls -la
+
+#153
+rsync -e 'ssh -p 10115'  $HOME/build/glog-v0.4.0.tar.gz xbj-pvapjmp11:/home/mingyue/build
+
 cd ~/build
 tar -zxvf glog-v0.4.0.tar.gz
 cd ~/build/glog-0.4.0/
@@ -30,12 +41,15 @@ cd ../xir
 cd ../vart
 git checkout br-dim-calc
 git branch
- ./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF --clean
+ ./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF
 cd ../Vitis-AI-Library
-./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON'
+./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON' --clean
+
 git checkout br-refactor-cmake
 g branch
 g p
+g s
+g a
 ./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON'
 
 ```
@@ -44,28 +58,42 @@ g p
 ```
 mkdir -p $HOME/d/working/vmss/
 cd $HOME/d/working/vmss/
-#153
-#git clone https://gitenterprise.xilinx.com/ips-video-ml/VMSS.git
-#cd VMSS
-#git submodule update --init
-#rsync -e 'ssh -p 10115'  $HOME/d/working/mingyue/vmss/VMSS.tar.gz xbj-pvapjmp11:/home/mingyue/d/working/vmss/
-#tar -zxvf VMSS.tar.gz
+ls
+
+#xsjsda153
+git clone https://gitenterprise.xilinx.com/ips-video-ml/VMSS.git
+cd VMSS
+g s
+git submodule update --init
+rsync -e 'ssh -p 10115' -avz /proj/xsjhdstaff6/mingyue/d/working/mingyue/vmss/VMSS xbj-pvapjmp11:/home/mingyue/d/working/vmss/
+#scp -P 10115 /proj/xsjhdstaff6/mingyue/d/working/mingyue/vmss/VMSS/extern/VMSS_Lib/src/vmss_sessionmgr.c xbj-pvapjmp11:/home/mingyue/d/working/vmss/VMSS/extern/VMSS_Lib/src/vmss_sessionmgr.c
+
+
+#update server/env.sh  server/Makefile
+
 cp -r /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/vmss/VMSS $HOME/d/working/vmss
 cd VMSS
 export VMSS_HOME=$HOME/d/working/vmss/VMSS
+#export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig
+#export C_INCLUDE_PATH=/var/lib/docker/scratch/local/include/libmongoc-1.0:/var/lib/docker/scratch/local/include/libbson-1.0
+
 make DEBUG=1
 
 ```
 
-## build DPU plugsins
+## build DPU plugins
 ```
 cd $HOME/d/working/vmss
 ls
 #153
+#git clone gits@xcdl190260:wangchunye/VMSS_DPU_Plugins.git
+#
 #rsync -e 'ssh -p 10115'  $HOME/d/working/mingyue/vmss/VMSS_DPU_Plugins.tar.gz xbj-pvapjmp11:/home/mingyue/d/working/vmss/
 #tar -zxvf VMSS_DPU_Plugins.tar.gz
 cd VMSS_DPU_Plugins
-./cmake.sh
+./cmake.sh --clean --cmake-options=-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
 ```
 
 ## install the plugins
@@ -100,8 +128,10 @@ gdb vmss_server
 ```
 in the gdb session
 ```
-   start ~/d/working/vmss/VMSS_DPU_Plugins/conf
    set env DEBUG_DPU_PLUGIN=5
+   start ~/d/working/vmss/VMSS_DPU_Plugins/conf
+   b src/vmss_gst_common.c:183
+   c
 ```
 ## VMSS clinet
 ### sample resnet50

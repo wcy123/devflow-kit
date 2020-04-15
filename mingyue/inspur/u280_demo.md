@@ -11,6 +11,19 @@ ssh -p 10170 xilinx@xbj-pvapjmp12
 ```
 #### check environments
 ```
+cmake --version
+g++ --version
+
+protoc --version
+opencv
+glog
+
+```
+### build demo by src
+```
+bash -ex build_xrt.sh
+cd tfssd
+bash build.sh
 ```
 
 
