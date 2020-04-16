@@ -25,4 +25,9 @@ https://github.com/git-lfs/git-lfs/wiki/Tutorial
 
 % cd $HOME/d/working/aisw/vart; ls
 % git filter-branch --prune-empty --index-filter 'git rm --ignore-unmatch --cached `cat /tmp/large_files`'
+% git gc
+% (mkdir $HOME/tmp/vart.git; cd $HOME/tmp/vart.git; git init --bare)
+% git push file:///$HOME/tmp/vart.git
+% du -sh $HOME/tmp/vart.git # it is  only 11M
+% git push -u origin dev
 ```
