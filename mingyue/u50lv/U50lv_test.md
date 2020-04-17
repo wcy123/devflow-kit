@@ -104,11 +104,54 @@ mv dump dump_results
 env XLNX_ENABLE_DUMP=1 XLNX_SHOW_DPU_COUNTER=1 XLNX_ENABLE_DEBUG_MODE=1 ~/build/build.Ubuntu.18.04.x86_64.Release/Vitis-AI-Library/overview/test_jpeg_classification resnet_v1_50_tf sample_classification.jpg
 mv dump dump_results_debug
 
-
-
-
-
 ~/build/build.Ubuntu.18.04.x86_64.Release/Vitis-AI-Library/overview/test_performance_classification resnet50 test_performance_classification.list -s 30 -t 4
+
+
+```
+
+### update shell outside docker
+```
+scp -P 10190 /proj/xbuilds/2019.2_daily_latest/xbb/xrt/packages/xrt_201920.2.5.393_7.4.1708-x86_64-xrt.rpm user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190 /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/cmc/u50/xilinx-cmc-u50-1.0.19-2843853.noarch.rpm user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190 /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/sc-fw/u50/xilinx-sc-fw-u50-5.0.27-2.e289be9.noarch.rpm user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190  /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/u50lv/gen3x4_xdma/blp/xilinx-u50lv-gen3x4-xdma-blp-1-2831196.noarch.rpm user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190  /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/u50lv/gen3x4_xdma/xilinx-u50lv-gen3x4-xdma-dev/xilinx-u50lv-gen3x4-xdma-dev-201920.3-2833098.noarch.rpm user@xsjcda1:/home/user/d/working/shell_19.2/
+
+###hooooooo... is a ubuntu system
+scp -P 10190 /proj/xbuilds/2019.2_daily_latest/xbb/xrt/packages/xrt_201920.2.5.393_16.04-amd64-xrt.deb user@xsjcda1:/home/user/d/working/shell_19.2/
+
+scp -P 10190 /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/cmc/u50/xilinx-cmc-u50-1.0.19-2843853_16.04.deb user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190 /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/sc-fw/u50/xilinx-sc-fw-u50-5.0.27-2.e289be9_16.04.deb user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190  /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/u50lv/gen3x4_xdma/blp/xilinx-u50lv-gen3x4-xdma-blp-1-2831196_16.04.deb user@xsjcda1:/home/user/d/working/shell_19.2/
+scp -P 10190  /proj/xbuilds/XSAs/2019.2_latest_seed/output/xbb/packages/internal_platforms/u50lv/gen3x4_xdma/xilinx-u50lv-gen3x4-xdma-dev/xilinx-u50lv-gen3x4-xdma-dev-201920.3-2833098_16.04.deb user@xsjcda1:/home/user/d/working/shell_19.2/
+
+```
+
+
+
+### build unilog/xir/vart
+```
+cd /usr/lib
+mkdir vai1.1
+sudo mv libvart* vai1.1
+sudo mv libxir* vai1.1
+sudo mv libunilog* vai1.1
+
+cd /sur/share
+sudo cp cmake cmake_vai1.1
+cd cmake
+sudo rm -rf vart xir unilog
+
+
+cd /workspace
+cd unilog
+./cmake.sh --type=release
+cd ../xir
+./cmake.sh --type=release --clean
+cd ../vart
+./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF --type=release
+cd ../Vitis-AI-Library/
+./cmake.sh --type=release --cmake-options='-DENABLE_OVERVIEW=ON'
 
 
 ```
