@@ -4,14 +4,12 @@
 ## download source code
 
 ```
-gitlab=xcdl192026
-#gitlab=localhost:10260
 mkdir -p $HOME/d/working/aisw/
 cd  $HOME/d/working/aisw/
-git clone ssh://gits@$gitlab/aisw/unilog
-git clone ssh://gits@$gitlab/aisw/xir
-git clone ssh://gits@$gitlab/aisw/vart
-git clone ssh://gits@$gitlab/aisw/Vitis-AI-Library
+git clone ssh://gits@xcdl190260/aisw/unilog
+git clone ssh://gits@xcdl190260/aisw/xir
+git clone ssh://gits@xcdl190260/aisw/vart
+git clone ssh://gits@xcdl190260/aisw/Vitis-AI-Library
 ```
 
 ## prerequsites
