@@ -4,6 +4,7 @@
 
 ```
 ssh root@10.176.179.64
+sshpass -p root ssh root@10.176.178.107
 ```
 
 ## install `dpu.ko`
@@ -19,10 +20,10 @@ check device tree
 cat /proc/device-tree/dpu@8f000000/core-num | xxd
 ```
 
-create nfs mount
+create nfs mounts
 ```
-mkdir -p /group/xbjlab
-mount -t nfs -o nolock 10.176.178.33:/group_xbjlab/ /group/xbjlab
+% mkdir -p /group/xbjlab
+% mount -t nfs -o nolock 10.176.178.33:/group_xbjlab/ /group/xbjlab
 ls /group/xbjlab
 ```
 

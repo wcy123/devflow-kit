@@ -63,7 +63,8 @@ cd /home/root//wcy/samples/bin
 cp -av /usr/share/vitis_ai_library/models/resnet50/resnet50.elf .
 
 
-env LD_LIBRARY_PATH=../lib ./resnet50 /home/root/wcy/sample_classification.jpgscore[109]  =  0.982666     text: brain coral,
+% env LD_LIBRARY_PATH=../lib ./resnet50 /home/root/wcy/sample_classification.jpg
+score[109]  =  0.982666     text: brain coral,
 score[973]  =  0.00850172   text: coral reef,
 score[955]  =  0.00662115   text: jackfruit, jak, jack,
 score[397]  =  0.000543497  text: puffer, pufferfish, blowfish, globefish,
@@ -77,5 +78,11 @@ score[390]  =  0.000329648  text: eel,
 ```
 
 
-
+``` console
+% sshpass -p root ssh root@10.176.178.107
+% cd ~/xdd/samples/bin;ls
+% cp -av ../lib/libvart-dpu-controller.* /usr/lib
+% cd /home/root/xdd/overview/samples/facedetect;ls
+% ./test_jpeg_facedetect densebox_640_360 sample_facedetect.jpg
+```
 end mark
