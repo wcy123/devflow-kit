@@ -2,3 +2,8 @@ Deleted branch feat-file-lock (was 0f1ba66).
 Deleted branch fix-python-runner (was 5c8a23e).
 Deleted branch fix-trd-softmax-cu (was 81d024f).
 Deleted branch refactor-runner (was 4c81b9d).
+Deleted branch feat-integration-with-butler (was 83c9a3a).
+Deleted branch fix-compilation-error-gcc6.2 (was a4d6a24).
+Deleted branch fix-compilation-error-gcc9.2 (was c82b31e).
+Deleted branch fix-dnndk.ko (was 8a5e0fa).
+Deleted branch fix-new-xir-tensor-type-for-edge (was d497904).
