@@ -40,10 +40,16 @@ new model
 % cd ~/d/working/run/resnet50
 % env XLNX_ENABLE_DUMP=1 XLNX_SHOW_DPU_COUNTER=1 XLNX_DPU_CORE_ID=0 DEBUG_XRT_DEVICE_HANDLE=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/vart/dpu-runner/test/test_dpu_runner  resnet50.xmodel k_0 /scratch/group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/dump_gpu/data.bin 1 1
 % d dump/subgraph_res5b_branch2b_weights/input/0.data_fixed.bin
-% d dump_new/subgraph_res5b_branch2b_weights/input/0.data_fixed.bin
+% d dump/subgraph_res5b_branch2b_weights/input/1.data_fixed.bin
 % d dump/subgraph_res5b_branch2b_weights/output/0.fc1000_fixed.bin
-% d dump_new/subgraph_res5b_branch2b_weights/output/0.fc1000_fixed.bin
-92d5ca2936637251116bb4bd61660793  dump_new/subgraph_res5b_branch2b_weights/output/0.fc1000_fixed.bin
+% d dump/subgraph_res5b_branch2b_weights/output/0.fc1000_fixed.bin
+% d dump/subgraph_res5b_branch2b_weights/output/1.fc1000_fixed.bin
+1419317ad942a1cb76a16b31b76cfb1e  dump_new/subgraph_res5b_branch2b_weights/output/0.fc1000_fixed.bin
+% md5sum /scratch/group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/dump_gpu/data.bin
+743f1f81f99ea3708560edfac3c2d236
+% xxd dump/subgraph_res5b_branch2b_weights/input/0.data_fixed.bin>0.txt
+% xxd dump/subgraph_res5b_branch2b_weights/input/1.data_fixed.bin>1.txt
+% paste  0.txt 1.txt | less
 ```
 
 
