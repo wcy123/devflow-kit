@@ -1,4 +1,4 @@
-###  start docker
+##  start docker
 ```
 ssh xsjsda153
 cd /wrk/xsjhdnobkup6/mingyue/
@@ -16,8 +16,9 @@ cd $HOME/docker_test_0513
 export INTERNAL_BUILD=1
 export LD_LIBRARY_PATH=/opt/xilinx/xrt/lib:/usr/lib:/usr/lib/x86_64-linux-gnu:/opt/vitis_ai/conda/envs/vitis-ai-tensorflow/lib/
 ```
-### compile vart
+## compile vart
 ```
+
 git clone https://gitenterprise.xilinx.com/aisw/vart.git
 
 cd /workspace/vart
@@ -25,4 +26,10 @@ cd /workspace/vart
 
 cp /home/mingyue/build/build.Ubuntu.18.04.x86_64.Release/vart/libvart-1.1.0-Linux.deb /workspace/
 
+```
+
+## use deb
+#### replace files in the system with files in the deb package.
+```
+sudo dpkg -i libvart-1.1.0-Linux.deb
 ```
