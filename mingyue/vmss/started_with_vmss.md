@@ -111,6 +111,17 @@ ls -l $VMSS_HOME/server/plugins
 
 ```
 
+## clean up the database for debugging purpose only
+
+``` console
+% mongo
+> show dbs
+> show databases
+> use vmss_db
+> db.dropDatabase()
+> show collections
+```
+
 ## start vmss server : Debug
 open a new window
 ```
