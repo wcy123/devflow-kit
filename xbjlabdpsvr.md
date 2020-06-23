@@ -68,3 +68,6 @@
 % cd emacs-26.3
 % ./configure --without-xpm  --with-gnutls=no --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-lcms2 --without-libsystemd --without-xml2 --without-imagemagick --without-xft --without-libotf --without-m17n-flt --without-toolkit-scroll-bars --with-x=no --with-xpm=no --with-png=no  --with-x-toolkit=no --prefix=$HOME/.local --with-gif=no && make && make install
 ```
+
+
+# create sessions
