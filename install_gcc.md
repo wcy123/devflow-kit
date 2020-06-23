@@ -30,3 +30,18 @@ sudo  yum install -y gmp-devel mpfr-devel libmpc-devel
 make -j 4
 sudo make install
 ```
+
+
+# install gcc10 from source code
+
+on ubuntu 16.04
+
+```console
+% cd $HOME/build
+% curl -Lo gcc-10.1.0.tar.xz  http://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-10.1.0/gcc-10.1.0.tar.xz
+% sudo apt-get install -y libgmp-dev libmpfr-dev libmpc-dev
+% tar xvf gcc-10.1.0.tar.xz
+% cd gcc-10.1.0
+% ./configure --prefix=$HOME/.local --disable-multilib --enable-languages=c,c++
+% make -j 40 && make install
+```

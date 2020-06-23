@@ -29,12 +29,29 @@ python -m pip install -r $HOME/d/working/aisw/xnnc4xir/requirements.txt
 clone source code
 
 ```
-cd $HOME/d/working/aisw/
-git clone ssh://gits@xcdl190260/arch/xnnc4xir
-git clone ssh://gits@xcdl190260/arch/xcompiler
-git clone ssh://gits@xcdl190260/aisw/unilog
-git clone ssh://gits@xcdl190260/aisw/xir
-git clone ssh://gits@xcdl190260/arch/target_factory
+% ls
+% mkdir -p /group/xbjlab/dphi_software/software/workspace/$USER/d/working/xcompile
+% cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/xcompile
+% git clone ssh://gits@xcdl190260/arch/xnnc4xir
+% git clone ssh://gits@xcdl190260/arch/xcompiler
+% git clone ssh://gits@xcdl190260/aisw/unilog
+% git clone ssh://gits@xcdl190260/aisw/xir
+% git clone ssh://gits@xcdl190260/arch/target_factory
+% git clone ssh://gits@xcdl190260/3rd-party/pybind11
+# you have to install python3-dev  as below
+# /tools/xgs/bin/sudo apt-get install -y python3-dev
+```
+
+## pybind11
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/xcompile/pybind11
+% mkdir build;cd build;
+% cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DPYBIND11_TEST=off -DPYBIND11_INSTALL=on ..
+% cmake  -DPYBIND11_TEST=off -DPYBIND11_INSTALL=on ..
+% make
+% chmod o+rwx .
+% make install
 ```
 
 build xcompiler
