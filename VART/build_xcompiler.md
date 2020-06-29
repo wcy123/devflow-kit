@@ -70,8 +70,8 @@ clone source code
 ```
 % cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/xcompile;
 % for i in unilog target_factory ; do (cd $i;bash -e ./cmake.sh --clean); done
-% for i in xir ; do (cd $i;bash -e ./cmake.sh --clean --build-python); done
-% for i in xcompiler ; do (cd $i;bash -e ./cmake.sh --clean); done
+% for i in xir ; do (cd $i;bash -e ./cmake.sh --cmake-options=-DCMAKE_CXX_COMPILER=$(which g++) --cmake-options=-DCMAKE_C_COMPILER=$(which gcc) --clean --build-python); done
+% for i in xcompiler ; do (cd $i;bash -e ./cmake.sh --cmake-options=-DCMAKE_CXX_COMPILER=$(which g++) --cmake-options=-DCMAKE_C_COMPILER=$(which gcc) --clean); done
 % cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/xcompile/xnnc4xir
 % $HOME/.local/bin/pip3 install -r requirements.txt
 % chmod o+rwx .
@@ -87,7 +87,7 @@ clone source code
 % scp xcdl190253:/group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc/deploy_keep_fixed_neuron/deploy.prototxt .
 % ~/.local/bin/xnnc-run --type caffe --layout NCHW --model ./deploy.caffemodel --proto ./deploy.prototxt --out resnet50.baseline9213_ck_compiled.xmodel
 % cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/xcompile/target_factory/targets
-% diff -uB DPUCZDX8G_ISA0_B3136_MAX.prototxt DPUCZDX8G_ISA0_B3136_MIN.prototxt
+% diff -uB DPUCZDX8G_ISA0_B3136_MAX.prototxt DPUCZDX8G_ISA0_B3136_MI=N.prototx4t
 % $HOME/.local/Ubuntu.16.04.x86_64.Debug/bin/xcompiler --help
 % $HOME/.local/Ubuntu.16.04.x86_64.Debug/bin/xcompiler -i resnet50.baseline9213_ck_compiled.xmodel -o resnet50.xmodel  -a "DPUv3e B4096"
 ```

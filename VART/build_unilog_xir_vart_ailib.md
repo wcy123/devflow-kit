@@ -3,7 +3,7 @@
 
 ## download source code
 
-```
+``` console
 mkdir -p $HOME/d/working/aisw/
 cd  $HOME/d/working/aisw/
 git clone ssh://gits@xcdl190260/aisw/unilog

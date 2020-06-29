@@ -1,4 +1,4 @@
-# sync data from xbjlabdpsvr16
+'# sync data from xbjlabdpsvr16
 
 ``` console
 % ssh xbjlabdpsvr04
@@ -69,5 +69,13 @@
 % ./configure --without-xpm  --with-gnutls=no --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-lcms2 --without-libsystemd --without-xml2 --without-imagemagick --without-xft --without-libotf --without-m17n-flt --without-toolkit-scroll-bars --with-x=no --with-xpm=no --with-png=no  --with-x-toolkit=no --prefix=$HOME/.local --with-gif=no && make && make install
 ```
 
+# install openssh to support jumpproxy
 
-# create sessions
+``` console
+% cd ~/build
+% curl -Lo openssh-8.3p1.tar.gz https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz
+% tar xvf openssh-8.3p1.tar.gz
+% cd openssh-8.3p1
+% ./configure --prefix=$HOME/.local;
+% make -j10 && make install
+```
