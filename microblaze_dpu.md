@@ -33,3 +33,24 @@ there is a bug related with MicroBlaze SDK, here the workaround
 % cd vart;
 % ./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF
 ```
+
+## on board testing
+
+copy data to xbjlabdpwstn03
+
+``` console
+% rsync -avz /group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/microblazeel-v11.0-bs-cmp-re-mh-div-xilinx-linux/install/Debug xbjlabdpwstn03:/scratch/chunywan/
+% rsync -avz /group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/microblazeel-v11.0-bs-cmp-re-mh-div-xilinx-linux/usr/lib/libcrypto.so* xbjlabdpwstn03:/scratch/chunywan/Debug/lib
+% rsync -avz /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2019.2.microblazeel.Debug/vart/dpu-runner/test/test_dpu_runner xbjlabdpwstn03:/scratch/chunywan/Debug/bin
+```
+
+``` console
+% ssh xbjlabdpwstn03
+xbjlabdpwstn03% mkdir $HOME/nfs_root
+xbjlabdpwstn03% /tools/xgs/bin/sudo mount -t nfs 192.168.1.1:/ $HOME/nfs_root
+xbjlabdpwstn03% ssh root@192.168.1.1
+root@xilinx-ku060-mb-dpu-v2019:# ls -l /scratch/chunywan
+root@xilinx-ku060-mb-dpu-v2019:# export LD_LIBRARY_PATH=/scratch/chunywan/Debug/lib
+root@xilinx-ku060-mb-dpu-v2019:# /scratch/chunywan/Debug/bin/xir subgraph /scratch/chunywan/resnet50.elf
+root@xilinx-ku060-mb-dpu-v2019:# env DEBUG_DPU_RUNNER=1   /scratch/chunywan/Debug/bin/test_dpu_runner /scratch/chunywan/resnet50.elf resnet50_0 /scratch/chunywan/resnet50.elf 1 1
+```
