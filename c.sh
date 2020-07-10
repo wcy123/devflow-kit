@@ -7,7 +7,7 @@ function connection {
     args+=(-L0.0.0.0:102$id:xbjlabdpsvr$id:22);
     args+=(-L0.0.0.0:182$id:xbjlabdpsvr$id:8888);
     args+=(-R0.0.0.0:10074:xcdl190074:22);
-    args+=(-R0.0.0.0:10152:xsjsda153:22);
+    args+=(-R0.0.0.0:10152:xsjsda15:22);
     args+=(-R0.0.0.0:10142:xcosda142:22);
     args+=(-R0.0.0.0:10261:gitenterprise.xilinx.com:22);
     args+=(-oStrictHostKeyChecking=no)
