@@ -11,9 +11,8 @@
 there is a bug related with MicroBlaze SDK, here the workaround
 
 ```
-% mkdir -p /group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/x86_64-petalinux-linux/usr/microblazeel-xilinx-linux
-
-% ln -s /group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/microblazeel-v11.0-bs-cmp-re-mh-div-xilinx-linux/usr/include/c++/8.2.0/microblazeel-xilinx-linux  /group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/x86_64-petalinux-linux/usr/microblazeel-xilinx-linux/include
+% mkdir -p $OECORE_NATIVE_SYSROOT/usr/microblazeel-xilinx-linux
+% ln -s $OECORE_TARGET_SYSROOT/usr/include/c++/8.2.0/microblazeel-xilinx-linux $OECORE_NATIVE_SYSROOT/usr/microblazeel-xilinx-linux/include
 ```
 
 ## build them
