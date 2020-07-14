@@ -56,9 +56,14 @@ root@xilinx-ku060-mb-dpu-v2019:# env DEBUG_DPU_RUNNER=1   /scratch/chunywan/Debu
 
 
 ``` console
+% sshpass -p root ssh root@10.176.178.27
 % mkdir -p /group/xbjlab
 % mount -t nfs -o nolock 10.176.178.33:/group_xbjlab/ /group/xbjlab
 % export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/hawkwang/build/mb_sdk/sysroots/microblazeel-v11.0-bs-cmp-re-mh-div-xilinx-linux/install/Debug/lib
+% export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/microblazeel-v11.0-bs-cmp-re-mh-div-xilinx-linux/install/Release/lib
+% sshpass -p root scp /var/lib/docker/scratch/chunywan/build/build.linux.2019.2.microblazeel.Release/Vitis-AI-Library/overview/test_jpeg_classification root@10.176.178.27:
+% ls /group/xbjlab/dphi_software/software/workspace/chunywan/mb_sdk/sysroots/microblazeel-v11.0-bs-cmp-re-mh-div-xilinx-linux/install/Release/lib
+% env DEEPHI_PROFILING=1 ~/test_jpeg_classification resnet18 sample_classification.jpg
 % /group/xbjlab/dphi_software/software/workspace/hawkwang/build/build.linux.2019.2.microblazeel.Debug/vart/buffer-object/test_buffer_object 26214400
 % scp root@10.176.179.61:/usr/share/vitis_ai_library/models/resnet50/resnet50.elf .
 % env DEBUG_DPU_RUNNER=1 /group/xbjlab/dphi_software/software/workspace/hawkwang/build/build.linux.2019.2.microblazeel.Debug/vart/dpu-runner/test/test_dpu_runner resnet50.elf resnet50_0 resnet50.elf 1 1
