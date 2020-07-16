@@ -9,6 +9,7 @@ cd  $HOME/d/working/aisw/
 git clone ssh://gits@xcdl190260/aisw/unilog
 git clone ssh://gits@xcdl190260/aisw/xir
 git clone ssh://gits@xcdl190260/aisw/vart
+git clone ssh://gits@xcdl190260/aisw/target_factory
 git clone ssh://gits@xcdl190260/aisw/Vitis-AI-Library
 ```
 
@@ -51,15 +52,22 @@ unset LD_LIBRARY_PATH;source /group/xbjlab/dphi_software/software/workspace/$USE
 ### build `unilog`
 
 ```
-cd $HOME/d/working/aisw/unilog;
-./cmake.sh --pack=deb --clean
+% cd $HOME/d/working/aisw/unilog;
+% ./cmake.sh --pack=deb --clean
+```
+
+### build `target_factory`
+
+```
+% cd $HOME/d/working/aisw/target_factory;
+% ./cmake.sh --pack=deb --clean
 ```
 
 ### build `xir`
 
 ```
-cd $HOME/d/working/aisw/xir
-./cmake.sh --clean --pack=deb  # no need to --build-python if you don't build xcompiler
+% cd $HOME/d/working/aisw/xir
+% ./cmake.sh --clean --pack=deb  # no need to --build-python if you don't build xcompiler
 ```
 
 ### build `vart`

@@ -12,11 +12,12 @@
 ## configure, build and install
 
 ```console
+% source /opt/rh/devtoolset-9/enable # gcc4 has bug, cannot build python
 % cd ~/build/cpython-3.9.0a5
 % aclocal
 % autoreconf
-% ./configure --prefix=$HOME/.local --enable-optimizations
-% make -j30 && make install
+% ./configure --prefix=$HOME/.local --enable-optimizations && make -j30 && make install
+%
 ```
 
 
@@ -30,4 +31,17 @@
 
 ```console
 % pip3 install cmake-format
+```
+
+## on xcdsda29
+
+cmake version is 3.16, too low, cannot find python3.9, but 3.8 is needed.
+``` console
+% scp chunywan@localhost:build/Python-3.8.3.tgz ~/build/
+% tar xvf Python-3.8.3.tgz
+% source /opt/rh/devtoolset-9/enable # gcc4 has bug, cannot build python
+% cd Python-3.8.3/
+% aclocal
+% autoreconf
+% ./configure --prefix=$HOME/.local --enable-optimizations && make -j30 && make install
 ```

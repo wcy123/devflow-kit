@@ -26,15 +26,15 @@ register a runner
 
 ``` console
 % sudo gitlab-runner register --non-interactive \
+  --name "xcdsda29 for aisw" \
   --url "http://xcdl190260/" \
-  --registration-token "tE176x4k6z-FPiHDYaDK" \
+  --registration-token "BfuCWMasbGssXa-vED96" \
   --executor "ssh" \
   --ssh-user "gitlab-runner" \
   --ssh-host "localhost" \
   --ssh-port "22" \
   --ssh-identity-file "/scratch/gitlab-runner/.ssh/id_rsa" \
-  --description "ssh-runner" \
-  --tag-list "docker,aws" \
+  --tag-list "aisw,u280,xcdsda29" \
   --run-untagged="true" \
   --locked="false" \
   --access-level="not_protected"
