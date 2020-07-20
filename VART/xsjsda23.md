@@ -62,7 +62,7 @@ git clone ssh://gits@xcdl190260/aisw/Vitis-AI-Library
 ### run dpu test
 
 ``` console
-%  export LD_LIBRARY_PATH=$HOME/.local/Ubuntu.18.04.x86_64.Debug/lib:/usr/local/lib:$CONDA_PREFIX/lib:/opt/xilinx/xrt/lib
-% env XLNX_ENALBE_HBM_TXT=1 ~/build/build.Ubuntu.18.04.x86_64.Debug/vart/dpu-runner/test/test_dpu_runner  /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel k_0 /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel 1 1
+% export LD_LIBRARY_PATH=$HOME/.local/Ubuntu.18.04.x86_64.Debug/lib:/usr/local/lib:$CONDA_PREFIX/lib:/opt/xilinx/xrt/lib
+% env XLNX_ENABLE_DEVICES=0 XLNX_ENALBE_HBM_TXT=1 ~/build/build.Ubuntu.18.04.x86_64.Debug/vart/dpu-runner/test/test_dpu_runner  /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel k_0 /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel 1 1
 
 ```
