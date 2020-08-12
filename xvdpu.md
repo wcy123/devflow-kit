@@ -50,7 +50,7 @@ uboot> boot
     DEBUG_DPU_RUNNER_DRY_RUN=0 \
     XLNX_ENABLE_FINGERPRINT_CHECK=0 \
     DEBUG_TENSOR_BUFFER_ALLOCATOR=1 \
-    DEBUG_AP_START_CU_XVDPU=0 \
+    DEBUG_AP_START_CU_XVDPU=1 \
     DEBUG_XRT_DEVICE_HANDLE=1 \
     DEBUG_XRT_CU=9 \
    /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Debug/vart/dpu-runner/test/test_dpu_runner \
