@@ -1,5 +1,12 @@
 ## debug xv dpu
 
+NOTE:
+
+    1. `XLNX_DIRTY_HACK_XVDPU_GEN_BASE` 调整寄存器基地址的其实偏移量。
+    2. `DEBUG_AP_START_CU_XVDPU` 目前 `EXEC_WRITE` 方式还起不来
+    3. `XLNX_ENABLE_FINGERPRINT_CHECK` 目前模型指纹和硬件指纹还对不上
+
+
 ``` console
 % sshpass -p root ssh root@10.176.178.176
 % sshpass -p root ssh root@10.176.179.54
@@ -46,7 +53,7 @@
 ```
 
 performance test
-
+24
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/classification;ls
 % export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/petalinux-sdk2/sysroots/aarch64-xilinx-linux/install/Release/lib
