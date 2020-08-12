@@ -18,6 +18,14 @@ uboot> setenv  bootargs "console=ttyAMA0 earlycon=pl011,mmio32,0xFF000000,115200
 uboot> boot
 ```
 
+更新驱动
+
+```
+% rmmod zocl
+% insmod /home/root/zocl.ko
+```
+
+
 用下面的方法验证一下，是否可以分配 lpddr 上的内存。
 
 
