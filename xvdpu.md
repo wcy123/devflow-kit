@@ -7,6 +7,20 @@ NOTE:
     3. `XLNX_ENABLE_FINGERPRINT_CHECK` 目前模型指纹和硬件指纹还对不上
 
 
+NOTE
+
+    目前不支持保存 uboot 参数，需要登陆 `xbjlabdpwstn02` 连接串口，在 uboot 启动的时候，修改启动参数
+
+```
+% ssh xbjlabdpwstn02
+% /tools/xgs/bin/sudo cu -l /dev/ttyUSB1 -s 115200
+uboot> setenv  bootargs "console=ttyAMA0 earlycon=pl011,mmio32,0xFF000000,115200n8 clk_ignore_unused root=/dev/mmcblk0p2 rw rootwait"
+uboot> boot
+```
+
+
+```
+
 ``` console
 % sshpass -p root ssh root@10.176.178.176
 % sshpass -p root ssh root@10.176.179.54
