@@ -89,6 +89,8 @@ I0324 22:42:35.427999   614 xrt_cu.cpp:106] Total: 2912us       ToDriver: 43us  
 core_idx = 0  LSTART 585  LEND 585  CSTART 609  CEND 609  SSTART 1  SEND 1  MSTART 264  MEND 264  CYCLE_L 935054  CYCLE_H 0
 ```
 
+用 `2819us` 的 DPU 时间换算成 FPS= 1064 。
+
 ### 正式 E2E 多线程测试
 
 ``` console
@@ -109,6 +111,9 @@ FPS=1040.39
 E2E_MEAN=5762.49
 DPU_MEAN=3847.74
 ```
+
+`1040/1064=97.7%`
+
 
 ### 参考测试，不包含前后处理的测试。
 
@@ -131,7 +136,10 @@ DPU_MEAN=3847.74
 I0324 22:54:58.194833   686 performance_test.hpp:77] FPS= 1054.5 number_of_frames= 63276 time= 60.0057 seconds.
 ```
 
+`1054/1064=99.0%`
+
 ## troubleshooting
+
 
 NOTE
 
