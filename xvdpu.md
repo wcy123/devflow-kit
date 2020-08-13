@@ -72,7 +72,7 @@ performance test
 
 ``` console
 % env \
-   DEBUG_XRT_CU=1 \
+   DEBUG_XRT_CU=9 \
    XLNX_SHOW_DPU_COUNTER=1 \
    DEBUG_DPU_RUNNER=1 \
    XLNX_ENABLE_FINGERPRINT_CHECK=0 \
@@ -89,7 +89,7 @@ I0324 22:42:35.427999   614 xrt_cu.cpp:106] Total: 2912us       ToDriver: 43us  
 core_idx = 0  LSTART 585  LEND 585  CSTART 609  CEND 609  SSTART 1  SEND 1  MSTART 264  MEND 264  CYCLE_L 935054  CYCLE_H 0
 ```
 
-用 `2819us` 的 DPU 时间换算成 FPS= 1064 。
+用 `2819us` 的 DPU 时间换算成 FPS= 1064 。 935054 = 1068 FPS.
 
 ### 正式 E2E 多线程测试
 
@@ -137,6 +137,67 @@ I0324 22:54:58.194833   686 performance_test.hpp:77] FPS= 1054.5 number_of_frame
 ```
 
 `1054/1064=99.0%`
+
+
+## caffe resnet50 v1.0 的测试。
+
+``` console
+% cp /usr/share/vitis_ai_library/models/resnet50/resnet50.prototxt /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.prototxt
+% env \
+   DEBUG_XRT_CU=9 \
+   XLNX_SHOW_DPU_COUNTER=1 \
+   DEBUG_DPU_RUNNER=1 \
+   XLNX_ENABLE_FINGERPRINT_CHECK=0 \
+  /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_jpeg_classification  \
+  /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.xmodel \
+  sample_classification.jpg
+
+I0325 04:31:58.975815   977 xrt_cu.cpp:106] Total: 3081us       ToDriver: 332us ToCU: 21us      Complete: 2634us        Done: 92us
+core_idx = 0  LSTART 589  LEND 589  CSTART 576  CEND 576  SSTART 1  SEND 1  MSTART 274  MEND 274  CYCLE_L 873457  CYCLE_H 0
+
+```
+
+按照 counter 计算的 , `873457 cycles = 1143 FPS`
+
+``` console
+% env \
+   DEBUG_DPU_RUNNER=0 \
+   XLNX_ENABLE_FINGERPRINT_CHECK=0 \
+   XLNX_DIRTY_HACK_XVDPU_GEN_BASE=0x200 \
+   DEBUG_AP_START_CU_XVDPU=0 \
+  /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_performance_classification  \
+  /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.xmodel \
+  -t 2 \
+  -s 60 \
+  test_performance_classification.list
+```
+
+```
+FPS=1116.74
+E2E_MEAN=5368.07
+DPU_MEAN=3427.88
+```
+
+`1116.74/1143=97.7%`
+
+
+``` console
+% env XLNX_ENABLE_DUMP=0 \
+    XLNX_DIRTY_HACK_XVDPU_GEN_BASE=0x200 \
+    DEBUG_DPU_RUNNER_DRY_RUN=0 \
+    XLNX_ENABLE_FINGERPRINT_CHECK=0 \
+    DEBUG_TENSOR_BUFFER_ALLOCATOR=0 \
+    DEBUG_AP_START_CU_XVDPU=0 \
+    DEBUG_XRT_DEVICE_HANDLE=0 \
+   /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/dpu-runner/test/test_dpu_runner_mt \
+   /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.xmodel \
+   resnet50_0 2
+
+I0325 04:37:29.260725   982 performance_test.hpp:77] FPS= 1138.83 number_of_frames= 68337 time= 60.0062 seconds.
+```
+
+`1138.83/1143=99.6%`
+`
 
 ## troubleshooting
 
