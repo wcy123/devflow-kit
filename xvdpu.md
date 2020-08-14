@@ -4,6 +4,34 @@ NOTE:
 
     3. `XLNX_ENABLE_FINGERPRINT_CHECK` 目前模型指纹和硬件指纹还对不上
 
+## 安装
+
+这一步骤不用重复做，只要做一次就可以了。 如果安装 debug 版本，把目录名里面的 `Release` 改成 `Debug`
+
+
+``` console
+% cp -av /group/xbjlab/dphi_software/software/workspace/chunywan/petalinux-sdk2/sysroots/aarch64-xilinx-linux/install/Release/lib/* /usr/lib/
+% for i in /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_jpeg_classification  \
+     /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/dpu-runner/test/test_dpu_runner  \
+     /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/util/vart_version    \
+     /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/dpu-runner/test/test_dpu_runner_mt \
+     /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_performance_classification  \
+     /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Debug/test_alloc_bo \
+     ; do \
+          cp -av $i /usr/bin; \
+     done;
+
+# 拷贝测试数据
+% cp -av /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/classification /usr/share
+```
+
+检查环境， 当前版本是 `1.2.0-4640fa8f7adcc34d27df07f9620c1b94321378c5`
+
+``` console
+% unset LD_LIBRARY_PATH
+% vart_version
+```
+
 ## 功能测试。
 
 模型信息。
@@ -16,8 +44,6 @@ faabf1a387f2d3371e2c892bc4a0fef5  subgraph_1_output_resnet_model_dense_BiasAdd_a
 
 ### 上板运行
 ``` console
-% scp xcdl190253:/group/dphi_edge/workspace/dylanwu/chunye/res50_v100_llw_elp8_naie/*.bin /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/to_Chunye/
-% ls  /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/to_Chunye/
 % function d() { md5sum $1; stat -c %s $1; xxd $1 | head -n 16; }
 % env XLNX_ENABLE_DUMP=1 \
     XLNX_DIRTY_HACK_XVDPU_GEN_BASE=0x200 \
@@ -29,7 +55,7 @@ faabf1a387f2d3371e2c892bc4a0fef5  subgraph_1_output_resnet_model_dense_BiasAdd_a
     DEBUG_AP_START_CU_XVDPU=0 \
     DEBUG_XRT_DEVICE_HANDLE=1 \
     DEBUG_XRT_CU=9 \
-   /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Debug/vart/dpu-runner/test/test_dpu_runner \
+    test_dpu_runner \
    /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.5/mlp_res50_elp8_c32_0813.xmodel \
    subgraph_fake_downsample_0_ReplaceConv2d \
    /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.5/subgraph_1_input_image_aquant_vart-sim-runner.bin \
@@ -59,13 +85,11 @@ performance test
 ## 配置和检查环境
 
 ``` console
-% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/classification;ls
-% export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/petalinux-sdk2/sysroots/aarch64-xilinx-linux/install/Release/lib
-  /group/xbjlab/dphi_software/software/workspace/chunywan/xvdpu/res50_llw_elp8_reorder_tyr.xmodel \
-
+% cd /usr/share/classification;ls
 % cp /usr/share/vitis_ai_library/models/resnet50/resnet50.prototxt /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.5/mlp_res50_elp8_c32_0813.prototxt # on xbjlabdpsvr15
-% env LD_TRACE_LOADED_OBJECTS=1 /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/dpu-runner/test/test_dpu_runner | grep vart
-% /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/util/vart_version
+% which test_dpu_runner
+% env LD_TRACE_LOADED_OBJECTS=1 `which test_dpu_runner` | grep vart
+% vart_version
 ```
 
 ### 正式单张图片测试
@@ -76,7 +100,7 @@ performance test
    XLNX_SHOW_DPU_COUNTER=1 \
    DEBUG_DPU_RUNNER=1 \
    XLNX_ENABLE_FINGERPRINT_CHECK=0 \
-  /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_jpeg_classification  \
+  test_jpeg_classification  \
   /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.5/mlp_res50_elp8_c32_0813.xmodel \
   sample_classification.jpg
 ```
@@ -99,7 +123,7 @@ core_idx = 0  LSTART 585  LEND 585  CSTART 609  CEND 609  SSTART 1  SEND 1  MSTA
    XLNX_ENABLE_FINGERPRINT_CHECK=0 \
    XLNX_DIRTY_HACK_XVDPU_GEN_BASE=0x200 \
    DEBUG_AP_START_CU_XVDPU=0 \
-  /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_performance_classification  \
+  test_performance_classification  \
   /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.5/mlp_res50_elp8_c32_0813.xmodel \
   -t 2 \
   -s 60 \
@@ -125,7 +149,7 @@ DPU_MEAN=3847.74
     DEBUG_TENSOR_BUFFER_ALLOCATOR=0 \
     DEBUG_AP_START_CU_XVDPU=0 \
     DEBUG_XRT_DEVICE_HANDLE=0 \
-   /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/dpu-runner/test/test_dpu_runner_mt \
+    test_dpu_runner_mt \
    /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.5/mlp_res50_elp8_c32_0813.xmodel \
    resnet50_0 2
 ```
@@ -148,7 +172,7 @@ I0324 22:54:58.194833   686 performance_test.hpp:77] FPS= 1054.5 number_of_frame
    XLNX_SHOW_DPU_COUNTER=1 \
    DEBUG_DPU_RUNNER=1 \
    XLNX_ENABLE_FINGERPRINT_CHECK=0 \
-  /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_jpeg_classification  \
+   test_jpeg_classification  \
   /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.xmodel \
   sample_classification.jpg
 
@@ -165,7 +189,7 @@ core_idx = 0  LSTART 589  LEND 589  CSTART 576  CEND 576  SSTART 1  SEND 1  MSTA
    XLNX_ENABLE_FINGERPRINT_CHECK=0 \
    XLNX_DIRTY_HACK_XVDPU_GEN_BASE=0x200 \
    DEBUG_AP_START_CU_XVDPU=0 \
-  /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_performance_classification  \
+  test_performance_classification  \
   /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.xmodel \
   -t 2 \
   -s 60 \
@@ -189,7 +213,7 @@ DPU_MEAN=3427.88
     DEBUG_TENSOR_BUFFER_ALLOCATOR=0 \
     DEBUG_AP_START_CU_XVDPU=0 \
     DEBUG_XRT_DEVICE_HANDLE=0 \
-   /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/vart/dpu-runner/test/test_dpu_runner_mt \
+   test_dpu_runner_mt \
    /group/xbjlab/dphi_software/software/workspace/chunywan/debug_xvdpu/1.0/resnet_v1_50_DPUCVDX8G_ISA0_B8192C32B1_ELP8_sim.xmodel \
    resnet50_0 2
 
@@ -225,7 +249,7 @@ uboot> boot
 
 
 ```
-% /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Debug/test_alloc_bo 1
+% test_alloc_bo 1
 ```
 
 ``` console
