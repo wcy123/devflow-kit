@@ -18,7 +18,7 @@ NOTE:
      /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/overview/test_performance_classification  \
      /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Debug/test_alloc_bo \
      ; do \
-          cp -av $i /usr/bin; \
+          cp -av $i /usr/bin;chrpath /usr/lib $i;  \
      done;
 
 # 拷贝测试数据
