@@ -1,5 +1,5 @@
 #!/bin/bash
-sshpass -e  scp c.sh c.cmd xbj-pvapjmp11:
+scp c.sh xbjjmphost02:
 function loop ()
 {
     eval "$@";
@@ -8,4 +8,4 @@ function loop ()
     done
 }
 
-loop sshpass -e  ssh  -T xbj-pvapjmp11  c.cmd $1
+loop sshpass -e  ssh  -T xbjjmphost02  bash -xe c.sh $1

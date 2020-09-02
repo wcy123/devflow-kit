@@ -1,4 +1,4 @@
-export PATH=/bin:/drives/c/Users/chunywan/DOCUME~1/MobaXterm/slash/bin:/drives/h/WINDOWS:/drives/c/Windows/system32
+# export PATH=/bin:/drives/c/Users/chunywan/DOCUME~1/MobaXterm/slash/bin:/drives/h/WINDOWS:/drives/c/Windows/system32
 set -ex
 id=$1
 declare -a args
