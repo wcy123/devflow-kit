@@ -51,6 +51,14 @@ cd ../Vitis-AI-Library/
 git checkout br-u30
 ./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON'
 ```
+### check xmodel
+```
+cd  /home/mingyue/d/working/VMSS_1.2
+
+
+
+```
+
 ## build VMSS server
 ```
 cd $HOME/d/working/VMSS_1.2/VMSS
@@ -125,11 +133,5 @@ cat ./scripts/gst_send_rtp.sh
 ./scripts/gst_send_rtp.sh -rd 10 -w 224 -h 224 -f  data/classification/beagle.jpg
 ./scripts/gst_send_rtp.sh -rd 10 -w 416 -h 416 -f  data/classification/beagle.jpg
 ./scripts/gst_send_rtp.sh -rd 10 -w 480 -h 360 -f  data/ssd/sample_ssd.jpg
-
-```
-
-
-```
-/group/xbjlab/dphi_software/software/workspace/mingyue/build/build.linux.2020.1.aarch64.Release/Vitis-AI-Library/usefultools/xilinx_mem_read $((0x60e00000 + 0xcd7676)) 2359296 > a.bin
 
 ```
