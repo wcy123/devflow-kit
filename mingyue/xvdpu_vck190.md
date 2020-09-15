@@ -94,3 +94,32 @@ env XLNX_ENABLE_DUMP=1 ./test_dpu_runner Resnet50_v1.5_pruned_74.xmodel Resnet50
 cd ~/classification
 /usr/share/vitis_ai_library/samples/classification/test_performance_classification Resnet50_v1.5_pruned_74 test_performance_classification.list -t 4 -s 60
 ```
+
+```
+cd /home/mingyue/d/working/dpdlf/xvdpu/xvdpu_bit
+mkdir 0914
+cd 0914
+scp mingyue@xcdl190074:/group/dphi_edge/workspace/davidxu/share/versal_bootbin/xvdpu_v0_2_0_00_333M_opt_load_0914/sd_card/DPUCVDX8G_final_20200914.xclbin ./
+scp mingyue@xcdl190074:/group/dphi_edge/workspace/davidxu/share/versal_bootbin/xvdpu_v0_2_0_00_333M_opt_load_0914/sd_card/BOOT.BIN ./
+md5sum *
+pwd
+scp DPUCVDX8G_final_20200914.xclbin BOOT.BIN root@10.176.179.54:/mnt/sd-mmcblk0p1/
+```
+
+
+
+## yolov3_voc
+```
+scp -r mingyue@xcdl190074:/group/modelzoo/internal-cooperation-models/caffe/yolov3_voc/fix/acc/dump_gpu /home/mingyue/d/working/xvdpu/yolov3/yolov3_voc/
+cp /home/mingyue/d/working/dpdlf/xvdpu/pb/yolov3_voc/yolov3_voc.xmodel /home/mingyue/d/working/xvdpu/yolov3/yolov3_voc/
+scp -r /home/mingyue/d/working/xvdpu/yolov3 root@10.176.179.54:~/
+
+
+env XLNX_ENABLE_FINGERPRINT_CHECK=0 XLNX_ENABLE_DUMP=1 ./test_dpu_runner yolov3/yolov3_voc/yolov3_voc.xmodel yolov3_voc_0 yolov3/yolov3_voc/dump_gpu/data_fixed.bin 1 1 2>debug.log 1>&2
+md5sum dump/subgraph_layer0_conv/input/*.bin
+md5sum dump/subgraph_layer0_conv/output/*.bin
+
+env XLNX_ENABLE_FINGERPRINT_CHECK=0 XLNX_GOLDEN_DIR=yolov3/yolov3_voc/dump_gpu XLNX_ENABLE_DEBUG_MODE=1 XLNX_ENABLE_UPLOAD=0 XLNX_ENABLE_DUMP=1 ./test_dpu_runner yolov3/yolov3_voc/yolov3_voc.xmodel yolov3_voc_0 yolov3/yolov3_voc/dump_gpu/data_fixed.bin 1 1 2>debug.log 1>&2
+grep 'XLNX_GOLDEN_DIR: compare data fail' debug.log
+
+```
