@@ -123,3 +123,9 @@ env XLNX_ENABLE_FINGERPRINT_CHECK=0 XLNX_GOLDEN_DIR=yolov3/yolov3_voc/dump_gpu X
 grep 'XLNX_GOLDEN_DIR: compare data fail' debug.log
 
 ```
+
+## yolov3_voc_tf
+```
+env XLNX_ENABLE_FINGERPRINT_CHECK=0 XLNX_ENABLE_DUMP=1 ./test_dpu_runner yolov3/yolov3_voc_tf/yolov3_voc_tf.xmodel yolov3_voc_0
+
+```
