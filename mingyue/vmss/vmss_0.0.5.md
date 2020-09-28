@@ -35,6 +35,7 @@ export VMSS_HOME=$HOME/d/working/VMSS_0.0.5/VMSS
 
 make DEBUG=1
 ```
+```
 *********************************************************
               CALLING MAKE  FOR mlplugin
 ***********************************************************
@@ -51,10 +52,14 @@ make[2]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingy
 make[1]: *** [Makefile:100: mlplugin] Error 2
 make[1]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/server'
 make: [Makefile:41: /home/mingyue/d/working/VMSS_0.0.5/VMSS/server] Error 2 (ignored)
+
+```
 ```
 #update server/env.sh  server/Makefile
 vi server/Makefile
 vi server/env.sh
+```
+
 ```
 mingyue@xbjlabdpsvr15:VMSS% git diff
 diff --git a/server/Makefile b/server/Makefile
@@ -101,11 +106,12 @@ index aacbf94..ba50ac3 100755
 
 -sudo cp extern/VMSS_Plugins/preproc/XDNN_ML_PreProcess_Plugin/lib/libmlscaler.so /opt/xilinx/xma/plugins/
 +#sudo cp extern/VMSS_Plugins/preproc/XDNN_ML_PreProcess_Plugin/lib/libmlscaler.so /opt/xilinx/xma/plugins/
+```
 
 ```
 make DEBUG=1
 ```
-
+```
 ***********************************************************
               CALLING MAKE  FOR dbplugin
 ***********************************************************
@@ -126,3 +132,4 @@ make[2]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingy
 make[1]: *** [Makefile:121: dbplugin] Error 2
 make[1]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/server'
 make: [Makefile:41: /home/mingyue/d/working/VMSS_0.0.5/VMSS/server] Error 2 (ignored)
+```
