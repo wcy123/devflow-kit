@@ -1,3 +1,4 @@
+## git clone VMSS release/0.0.5
 ```
 cd /home/mingyue/d/working
 mkdir VMSS_0.0.5
@@ -10,7 +11,7 @@ cd VMSS
 
 git submodule update --init
 ```
-## VAI br-u30
+## compiler VAI 1.2 (br-u30)
 ```
 cd /home/mingyue/d/working/aisw/br-u30
 
