@@ -27,39 +27,20 @@ cd ../xir
 cd ../vart
 ./cmake.sh --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF
 
+cd ../Vitis-AI-Library/
+./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON'
+
 ```
 ## build VMSS server
 ```
 cd $HOME/d/working/VMSS_0.0.5/VMSS
 export VMSS_HOME=$HOME/d/working/VMSS_0.0.5/VMSS
 
-make DEBUG=1
-```
-```
-*********************************************************
-              CALLING MAKE  FOR mlplugin
-***********************************************************
-make -C /home/mingyue/d/working/VMSS_0.0.5/VMSS/./extern/VMSS_Plugins/ml/XDNN_ML_Interface_Plugin -e -j1
-make[2]: Entering directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/extern/VMSS_Plugins/ml/XDNN_ML_Interface_Plugin'
-mkdir -p build/obj
-g++ -I /home/mingyue/d/working/VMSS_0.0.5/VMSS/./extern/VMSS_Lib/include -Ilibs -Ilibs/MLsuite/xfdnn/rt/xdnn_cpp -I/opt/xilinx/xrt/include -I/opt/xilinx/xrt/include/CL -I./anaconda2/envs/ml-suite-py3/include -I./anaconda2/envs/ml-suite-py3/include/xip/butler -Ilibs/MLsuite/xfdnn/rt/vitis/include --std=c++11 -Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -fpermissive -O0 -g -c src/xdnnMLsuiteIntf.cpp -o build/obj/xdnnMLsuiteIntf.o
-src/xdnnMLsuiteIntf.cpp:27:10: fatal error: xdnn.h: No such file or directory
-   27 | #include "xdnn.h"
-      |          ^~~~~~~~
-compilation terminated.
-make[2]: *** [Makefile:106: build/obj/xdnnMLsuiteIntf.o] Error 1
-make[2]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/extern/VMSS_Plugins/ml/XDNN_ML_Interface_Plugin'
-make[1]: *** [Makefile:100: mlplugin] Error 2
-make[1]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/server'
-make: [Makefile:41: /home/mingyue/d/working/VMSS_0.0.5/VMSS/server] Error 2 (ignored)
-
-```
-```
 #update server/env.sh  server/Makefile
 vi server/Makefile
 vi server/env.sh
 ```
-
+### git diff
 ```
 mingyue@xbjlabdpsvr15:VMSS% git diff
 diff --git a/server/Makefile b/server/Makefile
@@ -109,27 +90,35 @@ index aacbf94..ba50ac3 100755
 ```
 
 ```
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig
 make DEBUG=1
 ```
+vmss server compiler success!!!
+
+## build DPU plugin
 ```
-***********************************************************
-              CALLING MAKE  FOR dbplugin
-***********************************************************
-make -C /home/mingyue/d/working/VMSS_0.0.5/VMSS/./extern/VMSS_Plugins/database/VMSS_MongoDB_Conn_Plugin -e -j1
-make[2]: Entering directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/extern/VMSS_Plugins/database/VMSS_MongoDB_Conn_Plugin'
-mkdir -p build/obj
-Package libmongoc-1.0 was not found in the pkg-config search path.
-Perhaps you should add the directory containing `libmongoc-1.0.pc'
-to the PKG_CONFIG_PATH environment variable
-No package 'libmongoc-1.0' found
-gcc -I/home/mingyue/d/working/VMSS_0.0.5/VMSS/./extern/VMSS_Lib/include  -Wall -fPIC -O0 -g -c src/vmssDBconn.c -o build/obj/vmssDBconn.o
-src/vmssDBconn.c:18:10: fatal error: mongoc.h: No such file or directory
-   18 | #include <mongoc.h>
-      |          ^~~~~~~~~~
-compilation terminated.
-make[2]: *** [Makefile:89: build/obj/vmssDBconn.o] Error 1
-make[2]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/extern/VMSS_Plugins/database/VMSS_MongoDB_Conn_Plugin'
-make[1]: *** [Makefile:121: dbplugin] Error 2
-make[1]: Leaving directory '/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS/server'
-make: [Makefile:41: /home/mingyue/d/working/VMSS_0.0.5/VMSS/server] Error 2 (ignored)
+cd /home/mingyue/d/working/VMSS_0.0.5/
+git clone git@gitenterprise.xilinx.com:chunywan/VMSS_Plugins.git
+# commit is : c9224a00111b2676173090ba7aa875975ccc0429
+
+cp -r $HOME/d/working/VMSS_0.0.5/VMSS_Plugins/ml/DPU $HOME/d/working/VMSS_0.0.5/VMSS_DPU_Plugins
+cd $HOME/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/
+./cmake.sh --clean --cmake-options=-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+```
+### DPU Plugin build error
+```
+/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp: In function ‘std::string to_string(const VmssInfResult*, int)’:
+/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp:132:58: error: ‘const VmssInfResult’ {aka ‘const struct VmssInfResult’} has no member named ‘meta_cnt’
+  132 |            << "next=" << to_string(result->next, result->meta_cnt, level + 1)
+      |                                                          ^~~~~~~~
+/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp: In function ‘bool get_roi_rec(const VmssInfResult*, const VmssInfResult*, std::vector<cv::Rect_<int> >&)’:
+/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp:218:55: error: ‘const VmssInfResult’ {aka ‘const struct VmssInfResult’} has no member named ‘meta_cnt’
+  218 |   auto found = get_roi_rec(dst, result->next, result->meta_cnt, ret);
+      |                                                       ^~~~~~~~
+/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp: At global scope:
+/group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp:193:13: error: ‘bool get_roi_rec(const VmssInfResult*, VmssMetaData**, uint16_t, std::vector<cv::Rect_<int> >&)’ defined but not used [-Werror=unused-function]
+  193 | static bool get_roi_rec(const VmssInfResult *dst, VmssMetaData **result,
+      |             ^~~~~~~~~~~
+cc1plus: all warnings being treated as errors
+make[2]: *** [dpu_plugin_common/CMakeFiles/dpu_plugin_common.dir/build.make:63: dpu_plugin_common/CMakeFiles/dpu_plugin_common.dir/src/util.cpp.o] Error 1
 ```
