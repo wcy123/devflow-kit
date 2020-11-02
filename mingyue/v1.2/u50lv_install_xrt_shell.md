@@ -16,7 +16,7 @@ sudo /opt/xilinx/xrt/bin/xbmgmt flash --update --shell xilinx_u50lv_gen3x4_xdma_
 sudo yum install -y /proj/xbuilds/2020.1_0622_1910/xbb/packages/internal_platforms/u50lv/gen3x4_xdma/2-202010-1-dev/xilinx-u50lv-gen3x4-xdma-2-202010-1-dev-1-2902115.noarch.rpm
 
 ssh mingyue@xcdengvm244021
-/proj/sdxbf/prod/cmbin/util/bnreboot.py --wait xcdsda27
+/proj/sdxbf/prod/cmbin/util/bnreboot.py --wait xcdsda30
 
 cd /home/mingyue/d/working/aisw/vart-xclbins/v1.2/u50lv/9E275M
 mkdir 20200706
