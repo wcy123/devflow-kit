@@ -64,7 +64,7 @@ edge
 % cd /home/root/wcy/resnet50
 % scp chunywan@10.176.178.16:/scratch/group/modelzoo/internal-cooperation-models/caffe/resnet50.baseline9213_ck/fix/acc//dump_gpu/data.bin .
 % export LD_LIBRARY_PATH=/group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2019.2.aarch64.Release/vart/dpu-runner:/group/xbjlab/dphi_software/software/workspace/chunywan/petalinux-sdk/sysroots/aarch64-xilinx-linux/install/Release/lib
-% env XLNX_SHOW_DPU_COUNTER=1  XLNX_ENABLE_DUMP=1 /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2019.2.aarch64.Debug/vart/dpu-runner/test/test_dpu_runner /usr/share/vitis_ai_library/models/resnet50/resnet50.elf resnet50_0 data.bin 1 1
+% env XLNX_SHOW_DPU_COUNTER=1  XLNX_ENABLE_DUMP=1 /group/xbjlab/dphi_software/software/workspace/chunywan/build/build.linux.2020.1.aarch64.Debug/vart/dpu-runner/test/test_dpu_runner /usr/share/vitis_ai_library/models/resnet50/resnet50.xmodel resnet50_0 ../a.xmodel 1 1
 % function d() { md5sum $1; stat -c %s $1; xxd $1 | head -n 16; }
 % d ./dump/resnet50_0/output/0.fc1000_55.bin
 1419317ad942a1cb76a16b31b76cfb1e  ./dump/resnet50_0/output/0.fc1000_55.bin

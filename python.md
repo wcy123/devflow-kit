@@ -4,6 +4,7 @@
 ## download source code and extract
 
 ```console
+% vim ~/tmp/a.txt
 % mkdir -p ~/build; cd ~/build; ls
 % curl -Lo python-v3.9.0a5.tar.gz https://github.com/python/cpython/archive/v3.9.0a5.tar.gz
 % tar -zxvf python-v3.9.0a5.tar.gz
@@ -14,7 +15,9 @@
 
 ## configure, build and install
 
+
 ```console
+%
 % alias sudo=/tools/xgs/bin/sudo # need in xilinx env
 % sudo yum install -y libffi-devel libsqlite3x-devel openssl-devel zlib-devel # for Centos , libgdbm-devel not found
 % # sudo apt-get install -y libffi-dev libgdbm-dev libsqlite3-dev libssl-dev zlib1g-dev # for ubuntu
@@ -62,7 +65,7 @@ cmake version is 3.16, too low, cannot find python3.9, but 3.8 is needed.
 % scp chunywan@localhost:build/Python-3.8.3.tgz ~/build/
 % tar xvf Python-3.8.3.tgz
 % source /opt/rh/devtoolset-9/enable # gcc4 has bug, cannot build python
-% cd Python-3.8.3/
+% cd ~/build/Python-3.8.3/
 % aclocal
 % autoreconf
 % ./configure --prefix=$HOME/.local --enable-optimizations && make -j30 && make install
