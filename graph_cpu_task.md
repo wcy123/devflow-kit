@@ -1,4 +1,8 @@
-# develop dw-conv op
+# dev log for `graph_task` and `cpu_task`
+
+## Keras-GoogleNet-ResNet
+
+### develop dw-conv op
 
 
 ``` console
@@ -121,7 +125,7 @@ now `batch_normalization_1/FusedBatchNormV3_1/offset/wquant_const_const` is ok. 
 ```
 
 
-## run the who test
+## run the whole test
 
 
 ``` console
@@ -177,3 +181,51 @@ libvart_op_imp_transposed-depthwise-conv2d-fix.so
 %
 %
 ```
+
+## `Keras-GoogleNet-ResNet-cifar10-miniVggNet`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL="Keras-GoogleNet-ResNet-cifar10-miniVggNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+softmax md5sum is not correct, update the md5sum value.
+
+run it again
+
+## `Keras-GoogleNet-ResNet-fmnist-LeNet`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL="Keras-GoogleNet-ResNet-fmnist-LeNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+softmax md5sum is not correct, update the md5sum value.
+
+run it again
+
+## `"Keras-GoogleNet-ResNet-fmnist-miniGoogleNet"`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL="Keras-GoogleNet-ResNet-fmnist-miniGoogleNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+softmax md5sum is not correct, update the md5sum value.
+
+run it again
+
+
+## "Keras-GoogleNet-ResNet-fmnist-miniResNet"
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL="Keras-GoogleNet-ResNet-fmnist-miniResNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+similiar to the other mini resnet, the second subgraph is not correct.
