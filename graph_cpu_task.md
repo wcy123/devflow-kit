@@ -491,3 +491,158 @@ fix a bug in `upsample-fix.cpp`
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
 % env MODEL=Resnet50_v1.5_pruned_74.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
+
+## `SemanticFPN_cityscapes_pt`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=SemanticFPN_cityscapes_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+## `VAI-Caffe-ML-CATSvsDOGS`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-Caffe-ML-CATSvsDOGS.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+## `VAI-Caffe-ML-CATSvsDOGS-pruned`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-Caffe-ML-CATSvsDOGS-pruned.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+## `VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+```
+F1119 09:31:39.637473  3351 op_imp.cpp:91] Check failed: handle != NULL cannot open library! lib=libvart_op_imp_priorbox.so;error=libva
+```
+
+``` console
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.txt
+```
+
+``` console
+% mkdir -p /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/cp
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/cp
+% git clone gits@xcdl190260:cp/caffe
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/cp/caffe
+% git status
+% SRC_DIR=$PWD
+% cp Makefile.config.example Makefile.config
+% make -j30 -k
+```
+
+<!-- % bash $SRC_DIR/tools/gen_git_version.sh $SRC_DIR/src/caffe/pruning/version.cpp # Need a version -->
+<!-- % cat $SRC_DIR/src/caffe/pruning/version.cpp -->
+<!-- % PREFIX=$HOME/.local/CentOS.7.6.1810.x86_64.Debug -->
+<!-- % BUILD_DIR=$HOME/build/build.CentOS.7.6.1810.x86_64.Debug/caffe -->
+<!-- % BUILD_PREFIX=$PREFIX -->
+<!-- % sudo yum install -y hdf5-devel yaml-cpp-devel openblas-devel leveldb-devel lmdb-devel -->
+<!-- % mkdir -p $BUILD_DIR -->
+<!-- % cd $BUILD_DIR; pwd -->
+<!-- % source /opt/rh/devtoolset-9/enable -->
+<!-- % cmake -DUSE_CUDNN=0 -DUSE_NCCL=0 -DOPENCV_VERSION=3 -DCMAKE_CXX_STANDARD=11 -DCMAKE_LIBRARY_PATH=${BUILD_PREFIX}/lib  -DCMAKE_INCLUDE_PATH=${BUILD_PREFIX}/include -DCMAKE_PREFIX_PATH=$BUILD_PREFIX -DCPU_ONLY=1 -DBLAS="open" -DCMAKE_INSTALL_PREFIX="${PREFIX}" -DCMAKE_INSTALL_LIBDIR=lib -Dpython_version=$PY_VER -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCRYPTO_KEY=deephi-tech -DDPU_ACCURACY=1 $SRC_DIR -->
+
+
+``` patch
+--- Makefile.config.example	2020-11-19 09:44:30.603389000 +0800
++++ Makefile.config	2020-11-19 15:34:35.586772000 +0800
+@@ -3,20 +3,20 @@
+
+ # cuDNN acceleration switch (uncomment to build with cuDNN).
+ # cuDNN version 4 or higher is required.
+-USE_CUDNN := 1
++USE_CUDNN := 0
+
+ # NCCL acceleration switch (uncomment to build with NCCL)
+ # See https://github.com/NVIDIA/nccl
+-USE_NCCL := 1
++USE_NCCL := 0
+
+ # CPU-only switch (uncomment to build without GPU support).
+ # cuDNN version 4 or higher is required.
+-# CPU_ONLY := 1
++CPU_ONLY := 1
+
+ # uncomment to disable IO dependencies and corresponding data layers
+ # USE_OPENCV := 0
+-# USE_LEVELDB := 0
+-# USE_LMDB := 0
++USE_LEVELDB := 0
++USE_LMDB := 0
+
+ # uncomment to allow MDB_NOLOCK when reading LMDB files (only if necessary)
+ #	You should not set this flag if you will be reading LMDBs with any
+@@ -24,7 +24,7 @@
+ # ALLOW_LMDB_NOLOCK := 1
+
+ # Uncomment if you're using OpenCV 3
+-# OPENCV_VERSION := 3
++OPENCV_VERSION := 3
+
+ # To customize your choice of compiler, uncomment and set the following.
+ # N.B. the default for Linux is g++ and the default for OSX is clang++
+@@ -54,8 +54,8 @@
+ # Custom (MKL/ATLAS/OpenBLAS) include and lib directories.
+ # Leave commented to accept the defaults for your choice of BLAS
+ # (which should work)!
+-# BLAS_INCLUDE := /path/to/your/blas
+-# BLAS_LIB := /path/to/your/blas
++BLAS_INCLUDE := /usr/include/openblas
++BLAS_LIB := /usr/lib64/libopenblas.so
+
+ # Homebrew puts openblas in a directory that is not on the standard search path
+ # BLAS_INCLUDE := $(shell brew --prefix openblas)/include
+@@ -68,8 +68,8 @@
+
+ # NOTE: this is required only if you will compile the python interface.
+ # We need to be able to find Python.h and numpy/arrayobject.h.
+-PYTHON_INCLUDE := /usr/include/python2.7 \
+-		/usr/lib/python2.7/dist-packages/numpy/core/include
++PYTHON_INCLUDE := /usr/local/include/python3.8 \
++               /usr/local/lib/python3.8/site-packages/numpy/core/include/numpy
+ # Anaconda Python distribution is quite popular. Include path:
+ # Verify anaconda location, sometimes it's in root.
+ # ANACONDA_HOME := $(HOME)/anaconda
+@@ -78,12 +78,12 @@
+ 		# $(ANACONDA_HOME)/lib/python2.7/site-packages/numpy/core/include \
+
+ # Uncomment to use Python 3 (default is Python 2)
+-# PYTHON_LIBRARIES := boost_python3 python3.5m
++PYTHON_LIBRARIES := boost_python python3.8
+ # PYTHON_INCLUDE := /usr/include/python3.5m \
+ #                 /usr/lib/python3.5/dist-packages/numpy/core/include
+
+ # We need to be able to find libpythonX.X.so or .dylib.
+-PYTHON_LIB := /usr/lib
++PYTHON_LIB := /home/chunywan/.local/lib64/ /home/chunywan/.local/lib /usr/local/lib /usr/local/lib64 /usr/lib64
+ # PYTHON_LIB := $(ANACONDA_HOME)/lib
+
+ # Homebrew installs numpy in a non standard path (keg only)
+@@ -111,7 +111,7 @@
+ DISTRIBUTE_DIR := distribute
+
+ # Uncomment for debugging. Does not work on OSX due to https://github.com/BVLC/caffe/issues/171
+-# DEBUG := 1
++DEBUG := 1
+
+ # Uncomment to use boost::shared_ptr
+ # USE_BOOST := 1
+@@ -131,7 +131,7 @@
+ # shared object suffix name to differentiate branches
+ LIBRARY_NAME_SUFFIX := -deephi
+
+-# Use this compiling parameter to enable the code for quantization accuracy to
+-# match DPU(caffe deploy) accuracy but affect basic float train/inference accuracy,
++# Use this compiling parameter to enable the code for quantization accuracy to
++# match DPU(caffe deploy) accuracy but affect basic float train/inference accuracy,
+ # for example, average pooling accuracy change for matching DPU
+ DPU_ACCURACY := 1
+```

@@ -34,6 +34,7 @@ for ubuntu
 % cat ../CMakeLists.txt | grep OPTION
 % cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DENABLE_PIC=on -DBUILD_SHARED_LIBS=on -DBUILD_TESTS=off -DBUILD_EXAMPLES=off -DBUILD_PERF_TESTS=off   ../
 % make -j30 && make  install
+% sudo make install DESTDIR=/usr/local
 ```
 
 ## configure build and install for docker environment
