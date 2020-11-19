@@ -229,3 +229,265 @@ run it again
 ```
 
 similiar to the other mini resnet, the second subgraph is not correct.
+
+
+## `"Keras-GoogleNet-ResNet-fmnist-miniVggNet"`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=Keras-GoogleNet-ResNet-fmnist-miniVggNet.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+softmax md5sum is not correct, update the md5sum value.
+
+run it again
+
+## `ML-Caffe-Segmentation-Tutorial-FPN`
+
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ML-Caffe-Segmentation-Tutorial-FPN.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+update golden hash.
+
+
+## `ML-Caffe-Segmentation-Tutorial-espnet`
+
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ML-Caffe-Segmentation-Tutorial-espnet.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+skipped.
+
+## `ML-Caffe-Segmentation-Tutorial-unet-full`
+
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-full.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+first subgraph is OK. golden is updated.
+
+first cpu graph failed.
+
+```console
+chunywan@xbjlabdpsvr16:test% d /tmp/error_result/0/relu_d0c_fix.bin
+f081e8b3dd2d27845368b67753a40d99  /tmp/error_result/0/relu_d0c_fix.bin
+33554432
+0000000: 0000 0705 0001 0002 0000 0307 0006 0c00  ................
+0000010: 0c1b 0004 0000 0019 0300 0900 0e00 0400  ................
+0000020: 0007 0607 0006 0007 000c 1005 0000 0000  ................
+0000030: 0000 0900 010c 0815 0401 0b01 0000 0000  ................
+0000040: 0000 0008 1200 0000 0500 0a01 000c 0e0a  ................
+0000050: 1115 0000 0000 0018 0500 0600 0001 0900  ................
+0000060: 0003 000b 000a 0005 0006 030f 0000 0000  ................
+0000070: 0200 1700 0508 0003 0800 1201 0000 0009  ................
+0000080: 0000 0006 1100 0002 0400 0c04 0007 1300  ................
+0000090: 1209 0000 0000 001d 0400 0500 0000 0800  ................
+00000a0: 0007 0006 0010 0003 0006 0308 0000 0000  ................
+00000b0: 0000 1300 030c 0009 0800 0b08 0000 0009  ................
+00000c0: 0000 0007 1500 0004 0400 0c04 0008 1100  ................
+00000d0: 1a09 0000 0000 001d 0a00 0400 0005 0a00  ................
+00000e0: 0005 0000 0010 0000 0001 0111 0001 0000  ................
+00000f0: 0000 1302 0010 000f 0900 1004 0000 000c  ................
+
+chunywan@xcdl190253:dump_gpu% pwd
+/group/modelzoo/Vitis-AI-Tutorials/ML-Caffe-Segmentation-Tutorial/Segment/VAI/unet-full/quantize/acc/dump_gpu
+chunywan@xcdl190253:dump_gpu% d relu_d0c.bin
+1f81a416ece7ec05d93857b610d4e1d3  relu_d0c.bin
+33554432
+00000000: 0000 0605 0001 0001 0000 0206 0005 0b00  ................
+00000010: 0b1b 0003 0000 0019 0200 0800 0e00 0400  ................
+00000020: 0006 0507 0005 0007 000b 0f05 0000 0000  ................
+00000030: 0000 0900 000b 0714 0401 0a01 0000 0000  ................
+00000040: 0000 0007 1200 0000 0400 0a01 000c 0d09  ................
+00000050: 1015 0000 0000 0017 0500 0600 0001 0800  ................
+00000060: 0002 000b 0009 0005 0005 030e 0000 0000  ................
+00000070: 0100 1600 0407 0003 0700 1101 0000 0008  ................
+00000080: 0000 0005 1100 0001 0300 0b03 0006 1200  ................
+00000090: 1208 0000 0000 001d 0400 0500 0000 0700  ................
+000000a0: 0006 0005 0010 0002 0005 0307 0000 0000  ................
+000000b0: 0000 1200 020b 0008 0700 0a08 0000 0008  ................
+000000c0: 0000 0006 1400 0003 0300 0b03 0007 1000  ................
+000000d0: 1908 0000 0000 001d 0a00 0400 0004 0900  ................
+000000e0: 0004 0000 0010 0000 0001 0011 0000 0000  ................
+000000f0: 0000 1202 000f 000e 0900 1004 0000 000b  ................
+
+```
+
+use vaie to run
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/debug_vaie
+% # check input
+% env DEBUG_DPU_RUNNER=1 XLNX_ENABLE_DEVICES=0,1 /home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/bin/vaie-run -i /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/ML-Caffe-Segmentation-Tutorial-unet-full/ML-Caffe-Segmentation-Tutorial-unet-full.xmodel  --init 'data_fixed /scratch/models/cache/golden/fc/ab4f59c050a0be105da865547fa4af' --deploy --release --disable-debug --dump 'd0c_fixed input.bin;BatchNorm_d0c/fix/scale weight.bin;BatchNorm_d0c_bias_fixneuron bias.bin;relu_d0c_fix output.bin' --target run
+% d input.bin
+```
+
+there is a bug in the xmodel
+
+debug with `xlnx_test_dpu_runner`
+
+```console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/debug_vaie
+% env XLNX_ENABLE_DEVICES=0 DEBUG_DPU_RUNNER=1 XLNX_ENABLE_DUMP=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/usefultools/xilinx_test_dpu_runner /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/ML-Caffe-Segmentation-Tutorial-unet-full/ML-Caffe-Segmentation-Tutorial-unet-full.xmodel -i 0  dump/subgraph_conv_d0a_b/input/0.data_fixed.bin
+```
+
+update `test_graph_task.cpp` to support debugging and calibration
+
+``` console
+% env USE_CPU_TASK=0  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/ML-Caffe-Segmentation-Tutorial-unet-full/ML-Caffe-Segmentation-Tutorial-unet-full.xmodel -i 2
+% chunywan@xbjlabdpsvr16:debug_vaie% d 0.relu_d0c_fix.bin
+f081e8b3dd2d27845368b67753a40d99  0.relu_d0c_fix.bin
+33554432
+0000000: 0000 0705 0001 0002 0000 0307 0006 0c00  ................
+0000010: 0c1b 0004 0000 0019 0300 0900 0e00 0400  ................
+0000020: 0007 0607 0006 0007 000c 1005 0000 0000  ................
+0000030: 0000 0900 010c 0815 0401 0b01 0000 0000  ................
+0000040: 0000 0008 1200 0000 0500 0a01 000c 0e0a  ................
+0000050: 1115 0000 0000 0018 0500 0600 0001 0900  ................
+0000060: 0003 000b 000a 0005 0006 030f 0000 0000  ................
+0000070: 0200 1700 0508 0003 0800 1201 0000 0009  ................
+0000080: 0000 0006 1100 0002 0400 0c04 0007 1300  ................
+0000090: 1209 0000 0000 001d 0400 0500 0000 0800  ................
+00000a0: 0007 0006 0010 0003 0006 0308 0000 0000  ................
+00000b0: 0000 1300 030c 0009 0800 0b08 0000 0009  ................
+00000c0: 0000 0007 1500 0004 0400 0c04 0008 1100  ................
+00000d0: 1a09 0000 0000 001d 0a00 0400 0005 0a00  ................
+00000e0: 0005 0000 0010 0000 0001 0111 0001 0000  ................
+00000f0: 0000 1302 0010 000f 0900 1004 0000 000c  ................
+```
+
+it is as same as the `cpu_task` implementation, the golden result has something wrong.
+
+
+## `"ML-Caffe-Segmentation-Tutorial-unet-lite"`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-lite.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+the first subgraph is not correct
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/debug_vaie
+% cp /scratch/models/cache/golden/f5/4959bc00c38ff5444d8267e1de491f ref/data_fixed.bin
+% env  USE_CPU_TASK=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/ML-Caffe-Segmentation-Tutorial-unet-lite/ML-Caffe-Segmentation-Tutorial-unet-lite.xmodel -i 1
+```
+
+## `ML-at-Edge-yolov3`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ML-at-Edge-yolov3.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+pass
+
+## `MLPerf_resnet50_v1.5_tf`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=MLPerf_resnet50_v1.5_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+3 outputs have same md5sum.
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/debug_vaie
+% cp /scratch/models/cache/golden/4c/64ee8d0de09dcf71c9d97072428021 ref/input_tensor_aquant.bin
+% env  USE_CPU_TASK=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/MLPerf_resnet50_v1.5_tf/MLPerf_resnet50_v1.5_tf.xmodel -i 1
+% cp 0.resnet_model_dense_BiasAdd_aquant.bin ref/resnet_model_dense_BiasAdd_aquant.bin
+% env  USE_CPU_TASK=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/MLPerf_resnet50_v1.5_tf/MLPerf_resnet50_v1.5_tf.xmodel -i 2
+```
+
+after troubleshooting, I learned that it was because `fix` op is not properly implemented.
+
+
+## `MNIST-Classification-TensorFlow`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=MNIST-Classification-TensorFlow.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+pass
+
+## `MT-resnet18_mixed_pt`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=MT-resnet18_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+
+```
+
+error
+
+```
+MTNet__MTNet_708_fix(ReplaceResize) on error. actual_md5sum: de883235c87930ed1f99f2a254ef6973 expected_md5sum: f78912c33edb2ce2e3e552ebdcfff081 f
+ilename=/tmp/chunywan/error_result/0/MTNet__MTNet_708_fix.bin data=0xa233ea0 size=163840
+```
+
+``` console
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/MT-resnet18_mixed_pt/MT-resnet18_mixed_pt.xmodel
+```
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% rm -fr dump
+% env  MODEL=MT-resnet18_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=1 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% d dump/subgraph_MTNet__MTNet_Conv2d_input_2/output/0.MTNet__MTNet_Sequential_toplayer3__Conv2d_toplayer3_conv__input_56_fix.bin
+% mkdir ref
+% cp dump/subgraph_MTNet__MTNet_Conv2d_input_2/output/0.MTNet__MTNet_Sequential_toplayer3__Conv2d_toplayer3_conv__input_56_fix.bin ref/MTNet__MTNet_Sequential_toplayer3__Conv2d_toplayer3_conv__input_56_fix.bin
+% mkdir log
+% env USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/MT-resnet18_mixed_pt/MT-resnet18_mixed_pt.xmodel -i 2
+% d 0.MTNet__MTNet_708_fix.bin
+% env USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/MT-resnet18_mixed_pt/MT-resnet18_mixed_pt.xmodel -i 2
+% d 0.MTNet__MTNet_708_fix.bin
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/MT-resnet18_mixed_pt/MT-resnet18_mixed_pt.xmodel a.txt
+```
+
+fix a bug in `upsample-fix.cpp`
+
+``` console
+% find dump/subgraph_MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59
+% d dump/subgraph_MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59/input/0.MTNet__MTNet_Sequential_BasicBlock_1__ReLU_relu__input_42_fix.bin
+% # 51252194dc99bc78e5b99b793a382415 OK
+% d dump/subgraph_MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59/input/0.MTNet__MTNet_708_fix.bin
+% # f78912c33edb2ce2e3e552ebdcfff081 OK
+% cp dump/subgraph_MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59/input/0.MTNet__MTNet_Sequential_BasicBlock_1__ReLU_relu__input_42_fix.bin ref/MTNet__MTNet_Sequential_BasicBlock_1__ReLU_relu__input_42_fix.bin
+% cp dump/subgraph_MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59/input/0.MTNet__MTNet_708_fix.bin ref/MTNet__MTNet_708_fix.bin
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/MT-resnet18_mixed_pt/MT-resnet18_mixed_pt.xmodel -i 3
+% d ./dump/subgraph_MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59/output/0.MTNet__MTNet_Sequential_toplayer2__Conv2d_toplayer2_conv__input_59_fix.bin
+% # a728e81d72ef627fdbfe628c70d84bfb, FAIL, not "823adff472a346e900aeb28cebef617b"
+```
+
+## `RefineDet-Medical_EDD_tf`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=RefineDet-Medical_EDD_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+
+```
+
+## `Resnet50_v1.5_pruned_74`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=Resnet50_v1.5_pruned_74.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
