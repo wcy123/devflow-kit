@@ -1,5 +1,17 @@
 # build python from source code
 
+## build `libffi` from source code
+
+if you don't have root
+
+``` console
+% cd $HOME/build
+% curl -Lo libffi-3.3.tar.gz ftp://sourceware.org/pub/libffi/libffi-3.3.tar.gz
+% tar -xvf libffi-3.3.tar.gz
+% cd libffi-3.3/
+% ./configure --prefix=$HOME/.local
+% make -j10 && make install
+```
 
 ## download source code and extract
 
@@ -25,8 +37,8 @@
 % cd ~/build/Python-3.8.3
 % aclocal
 % autoreconf
-% ./configure --prefix=$HOME/.local --enable-optimizations && make -j30 && make install
-%
+% ./configure --prefix=$HOME/.local --enable-optimizations
+% make -j30 && make install
 ```
 
 ## update pip to use sock
@@ -41,6 +53,7 @@ ModuleNotFoundError: No module named '_ctypes'
 ```console
 % cd $HOME/build
 % curl -Lo PySocks.1.7.0.tar.gz https://github.com/Anorov/PySocks/archive/1.7.0.tar.gz
+% rm -fr PySocks-1.7.0/
 % tar xvf PySocks.1.7.0.tar.gz
 % cd PySocks-1.7.0/
 % $HOME/.local/bin/python3 setup.py install

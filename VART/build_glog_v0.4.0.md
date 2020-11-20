@@ -39,7 +39,7 @@ cd ~/build/glog-0.4.0/
 mkdir -p build_for_host
 cd build_for_host
 # cmake -DWITH_GFLAGS=off  -DCPACK_GENERATOR=TGZ -DBUILD_SHARED_LIBS=on -DCMAKE_INSTALL_PREFIX=$HOME/.local .. # install in your home directory
-cmake -DWITH_GFLAGS=off  -DCPACK_GENERATOR=TGZ -DBUILD_SHARED_LIBS=on -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make -j10 && make install
+% cmake -DWITH_GFLAGS=off  -DCPACK_GENERATOR=TGZ -DBUILD_SHARED_LIBS=on -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+% make -j10 && make install
 make package
 ```
