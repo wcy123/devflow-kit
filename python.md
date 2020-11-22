@@ -37,8 +37,17 @@ if you don't have root
 % cd ~/build/Python-3.8.3
 % aclocal
 % autoreconf
-% ./configure --prefix=$HOME/.local --enable-optimizations
+% env PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig ./configure --prefix=$HOME/.local  CXX=`which g++` --disable-static --enable-shared --enable-optimizations
+% grep LIBFFI_INCLUDEDIR Makefile
 % make -j30 && make install
+% ./python -c 'import _ctypes'
+% # it does not work, we still need to install libffi-dev
+```
+
+```
+generate-posix-vars failed
+https://bugs.python.org/issue34112
+Updating gcc to 8.1.0 fixed the problem. or #no  --enable-optimizations
 ```
 
 ## update pip to use sock
@@ -82,4 +91,12 @@ cmake version is 3.16, too low, cannot find python3.9, but 3.8 is needed.
 % aclocal
 % autoreconf
 % ./configure --prefix=$HOME/.local --enable-optimizations && make -j30 && make install
+```
+
+## create a virtual env
+
+``` console
+% pip3 install virtualenvl;
+% python3 -m venv ~/.virtualenvs/base
+% rm -fr tutorial-env
 ```
