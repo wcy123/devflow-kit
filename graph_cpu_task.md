@@ -550,99 +550,55 @@ F1119 09:31:39.637473  3351 op_imp.cpp:91] Check failed: handle != NULL cannot o
 <!-- % source /opt/rh/devtoolset-9/enable -->
 <!-- % cmake -DUSE_CUDNN=0 -DUSE_NCCL=0 -DOPENCV_VERSION=3 -DCMAKE_CXX_STANDARD=11 -DCMAKE_LIBRARY_PATH=${BUILD_PREFIX}/lib  -DCMAKE_INCLUDE_PATH=${BUILD_PREFIX}/include -DCMAKE_PREFIX_PATH=$BUILD_PREFIX -DCPU_ONLY=1 -DBLAS="open" -DCMAKE_INSTALL_PREFIX="${PREFIX}" -DCMAKE_INSTALL_LIBDIR=lib -Dpython_version=$PY_VER -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCRYPTO_KEY=deephi-tech -DDPU_ACCURACY=1 $SRC_DIR -->
 
+see `caffe.makefile.config`
 
-``` patch
---- Makefile.config.example	2020-11-19 09:44:30.603389000 +0800
-+++ Makefile.config	2020-11-19 15:34:35.586772000 +0800
-@@ -3,20 +3,20 @@
 
- # cuDNN acceleration switch (uncomment to build with cuDNN).
- # cuDNN version 4 or higher is required.
--USE_CUDNN := 1
-+USE_CUDNN := 0
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/debug_vaie
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/
+% rsync -avz xcdl190253:/group/modelzoo/Vitis-AI-Tutorials/VAI-Caffe-SSD-Tutorial/SSD/VAI/Mobilenetv2-SSD .
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/Mobilenetv2-SSD/quantize/acc
+% env DECENT_DEBUG=5 /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/cp/caffe/build/tools/vai_q test -model dump.prototxt -weights ../quantize_train_test.caffemodel -test_iter=1
+```
 
- # NCCL acceleration switch (uncomment to build with NCCL)
- # See https://github.com/NVIDIA/nccl
--USE_NCCL := 1
-+USE_NCCL := 0
 
- # CPU-only switch (uncomment to build without GPU support).
- # cuDNN version 4 or higher is required.
--# CPU_ONLY := 1
-+CPU_ONLY := 1
+``` gdb-session
+"min_size: 15\nmin_size: 30\nmax_size: 33\nmax_size: 66\naspect_ratio: 2\nflip: true\nclip: false\nvariance: 0.1\nvariance: 0.1\nvariance: 0.2\nvariance: 0.2\nstep: 8\noffset: 0.5\n"
+p layer_param_.name()
 
- # uncomment to disable IO dependencies and corresponding data layers
- # USE_OPENCV := 0
--# USE_LEVELDB := 0
--# USE_LMDB := 0
-+USE_LEVELDB := 0
-+USE_LMDB := 0
+"conv4_3_norm_mbox_priorbox"
 
- # uncomment to allow MDB_NOLOCK when reading LMDB files (only if necessary)
- #	You should not set this flag if you will be reading LMDBs with any
-@@ -24,7 +24,7 @@
- # ALLOW_LMDB_NOLOCK := 1
+(gdb) p layer_width
+$7 = 60
+(gdb) p layer_height
+$8 = 45
+(gdb) p layer_width
+$7 = 60
+(gdb) p layer_height
+$8 = 45
+(gdb) p step_w
+$12 = 8
+(gdb) p step_h
+$13 = 8
+141       int dim = layer_height * layer_width * num_priors_ * 4;
+(gdb) p dim
+$14 = 86400
+(gdb) p num_priors_
+$15 = 8
+(gdb) p offset_
+$16 = 0.5
+```
 
- # Uncomment if you're using OpenCV 3
--# OPENCV_VERSION := 3
-+OPENCV_VERSION := 3
+ debug the `op_imp`
 
- # To customize your choice of compiler, uncomment and set the following.
- # N.B. the default for Linux is g++ and the default for OSX is clang++
-@@ -54,8 +54,8 @@
- # Custom (MKL/ATLAS/OpenBLAS) include and lib directories.
- # Leave commented to accept the defaults for your choice of BLAS
- # (which should work)!
--# BLAS_INCLUDE := /path/to/your/blas
--# BLAS_LIB := /path/to/your/blas
-+BLAS_INCLUDE := /usr/include/openblas
-+BLAS_LIB := /usr/lib64/libopenblas.so
-
- # Homebrew puts openblas in a directory that is not on the standard search path
- # BLAS_INCLUDE := $(shell brew --prefix openblas)/include
-@@ -68,8 +68,8 @@
-
- # NOTE: this is required only if you will compile the python interface.
- # We need to be able to find Python.h and numpy/arrayobject.h.
--PYTHON_INCLUDE := /usr/include/python2.7 \
--		/usr/lib/python2.7/dist-packages/numpy/core/include
-+PYTHON_INCLUDE := /usr/local/include/python3.8 \
-+               /usr/local/lib/python3.8/site-packages/numpy/core/include/numpy
- # Anaconda Python distribution is quite popular. Include path:
- # Verify anaconda location, sometimes it's in root.
- # ANACONDA_HOME := $(HOME)/anaconda
-@@ -78,12 +78,12 @@
- 		# $(ANACONDA_HOME)/lib/python2.7/site-packages/numpy/core/include \
-
- # Uncomment to use Python 3 (default is Python 2)
--# PYTHON_LIBRARIES := boost_python3 python3.5m
-+PYTHON_LIBRARIES := boost_python python3.8
- # PYTHON_INCLUDE := /usr/include/python3.5m \
- #                 /usr/lib/python3.5/dist-packages/numpy/core/include
-
- # We need to be able to find libpythonX.X.so or .dylib.
--PYTHON_LIB := /usr/lib
-+PYTHON_LIB := /home/chunywan/.local/lib64/ /home/chunywan/.local/lib /usr/local/lib /usr/local/lib64 /usr/lib64
- # PYTHON_LIB := $(ANACONDA_HOME)/lib
-
- # Homebrew installs numpy in a non standard path (keg only)
-@@ -111,7 +111,7 @@
- DISTRIBUTE_DIR := distribute
-
- # Uncomment for debugging. Does not work on OSX due to https://github.com/BVLC/caffe/issues/171
--# DEBUG := 1
-+DEBUG := 1
-
- # Uncomment to use boost::shared_ptr
- # USE_BOOST := 1
-@@ -131,7 +131,7 @@
- # shared object suffix name to differentiate branches
- LIBRARY_NAME_SUFFIX := -deephi
-
--# Use this compiling parameter to enable the code for quantization accuracy to
--# match DPU(caffe deploy) accuracy but affect basic float train/inference accuracy,
-+# Use this compiling parameter to enable the code for quantization accuracy to
-+# match DPU(caffe deploy) accuracy but affect basic float train/inference accuracy,
- # for example, average pooling accuracy change for matching DPU
- DPU_ACCURACY := 1
+``` console
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/Mobilenetv2-SSD/quantize/acc
+% mkdir debug_graph_task
+% cd debug_graph_task
+% mkdir ref
+% ls -l ../dump_gpu/ | grep 'conv4_7.*expan'
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel | grep conv4_3
+% cp ../dump_gpu/conv4_7_expand.bin ref/conv4_7_expand_bn_fixed.bin
+% cp ../dump_gpu/data.bin ref/data_fixed.bin
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel -i 22
 ```
