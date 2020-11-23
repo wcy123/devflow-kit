@@ -5,10 +5,9 @@ mkdir VMSS_0.0.5
 cd VMSS_0.0.5
 git clone git@gitenterprise.xilinx.com:ips-video-ml/VMSS.git
 git checkout release/0.0.5
+#commit id : 4d31cbf7e1451f1b5129a79f7fd230d5ab03e605
 
 cd VMSS
-#vi .git/config  change https://gitenterprise.xilinx.com/ips-video-ml/VMSS_Lib.git to git@gitenterprise.xilinx.com:ips-video-ml/VMSS_Lib.git
-
 git submodule update --init
 ```
 ## compiler VAI 1.2 (br-u30)
@@ -17,6 +16,7 @@ cd /home/mingyue/d/working/aisw/br-u30
 
 cd unilog
 ./cmake.sh
+
 
 cd ../target_factory
 ./cmake.sh
@@ -105,7 +105,7 @@ cp -r $HOME/d/working/VMSS_0.0.5/VMSS_Plugins/ml/DPU $HOME/d/working/VMSS_0.0.5/
 cd $HOME/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/
 ./cmake.sh --clean --cmake-options=-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 ```
-### DPU Plugin build error
+#### DPU Plugin build error
 ```
 /group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp: In function ‘std::string to_string(const VmssInfResult*, int)’:
 /group/xbjlab/dphi_software/software/workspace/mingyue/d/working/VMSS_0.0.5/VMSS_DPU_Plugins/dpu_plugin_common/src/util.cpp:132:58: error: ‘const VmssInfResult’ {aka ‘const struct VmssInfResult’} has no member named ‘meta_cnt’

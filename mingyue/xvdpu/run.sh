@@ -43,18 +43,16 @@ env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint ./xrt_read_register reg_xvd
 #test jpeg & performance
 cd ~/classification
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 /usr/share/vitis_ai_library/samples/classification/test_jpeg_classification xvdpu_1.5_resnet_v1_50_prefetch sample_classification.jpg
-env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/classification/test_performance_classification xvdpu_1.5_resnet_v1_50_prefetch test_performance_classification.list -t 1 -s 60
+#env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/classification/test_performance_classification xvdpu_1.5_resnet_v1_50_prefetch test_performance_classification.list -t 1 -s 60
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/classification/test_performance_classification xvdpu_1.5_resnet_v1_50_prefetch test_performance_classification.list -t 4 -s 60
-
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 /usr/share/vitis_ai_library/samples/classification/test_jpeg_classification Resnet50_v1.5_pruned_74 sample_classification.jpg
-env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/classification/test_performance_classification Resnet50_v1.5_pruned_74 test_performance_classification.list -t 1 -s 60
+#env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/classification/test_performance_classification Resnet50_v1.5_pruned_74 test_performance_classification.list -t 1 -s 60
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/classification/test_performance_classification Resnet50_v1.5_pruned_74 test_performance_classification.list -t 4 -s 60
 
 cd ~/yolov3
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 /usr/share/vitis_ai_library/samples/yolov3/test_jpeg_yolov3 yolov3_voc sample_yolov3.jpg
-env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/yolov3/test_performance_yolov3 yolov3_voc test_performance_yolov3.list -t 1 -s 60
+#env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/yolov3/test_performance_yolov3 yolov3_voc test_performance_yolov3.list -t 1 -s 60
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/yolov3/test_performance_yolov3 yolov3_voc test_performance_yolov3.list -t 4 -s 60
-
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint XLNX_SHOW_DPU_COUNTER=1 DEEPHI_PROFILING=1 /usr/share/vitis_ai_library/samples/yolov3/test_jpeg_yolov3 yolov3_voc_tf sample_yolov3.jpg
-env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/yolov3/test_performance_yolov3 yolov3_voc_tf test_performance_yolov3.list -t 1 -s 60
+#env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/yolov3/test_performance_yolov3 yolov3_voc_tf test_performance_yolov3.list -t 1 -s 60
 env XLNX_ENABLE_FINGERPRINT_CHECK=$check_fingerprint /usr/share/vitis_ai_library/samples/yolov3/test_performance_yolov3 yolov3_voc_tf test_performance_yolov3.list -t 4 -s 60

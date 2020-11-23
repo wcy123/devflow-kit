@@ -108,9 +108,11 @@ env DEBUG_DPU_PLUGIN=5 ./vmss_server ~/d/working/VMSS_1.2/VMSS_DPU_Plugins/conf 
 
 gdb vmss_server
 set env DEBUG_DPU_PLUGIN=5
+set env DEBUG_DPU_RUNNER=1
 set env DEBUG_XRT_DEVICE_HANDLE=1
 set env XLNX_ENABLE_DEVICES=0
 run ~/d/working/VMSS_1.2/VMSS_DPU_Plugins/conf
+run /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/vmss/ssd_crowd/conf
 ```
 
 ## VMSS Client
@@ -120,11 +122,20 @@ cat data/commands/vmss_open_jpeg_resnet_request.txt
 cat data/commands/vmss_open_jpeg_retail_request.txt
 
 ./vmss_client 127.0.0.1 8001 data/commands/vmss_open_jpeg_resnet_request.txt
+./vmss_client 127.0.0.1 8001 data/commands/vmss_open_jpeg_ssd_request.txt
 ./vmss_client 127.0.0.1 8001 data/commands/vmss_open_jpeg_car_detection_request.txt
 cat ./scripts/gst_send_rtp.sh
 ./scripts/gst_send_rtp.sh -rd 10 -w 224 -h 224 -f  data/classification/beagle.jpg
 ./scripts/gst_send_rtp.sh -rd 10 -w 416 -h 416 -f  data/classification/beagle.jpg
 ./scripts/gst_send_rtp.sh -rd 10 -w 480 -h 360 -f  data/ssd/sample_ssd.jpg
+./scripts/gst_send_rtp.sh -rd 3 -w 1920 -h 1080 -f  data/ssd/ssd.JPG
+
+cd /home/mingyue/d/working/VMSS_1.2/VMSS/client/ffmpeg
+
+./ffmpeg_rtp_ssd.sh /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/vmss/crowd.mp4 127.0.0.1 5030
+
+
+/var/lib/docker/scratch/local/bin/ffmpeg -stream_loop 0 -re -i /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/vmss/crowd.mp4 -vf scale=1920:1080 -vcodec mjpeg -huffman 0 -force_duplicated_matrix 1 -an -f rtp rtp://127.0.0.1:5030
 
 ```
 
