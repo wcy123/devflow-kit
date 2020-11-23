@@ -32,6 +32,7 @@ if you don't have root
 %
 % alias sudo=/tools/xgs/bin/sudo # need in xilinx env
 % sudo yum install -y libffi-devel libsqlite3x-devel openssl-devel zlib-devel # for Centos , libgdbm-devel not found
+# sqlit-devel cannot be installed,  sudo rpm   -Uvh --nodeps $( repoquery --location sqlite-devel) resolve the problem
 % # sudo apt-get install -y libffi-dev libgdbm-dev libsqlite3-dev libssl-dev zlib1g-dev # for ubuntu
 % # NO NO, cmake does not support python 3.9, use python 3.8 insteadd
 % cd ~/build/Python-3.8.3
@@ -66,6 +67,7 @@ ModuleNotFoundError: No module named '_ctypes'
 % tar xvf PySocks.1.7.0.tar.gz
 % cd PySocks-1.7.0/
 % $HOME/.local/bin/python3 setup.py install
+% python setup.py install
 ```
 
 ## install upgrade pip
@@ -97,6 +99,17 @@ cmake version is 3.16, too low, cannot find python3.9, but 3.8 is needed.
 
 ``` console
 % pip3 install virtualenvl;
+% rm -fr ~/.virtualenvs
+% mkdir /scratch/chunywan/.virtualenvs
+% ln -s /scratch/chunywan/.virtualenvs $HOME
 % python3 -m venv ~/.virtualenvs/base
-% rm -fr tutorial-env
+% ls -l /scratch/chunywan/.virtualenvs
+% realpath /scratch/chunywan/.virtualenvs/base
+%
+```
+
+add the followin line into you `~/.bashrc`
+
+```
+source $HOME/.virtualenvs/base/bin/activate
 ```
