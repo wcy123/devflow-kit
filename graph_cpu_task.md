@@ -602,3 +602,41 @@ $16 = 0.5
 % cp ../dump_gpu/data.bin ref/data_fixed.bin
 % env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel -i 22
 ```
+
+## `VAI-KERAS-FCN8-SEMSEG-fcn8`
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8/
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt  VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel VAI-KERAS-FCN8-SEMSEG-fcn8.txt
+```
+
+calibrate with VAIE
+
+``` console
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8/VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel
+```
+
+``` console
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8/
+% mkdir ref
+% cp /scratch/models/cache/golden/bb/0132cd6a8f08429db9411256c7a74d ref/conv2d_transpose_3_conv2d_transpose_aquant.bin
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8/VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel -i 2
+% mv 0.activation_1_truediv.bin 0.activation_1_truediv.bin.cputask
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8/VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel -i 2
+% mv 0.activation_1_truediv.bin 0.activation_1_truediv.bin.vaie
+% d 0.activation_1_truediv.bin.vaie 0.activation_1_truediv.bin.cputask
+```
+
+## `VAI-KERAS-FCN8-SEMSEG-fcn8ups`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
