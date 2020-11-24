@@ -631,6 +631,7 @@ calibrate with VAIE
 % env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8/VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel -i 2
 % mv 0.activation_1_truediv.bin 0.activation_1_truediv.bin.vaie
 % d 0.activation_1_truediv.bin.vaie 0.activation_1_truediv.bin.cputask
+% d 0.activation_1_truediv.bin 0.activation_1_truediv.bin.vaie
 ```
 
 ## `VAI-KERAS-FCN8-SEMSEG-fcn8ups`
@@ -639,4 +640,99 @@ calibrate with VAIE
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
 % env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+``` console
+
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8ups
+%  /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel VAI-KERAS-FCN8-SEMSEG-fcn8ups.txt
+
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8ups/VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel
+
+% # open  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8ups/VAI-KERAS-FCN8-SEMSEG-fcn8ups.txt
+
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+
+% cp /scratch/models/cache/golden/47/a28e223f0d07911b218b4cf63f5e05 ref/pool411_b_Relu_aquant.bin
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ref/pool411_b_Relu_aquant.bin -w 14 -h 14 --num_of_channels 12 -c 1
+
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8ups/VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel -i 2
+
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f log/up_sampling2d_2_ResizeBilinear_aquant.bin -w 28 -h 28 --num_of_channels 12 -c 1
+
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-fcn8ups/VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel -i 2
+
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f dump/subgraph_up_sampling2d_2_2f_ResizeBilinear_28_ReplaceResize_29_/up_sampling2d_2_2f_ResizeBilinear_2f_aquant_28_ReplaceResize_29__0.bin -w 28 -h 28 --num_of_channels 12 -c 1
+
+% d dump/subgraph_up_sampling2d_2_2f_ResizeBilinear_28_ReplaceResize_29_/up_sampling2d_2_2f_ResizeBilinear_2f_aquant_28_ReplaceResize_29__0.bin log/up_sampling2d_2_ResizeBilinear_aquant.bin
+```
+
+## `VAI-KERAS-FCN8-SEMSEG-unet1`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet1.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet1
+%  /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt VAI-KERAS-FCN8-SEMSEG-unet1.xmodel VAI-KERAS-FCN8-SEMSEG-unet1.txt
+
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet1/VAI-KERAS-FCN8-SEMSEG-unet1.xmodel
+
+% # open  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet1/VAI-KERAS-FCN8-SEMSEG-unet1.txt
+
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+
+% cp /scratch/models/cache/golden/23/65423b17a6a2a2e1d30d3eed2573ee ref/activation_10_Relu_aquant.bin
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ref/pool411_b_Relu_aquant.bin -w 14 -h 14 --num_of_channels 12 -c 1
+
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet1/VAI-KERAS-FCN8-SEMSEG-unet1.xmodel -i 2
+
+% mv 0.up_sampling2d_1_ResizeBilinear_aquant.bin 0.up_sampling2d_1_ResizeBilinear_aquant.bin.vaie
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f log/up_sampling2d_2_ResizeBilinear_aquant.bin -w 28 -h 28 --num_of_channels 12 -c 1
+
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet1/VAI-KERAS-FCN8-SEMSEG-unet1.xmodel -i 2
+
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f dump/subgraph_up_sampling2d_2_2f_ResizeBilinear_28_ReplaceResize_29_/up_sampling2d_2_2f_ResizeBilinear_2f_aquant_28_ReplaceResize_29__0.bin -w 28 -h 28 --num_of_channels 12 -c 1
+
+% d 0.up_sampling2d_1_ResizeBilinear_aquant.bin 0.up_sampling2d_1_ResizeBilinear_aquant.bin.vaie
+```
+
+## `VAI-KERAS-FCN8-SEMSEG-unet2`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet2
+%  /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt VAI-KERAS-FCN8-SEMSEG-unet2.xmodel VAI-KERAS-FCN8-SEMSEG-unet2.txt
+
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet2/VAI-KERAS-FCN8-SEMSEG-unet2.xmodel
+
+% # open  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet2/VAI-KERAS-FCN8-SEMSEG-unet2.txt
+
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+
+% cp /scratch/models/cache/golden/ed/61787b7bae7b1b72b88d61014a5d3f ref/activation_10_Relu_aquant.bin
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ref/pool411_b_Relu_aquant.bin -w 14 -h 14 --num_of_channels 12 -c 1
+
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet2/VAI-KERAS-FCN8-SEMSEG-unet2.xmodel -i 2
+
+% mv 0.up_sampling2d_1_ResizeBilinear_aquant.bin 0.up_sampling2d_1_ResizeBilinear_aquant.bin.vaie
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f log/up_sampling2d_2_ResizeBilinear_aquant.bin -w 28 -h 28 --num_of_channels 12 -c 1
+
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-KERAS-FCN8-SEMSEG-unet2/VAI-KERAS-FCN8-SEMSEG-unet2.xmodel -i 2
+
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f dump/subgraph_up_sampling2d_2_2f_ResizeBilinear_28_ReplaceResize_29_/up_sampling2d_2_2f_ResizeBilinear_2f_aquant_28_ReplaceResize_29__0.bin -w 28 -h 28 --num_of_channels 12 -c 1
+
+% d 0.up_sampling2d_1_ResizeBilinear_aquant.bin 0.up_sampling2d_1_ResizeBilinear_aquant.bin.vaie
 ```
