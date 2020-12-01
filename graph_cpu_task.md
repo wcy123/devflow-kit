@@ -112,9 +112,9 @@ now `batch_normalization_1/FusedBatchNormV3_1/offset/wquant_const_const` is ok. 
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner MODEL="Keras-GoogleNet-ResNet-cifar10-miniResNet.xmodel"  DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env  MODEL="Keras-GoogleNet-ResNet-cifar10-miniResNet.xmodel"  DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 % # debug it if somethign wrong
-% env PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner MODEL="Keras-GoogleNet-ResNet-cifar10-miniResNet.xmodel"  DEBUG_COMPARE=1  python3  run_graph.py vai-1.3.json
+% env  MODEL="Keras-GoogleNet-ResNet-cifar10-miniResNet.xmodel"  DEBUG_COMPARE=1  python3  run_graph.py vai-1.3.json
 ```
 
 第二节网络结果不对
@@ -160,7 +160,7 @@ now `batch_normalization_1/FusedBatchNormV3_1/offset/wquant_const_const` is ok. 
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 
 ```
 
@@ -169,7 +169,7 @@ now `batch_normalization_1/FusedBatchNormV3_1/offset/wquant_const_const` is ok. 
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL="ML-Caffe-Segmentation-Tutorial-enet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL="ML-Caffe-Segmentation-Tutorial-enet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -217,7 +217,7 @@ libvart_op_imp_transposed-depthwise-conv2d-fix.so
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL="Keras-GoogleNet-ResNet-cifar10-miniVggNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL="Keras-GoogleNet-ResNet-cifar10-miniVggNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 softmax md5sum is not correct, update the md5sum value.
@@ -229,7 +229,7 @@ run it again
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL="Keras-GoogleNet-ResNet-fmnist-LeNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL="Keras-GoogleNet-ResNet-fmnist-LeNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 softmax md5sum is not correct, update the md5sum value.
@@ -241,7 +241,7 @@ run it again
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL="Keras-GoogleNet-ResNet-fmnist-miniGoogleNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL="Keras-GoogleNet-ResNet-fmnist-miniGoogleNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -255,7 +255,7 @@ run it again
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL="Keras-GoogleNet-ResNet-fmnist-miniResNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL="Keras-GoogleNet-ResNet-fmnist-miniResNet.xmodel" LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 similiar to the other mini resnet, the second subgraph is not correct.
@@ -266,7 +266,7 @@ similiar to the other mini resnet, the second subgraph is not correct.
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=Keras-GoogleNet-ResNet-fmnist-miniVggNet.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=Keras-GoogleNet-ResNet-fmnist-miniVggNet.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -280,7 +280,7 @@ run it again
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=ML-Caffe-Segmentation-Tutorial-FPN.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=ML-Caffe-Segmentation-Tutorial-FPN.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 update golden hash.
@@ -292,74 +292,18 @@ update golden hash.
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=ML-Caffe-Segmentation-Tutorial-espnet.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env SAVE_MODEL=1 MODEL=ML-Caffe-Segmentation-Tutorial-espnet.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODE=run MODEL=ML-Caffe-Segmentation-Tutorial-espnet.xmodel python3  show_vaie_cmd.py vai-1.3.json && echo OK
+% env MODE=sim  MODEL=ML-Caffe-Segmentation-Tutorial-espnet.xmodel python3  show_vaie_cmd.py vai-1.3.json && echo OK
+
+%
+
+% d /tmp/chunywan/error_result/0/ConvNd_85_fixed.bin
 ```
 
-``` console
-% cd  /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/ML-Caffe-Segmentation-Tutorial-espnet/
-% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt ML-Caffe-Segmentation-Tutorial-espnet.xmodel ML-Caffe-Segmentation-Tutorial-espnet.txt
-% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph ML-Caffe-Segmentation-Tutorial-espnet.xmodel
+1. 第一层的 avg pool golden 结果不对。
+2. 第一层的  batch norm 1 stride = 19 , dpu runner 不支持。
 
-% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
-% scp xcdl190253:/group/modelzoo/Vitis-AI-Tutorials/ML-Caffe-Segmentation-Tutorial/Segment/VAI/espnet/quantize/acc/dump_gpu/data.bin ref/data_fixed.bin
-% env XLNX_ENABLE_DEBUG_MODE=1 XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task ML-Caffe-Segmentation-Tutorial-espnet.xmodel -i 1
-```
-
-1. `./dump/subgraph_ConvNd_1/output/0.BatchNorm_1_fixed_download_0.bin` and `ConvNd_1.bin` ,  `ff99643e67e017c45678eb6ff6a55c58`
-2. `./dump/subgraph_AvgPool2d_1/input/0.data_fixed_upload_0.bin` and `data.bin` , `f54959bc00c38ff5444d8267e1de491f`
-3. `./dump/subgraph_AvgPool2d_1/output/0.AvgPool2d_1_mul_fix.bin` `AvgPool2d_1.bin` fail
-
-```
-chunywan@xcdl190253:dump_gpu% pwd
-/group/modelzoo/Vitis-AI-Tutorials/ML-Caffe-Segmentation-Tutorial/Segment/VAI/espnet/quantize/acc/dump_gpu
-chunywan@xcdl190253:dump_gpu% d AvgPool2d_1.bin
-bfafb9b830058a06ee3dccdcea082609  AvgPool2d_1.bin
-98304
-00000000: f1f4 f2f2 f5f3 f3f7 f4f6 fbf8 fafe fdfc  ................
-00000010: 00ff f9fc f9f2 f3f2 eff0 f0f0 f1f1 f3f7  ................
-00000020: f4fd 00ff 0609 0709 0a09 090d 0b08 0a07  ................
-00000030: 0e0e 0d12 1512 0b11 0c09 0b08 0a0e 0b0c  ................
-00000040: 0e0c 0f0f 0e10 1211 0e13 0f0b 0e0b 0e0f  ................
-00000050: 0e0b 0e0d 0c0e 0c0e 110e 0f13 100b 0f0c  ................
-00000060: 0c0e 0d0c 110e 0c10 0d0f 100d 1012 100c  ................
-00000070: 110c 090c 0909 0c09 0407 0502 0503 fe00  ................
-00000080: fffc fefd fbfe fefc ff00 fe01 0100 0505  ................
-00000090: 0509 0800 0302 0002 0202 0707 0206 0603  ................
-000000a0: 0808 0409 0a03 0808 0105 0400 0302 ff01  ................
-000000b0: 0000 0302 0004 03f5 f7f6 f2f2 f2f4 f5f6  ................
-000000c0: fafd fdf6 f7f7 f6f7 f8f8 fbfb f5f7 f8f2  ................
-000000d0: f3f4 f1f1 f2f0 f1f1 f0ef f0f0 f0f1 f2f3  ................
-000000e0: f4f8 fafa fbfe fef5 f6f7 f1f0 f1f2 f1f3  ................
-000000f0: f6f6 f6f9 fbfc fe01 02fe 0102 f9fc fdf4  ................
-```
-
-```
-545381ea8e94819dae880c2686e82cf8  ./dump/subgraph_AvgPool2d_1/output/0.AvgPool2d_1_mul_fix.bin
-98304
-0000000: f1f3 f2f2 f5f2 f3f7 f4f5 faf7 fafe fcfc  ................
-0000010: 00fe f8fb f9f2 f3f1 efef efef f1f0 f2f6  ................
-0000020: f4fc 01fe 0609 070a 0b0a 090e 0b09 0b08  ................
-0000030: 0e0e 0d12 1512 0b11 0d09 0b08 0b0e 0b0c  ................
-0000040: 0f0c 0f10 0e11 1311 0e14 0f0c 0e0c 0e10  ................
-0000050: 0e0c 0f0d 0d0f 0d0f 110f 1013 100b 0f0c  ................
-0000060: 0d0f 0d0c 110e 0d10 0d10 110e 1013 110c  ................
-0000070: 110d 0a0c 0a0a 0d09 0407 0503 0504 fe01  ................
-0000080: fffb fdfc fbfd fefc ffff fe01 0201 0505  ................
-0000090: 050a 0901 0302 ff02 0303 0707 0207 0603  ................
-00000a0: 0909 040a 0a04 0808 0205 0500 0302 ff01  ................
-00000b0: 0100 0303 0005 03f5 f6f5 f1f1 f2f4 f5f5  ................
-00000c0: fafd fdf6 f6f7 f6f6 f7f7 fafb f4f7 f7f1  ................
-00000d0: f3f3 f0f1 f1f0 f0f1 efef f0f0 eff1 f2f3  ................
-00000e0: f4f8 fafa fbfd fef4 f5f6 f0ef f1f2 f0f2  ................
-00000f0: f6f6 f6f9 fbfc fe01 02fe 0203 f9fb fcf3  ................
-
-```
-
-
-``` console
-% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ref/data_fixed.bin -w 256 -h 512 --num_of_channels 3 -c 0 >data_fix.txt
-% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ./dump/subgraph_AvgPool2d_1/output/0.AvgPool2d_1_mul_fix.bin -w 128 -h 256 --num_of_channels 3 -c 0 >pool.dpu.txt
-```
 skipped.
 
 ## `ML-Caffe-Segmentation-Tutorial-unet-full`
@@ -368,7 +312,7 @@ skipped.
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-full.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-full.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 first subgraph is OK. golden is updated.
@@ -471,7 +415,7 @@ it is as same as the `cpu_task` implementation, the golden result has something 
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-lite.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-lite.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 the first subgraph is not correct
@@ -486,7 +430,7 @@ the first subgraph is not correct
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=ML-at-Edge-yolov3.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=ML-at-Edge-yolov3.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 pass
@@ -496,7 +440,7 @@ pass
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=MLPerf_resnet50_v1.5_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=MLPerf_resnet50_v1.5_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 3 outputs have same md5sum.
@@ -517,7 +461,7 @@ after troubleshooting, I learned that it was because `fix` op is not properly im
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=MNIST-Classification-TensorFlow.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=MNIST-Classification-TensorFlow.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 pass
@@ -526,7 +470,7 @@ pass
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=MT-resnet18_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=MT-resnet18_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 
 ```
 
@@ -545,7 +489,7 @@ ilename=/tmp/chunywan/error_result/0/MTNet__MTNet_708_fix.bin data=0xa233ea0 siz
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
 % rm -fr dump
-% env  MODEL=MT-resnet18_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=1 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env  MODEL=MT-resnet18_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=1    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 % d dump/subgraph_MTNet__MTNet_Conv2d_input_2/output/0.MTNet__MTNet_Sequential_toplayer3__Conv2d_toplayer3_conv__input_56_fix.bin
 % mkdir ref
 % cp dump/subgraph_MTNet__MTNet_Conv2d_input_2/output/0.MTNet__MTNet_Sequential_toplayer3__Conv2d_toplayer3_conv__input_56_fix.bin ref/MTNet__MTNet_Sequential_toplayer3__Conv2d_toplayer3_conv__input_56_fix.bin
@@ -576,7 +520,7 @@ fix a bug in `upsample-fix.cpp`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=RefineDet-Medical_EDD_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=RefineDet-Medical_EDD_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 
 ```
 
@@ -584,35 +528,37 @@ fix a bug in `upsample-fix.cpp`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=Resnet50_v1.5_pruned_74.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=Resnet50_v1.5_pruned_74.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `SemanticFPN_cityscapes_pt`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=SemanticFPN_cityscapes_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=SemanticFPN_cityscapes_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `VAI-Caffe-ML-CATSvsDOGS`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-Caffe-ML-CATSvsDOGS.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-Caffe-ML-CATSvsDOGS.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `VAI-Caffe-ML-CATSvsDOGS-pruned`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-Caffe-ML-CATSvsDOGS-pruned.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-Caffe-ML-CATSvsDOGS-pruned.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-Caffe-ML-CATSvsDOGS-pruned.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
 ```
 
 ## `VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin SAVE_MODEL=1 MODEL=VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODE=sim PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin SAVE_MODEL=1 MODEL=VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
 ```
 
 ```
@@ -621,6 +567,11 @@ F1119 09:31:39.637473  3351 op_imp.cpp:91] Check failed: handle != NULL cannot o
 
 ``` console
 % /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.txt
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.txt
+```
+
+``` console
+% cd ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/
 ```
 
 ``` console
@@ -633,18 +584,6 @@ F1119 09:31:39.637473  3351 op_imp.cpp:91] Check failed: handle != NULL cannot o
 % cp Makefile.config.example Makefile.config
 % make -j30 -k
 ```
-
-<!-- % bash $SRC_DIR/tools/gen_git_version.sh $SRC_DIR/src/caffe/pruning/version.cpp # Need a version -->
-<!-- % cat $SRC_DIR/src/caffe/pruning/version.cpp -->
-<!-- % PREFIX=$HOME/.local/CentOS.7.6.1810.x86_64.Debug -->
-<!-- % BUILD_DIR=$HOME/build/build.CentOS.7.6.1810.x86_64.Debug/caffe -->
-<!-- % BUILD_PREFIX=$PREFIX -->
-<!-- % sudo yum install -y hdf5-devel yaml-cpp-devel openblas-devel leveldb-devel lmdb-devel -->
-<!-- % mkdir -p $BUILD_DIR -->
-<!-- % cd $BUILD_DIR; pwd -->
-<!-- % source /opt/rh/devtoolset-9/enable -->
-<!-- % cmake -DUSE_CUDNN=0 -DUSE_NCCL=0 -DOPENCV_VERSION=3 -DCMAKE_CXX_STANDARD=11 -DCMAKE_LIBRARY_PATH=${BUILD_PREFIX}/lib  -DCMAKE_INCLUDE_PATH=${BUILD_PREFIX}/include -DCMAKE_PREFIX_PATH=$BUILD_PREFIX -DCPU_ONLY=1 -DBLAS="open" -DCMAKE_INSTALL_PREFIX="${PREFIX}" -DCMAKE_INSTALL_LIBDIR=lib -Dpython_version=$PY_VER -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCRYPTO_KEY=deephi-tech -DDPU_ACCURACY=1 $SRC_DIR -->
-
 see `caffe.makefile.config`
 
 
@@ -696,13 +635,33 @@ $16 = 0.5
 % cp ../dump_gpu/conv4_7_expand.bin ref/conv4_7_expand_bn_fixed.bin
 % cp ../dump_gpu/data.bin ref/data_fixed.bin
 % env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel -i 22
+
+```
+
+
+debug `conv2_2/expand`
+
+``` console
+% cd /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+% cp ref/conv2_2_expand_bn_fixed.bin
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel -i 4
+% cp 0.conv2_2_dwise_bn_fixed.bin 0.conv2_2_dwise_bn_fixed.bin.cpu_task
+% env XLNX_ENABLE_DUMP=1 USE_CPU_TASK=0   ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD/VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD.xmodel -i 4
+% cp 0.conv2_2_dwise_bn_fixed.bin 0.conv2_2_dwise_bn_fixed.bin.cpu_runner
+% d 0.conv2_2_dwise_bn_fixed.bin.cpu_runner 0.conv2_2_dwise_bn_fixed.bin.cpu_task
+
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ref/conv2_2_expand_bn_fixed.bin  -w 240 -h 180 --num_of_channels 96 -c 0 > conv2_2_expand_bn_fixed.txt
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f ref/conv2_2_expand_bn_fixed.bin  -w 3 -h 3 --num_of_channels 96 -c 0
+% realpath conv2_2_expand_bn_fixed.txt
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -f data_in_ptr.bin -w 241 -h 181  --num_of_channels 96 -c 0  >data_in_ptr.txt
 ```
 
 ## `VAI-KERAS-FCN8-SEMSEG-fcn8`
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -734,7 +693,7 @@ calibrate with VAIE
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-fcn8ups.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ``` console
@@ -767,7 +726,7 @@ calibrate with VAIE
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet1.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet1.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -802,7 +761,7 @@ calibrate with VAIE
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -837,7 +796,7 @@ calibrate with VAIE
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=VAI-KERAS-FCN8-SEMSEG-unet2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `densebox_320_320`
@@ -845,7 +804,7 @@ calibrate with VAIE
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=densebox_320_320.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=densebox_320_320.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -860,7 +819,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=densebox_640_360.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=densebox_640_360.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -874,7 +833,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=resnet50_tf2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=resnet50_tf2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ``` console
@@ -894,7 +853,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=face-quality.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=face-quality.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -903,7 +862,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/face-quality_pt.xmodelxbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=face-quality_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=face-quality_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `face_landmark`
@@ -911,7 +870,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=face_landmark.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=face_landmark.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -920,7 +879,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=facerec-resnet20_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=facerec-resnet20_mixed_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -929,7 +888,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=facerec_resnet20.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=facerec_resnet20.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -938,7 +897,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=facerec_resnet64.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=facerec_resnet64.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ``` console
@@ -950,7 +909,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=facereid-large_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=facereid-large_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 `libvart_op_imp_batchnorm.so` is not implemenated.
@@ -973,7 +932,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=facereid-small_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=facereid-small_pt.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `fpn`
@@ -981,7 +940,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=fpn.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=fpn.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `"hourglass-pe_mpii"`
@@ -989,7 +948,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL="hourglass-pe_mpii".xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL="hourglass-pe_mpii".xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -998,7 +957,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=inception_resnet_v2_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=inception_resnet_v2_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ``` console
@@ -1010,7 +969,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=inception_v1.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=inception_v1.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `inception_v1_tf`
@@ -1018,7 +977,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=inception_v1_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=inception_v1_tf.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 ## `inception_v2`
@@ -1026,7 +985,7 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 ``` console
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env MODEL=inception_v2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0 PYTHONPATH=/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/xir/src/python:/home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/vart/runner   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=inception_v2.xmodel LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
 ```
 
 
@@ -1038,9 +997,185 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 
 
 
+## `ssd_resnet_50_fpn_coco_tf`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ssd_resnet_50_fpn_coco_tf.xmodel LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/ssd_resnet_50_fpn_coco_tf
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt ssd_resnet_50_fpn_coco_tf.xmodel ssd_resnet_50_fpn_coco_tf.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph ssd_resnet_50_fpn_coco_tf.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg ssd_resnet_50_fpn_coco_tf.xmodel ssd_resnet_50_fpn_coco_tf.svg
+% realpath ssd_resnet_50_fpn_coco_tf.svg
+```
+
+
+## `plate_num`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env SAVE_MODEL=1 MODEL=plate_num.xmodel LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/plate_num
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir graph plate_num.xmodel plate_num.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt plate_num.xmodel plate_num.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph plate_num.xmodel >subgraph.txt
+% cat subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg plate_num.xmodel plate_num.svg
+% realpath plate_num.svg
+```
+
+
+``` console
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+% scp xcdl190253:/group/modelzoo/internal-cooperation-models/caffe/plate_recognition/fix/acc/dump_gpu/plate_data.bin ref/data_fixed.bin
+% env USE_CPU_TASK=1 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task plate_num.xmodel  -i 1
+% cp 0.inception_5b_output_fixed.bin ref/inception_5b_output_fixed.bin
+% env USE_CPU_TASK=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task plate_num.xmodel  -i 2
+% cp 0.pool5_7x7_s1_fixed.bin 0.pool5_7x7_s1_fixed.bin.cpu_task
+% env USE_CPU_TASK=0  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task plate_num.xmodel  -i 2
+% cp 0.pool5_7x7_s1_fixed.bin 0.pool5_7x7_s1_fixed.bin.cpu_runner
+% d 0.pool5_7x7_s1_fixed.bin.cpu_task 0.pool5_7x7_s1_fixed.bin.cpu_runner
+```
+
+
+## `personreid-res50_pt.xmodel`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=personreid-res50_pt.xmodel.xmodel LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/personreid-res50_pt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt personreid-res50_pt.xmodel personreid-res50_pt.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph personreid-res50_pt.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg personreid-res50_pt.xmodel personreid-res50_pt.svg
+% realpath personreid-res50_pt.xmodel.svg
+% realpath personreid-res50_pt.txt
+```
+
+
+## `ML-Caffe-Segmentation-Tutorial-unet-full`
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/$USER/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env MODEL=ML-Caffe-Segmentation-Tutorial-unet-full.xmodel LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+```
+
+
+``` console
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/ML-Caffe-Segmentation-Tutorial-unet-full
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt ML-Caffe-Segmentation-Tutorial-unet-full.xmodel ML-Caffe-Segmentation-Tutorial-unet-full.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph ML-Caffe-Segmentation-Tutorial-unet-full.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg ML-Caffe-Segmentation-Tutorial-unet-full.xmodel ML-Caffe-Segmentation-Tutorial-unet-full.svg
+% realpath ML-Caffe-Segmentation-Tutorial-unet-full.svg
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+% cat subgraph.txt
+% cp /tmp/chunywan/vaie.log/ML-Caffe-Segmentation-Tutorial-unet-full/sim/batch_0/conv_u0d-score_New_fixed.bin ref/conv_u0d-score_New_fixed.bin
+
+% env USE_CPU_TASK=1 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task ML-Caffe-Segmentation-Tutorial-unet-full.xmodel  -i 10
+% cp 0.score.bin 0.score.bin.cpu_task
+
+% env USE_CPU_TASK=0 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task ML-Caffe-Segmentation-Tutorial-unet-full.xmodel  -i 10
+% cp 0.score.bin 0.score.bin.cpu_runner
+
+% d 0.score.bin.cpu_runner 0.score.bin.cpu_task
+```
+
+
+
+## `mobilenet_1_0_224_tf2`
+
+
+``` console
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/mobilenet_1_0_224_tf2
+
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt mobilenet_1_0_224_tf2.xmodel mobilenet_1_0_224_tf2.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph mobilenet_1_0_224_tf2.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg mobilenet_1_0_224_tf2.xmodel mobilenet_1_0_224_tf2.svg
+% realpath mobilenet_1_0_224_tf2.svg
+
+
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+
+% cp /tmp/chunywan/vaie.log/mobilenet_1_0_224_tf2/ref/batch_0/quant_conv1_relu_fix.bin ref/quant_conv1_relu_fix.bin
+
+% env USE_CPU_TASK=1 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task mobilenet_1_0_224_tf2.xmodel  -i 2
+% cp 0.quant_conv_dw_1_relu_fix.bin 0.quant_conv_dw_1_relu_fix.bin.cpu_task
+
+% env USE_CPU_TASK=0 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task mobilenet_1_0_224_tf2.xmodel  -i 2
+% cp 0.quant_conv_dw_1_relu_fix.bin 0.quant_conv_dw_1_relu_fix.bin.cpu_runner
+
+% d 0.quant_conv_dw_1_relu_fix.bin.cpu_runner 0.quant_conv_dw_1_relu_fix.bin.cpu_task
+```
+
+
+
 ## show
 
 ``` console
-% /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
 % python3 show_json.py vai-1.3.json
+% python format_json.py vai-1.3.json vai-1.3.json
+% model=ML-Caffe-Segmentation-Tutorial-espnet
+% model=ML-Caffe-Segmentation-Tutorial-unet-full
+% model=ML-Caffe-Segmentation-Tutorial-unet-lite
+% model=VAI-Caffe-SSD-Tutorial-Mobilenetv2-SSD
+% model=VAI-Caffe-SSD-Tutorial-VGG16-SSD
+% model=mobilenet_1_0_224_tf2
+% model=ENet_cityscapes_pt
+
+%
+
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env SAVE_MODEL=1 MODEL=$model.xmodel LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
+% diff -u vai-1.3.json.cpu_task vai-1.3.json
+
+% env MODEL=$model.xmodel  MODE=ref PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
+% diff -u vai-1.3.json vai-1.3.json.ref
+% cp vai-1.3.json.ref vai-1.3.json
+
+% env MODEL=personreid-res50_pt.xmodel  MODE=sim PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
+% diff -u vai-1.3.json.sim vai-1.3.json
+
+
+
+% cd /var/lib/docker/scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/usr/share/vitis_ai_library/models/$model
+
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt $model.xmodel $model.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph $model.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg $model.xmodel $model.svg
+% realpath $model.svg
+
+
+% mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
+
+% cp /tmp/chunywan/vaie.log/$model/ref/batch_0/quant_conv1_relu_fix.bin ref/quant_conv1_relu_fix.bin
+
+% env USE_CPU_TASK=1 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $model.xmodel  -i 2
+% cp 0.quant_conv_dw_1_relu_fix.bin 0.quant_conv_dw_1_relu_fix.bin.cpu_task
+
+% env USE_CPU_TASK=0 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $model.xmodel  -i 2
+% cp 0.quant_conv_dw_1_relu_fix.bin 0.quant_conv_dw_1_relu_fix.bin.cpu_runner
+
+% d 0.quant_conv_dw_1_relu_fix.bin.cpu_runner 0.quant_conv_dw_1_relu_fix.bin.cpu_task
+```
+
+
+``` console
+% cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
+% env PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin MODE=sim MODEL="CIFAR10-Classification-with-TensorFlow" python3  run_vaie.py vai-1.3.json && echo OK
 ```
