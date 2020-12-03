@@ -1137,18 +1137,41 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 % model=VAI-Caffe-SSD-Tutorial-VGG16-SSD
 % model=mobilenet_1_0_224_tf2
 % model=ENet_cityscapes_pt
-
-%
+% model=Keras-GoogleNet-ResNet-cifar10-miniResNet
+% model=plate_num
+% model=CIFAR10-Classification-with-TensorFlow
+% model=inception_v2_tf
+% model=mlperf_ssd_resnet34_tf
+% model=personreid-res18_pt
+% model=refinedet_VOC_tf
+% model=xvdpu_1.5_resnet_v1_50_prefetch
+% model=yolov3_bdd
+% model=refinedet_baseline
+% model=refinedet_pruned_0_8
+% model=refinedet_pruned_0_92
+% model=refinedet_pruned_0_96
+% model=retinaface
+% model=sp_net
+% model=ssd_adas_pruned_0_95
+% model=ssd_pedestrian_pruned_0_97
+% model=ssd_traffic_pruned_0_9
+% model=pointpillars_kitti_12000_0_pt
+% model=resnet_v1_50_tf
+% unset model
 
 % cd /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/graph_task/test
-% env SAVE_MODEL=1 MODEL=$model.xmodel LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=1 python3  run_graph.py vai-1.3.json && echo OK
-% diff -u vai-1.3.json.cpu_task vai-1.3.json
+% env LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=0 python3  run_graph.py vai-1.3.json && echo OK
+% env MODEL=$model LD_LIBRARY_PATH=/home/$USER/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0   DEBUG_COMPARE=0 python3  run_graph.py vai-1.3.json && echo OK
+% diff -u vai-1.3.json vai-1.3.json.cpu_task
+% cp vai-1.3.json.cpu_task vai-1.3.json
+% git diff vai-1.3.json | cat
+% git add vai-1.3.json;git commit -m 'update vai-1.3.json'
 
-% env MODEL=$model.xmodel  MODE=ref PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
+% env MODEL=$model  MODE=ref PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
 % diff -u vai-1.3.json vai-1.3.json.ref
 % cp vai-1.3.json.ref vai-1.3.json
 
-% env MODEL=personreid-res50_pt.xmodel  MODE=sim PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
+% env MODEL=$model  MODE=sim PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin LD_LIBRARY_PATH=/home/chunywan/.local/CentOS.7.6.1810.x86_64.Debug/lib:$HOME/.local/lib:/usr/local/lib:/usr/local/lib64 XLNX_ENABLE_DUMP=0    DEBUG_COMPARE=1 python3  run_vaie.py vai-1.3.json && echo OK
 % diff -u vai-1.3.json.sim vai-1.3.json
 
 
@@ -1159,19 +1182,24 @@ ssh xcdl190253 md5sum /group/modelzoo/internal-cooperation-models/caffe/densebox
 % /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph $model.xmodel >subgraph.txt
 % /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg $model.xmodel $model.svg
 % realpath $model.svg
+% cat subgraph.txt
+% ls -l
 
 
 % mkdir -p ref; mkdir -p log; mkdir -p dump_cpu_runner
 
-% cp /tmp/chunywan/vaie.log/$model/ref/batch_0/quant_conv1_relu_fix.bin ref/quant_conv1_relu_fix.bin
+%
 
-% env USE_CPU_TASK=1 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $model.xmodel  -i 2
-% cp 0.quant_conv_dw_1_relu_fix.bin 0.quant_conv_dw_1_relu_fix.bin.cpu_task
+% env USE_CPU_TASK=1 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=0  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $model.xmodel  -i 3
+% cp 0.arm_loc_fix.bin 0.arm_loc_fix.bin.cpu_task
 
-% env USE_CPU_TASK=0 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $model.xmodel  -i 2
-% cp 0.quant_conv_dw_1_relu_fix.bin 0.quant_conv_dw_1_relu_fix.bin.cpu_runner
+% env USE_CPU_TASK=0 XLNX_ENABLE_DUMP=1 DEBUG_DPU_RUNNER=1  ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $model.xmodel  -i 3
+% cp 0.arm_loc_fix.bin 0.arm_loc_fix.bin.cpu_runner
 
-% d 0.quant_conv_dw_1_relu_fix.bin.cpu_runner 0.quant_conv_dw_1_relu_fix.bin.cpu_task
+% d 0.arm_loc_fix.bin.cpu_runner 0.arm_loc_fix.bin.cpu_task
+
+
+% env PATH=$PATH:$HOME/.local/CentOS.7.6.1810.x86_64.Debug/bin gdb --args vaie-run -i /scratch/models/xilinx_model_zoo_u50_1.3.0_amd64/./usr/share/vitis_ai_library/models/refinedet_VOC_tf/refinedet_VOC_tf.xmodel --init 'image/aquant /scratch/models/cache/golden/4c/5bc286b1624a4a7897d98d5cb4fdee' --dump 'arm_cls_fix /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/arm_cls_fix.bin;arm_loc_fix /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/arm_loc_fix.bin;concat/aquant /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/concat_aquant.bin;concat_1/aquant /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/concat_1_aquant.bin;concat_2/aquant /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/concat_2_aquant.bin;concat_3/aquant /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/concat_3_aquant.bin;odm_cls_fix /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/odm_cls_fix.bin;odm_loc_fix /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0/odm_loc_fix.bin' --target ref --log-path /tmp/chunywan/vaie.log/refinedet_VOC_tf/ref/batch_0 --deploy release --disable-debug
 ```
 
 
