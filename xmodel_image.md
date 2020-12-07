@@ -115,7 +115,6 @@
 
 ``` console
 
-
 % env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/overview/test_jpeg_facequality5pt  face-quality /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/facequality5pt/sample_facequality5pt.jpg
 % find /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/ | grep sample_facequality5pt.jpg
 
@@ -134,4 +133,62 @@
 
 
 % env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/face-quality/face-quality.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/facequality5pt/sample_facequality5pt.jpg
+```
+
+## `hourglass`
+
+
+``` console
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/overview/test_jpeg_hourglass  hourglass-pe_mpii /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/hourglass/sample_hourglass.png
+
+% cd /usr/share/vitis_ai_library/models/face-quality/
+% model=$(basename $(pwd))
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt $model.xmodel $model.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph $model.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg $model.xmodel $model.svg
+% realpath $model.svg
+
+
+% mkdir -p /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/face-quality
+% ln -s /usr/share/vitis_ai_library/models/face-quality/face-quality.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/face-quality
+% cat /usr/share/vitis_ai_library/models/face-quality/face-quality.prototxt
+
+
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/face-quality/face-quality.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/facequality5pt/sample_facequality5pt.jpg
+```
+
+
+## `lanedetect`
+
+``` console
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=0 DEBUG_XMODEL_JIT=1  /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/overview/test_jpeg_lanedetect vpgnet_pruned_0_99 /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/lanedetect/sample_lanedetect.jpg
+% find dump | grep type
+% cd /usr/share/vitis_ai_library/models/vpgnet_pruned_0_99
+% model=$(basename $(pwd))
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt $model.xmodel $model.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph $model.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg $model.xmodel $model.svg
+% realpath $model.svg
+% cat subgraph.txt
+
+% mkdir -p ref
+% cp dump/subgraph_L6a/output/0.type_tile_fixed.bin ref/type-tile_fixed.bin
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /usr/share/vitis_ai_library/models/vpgnet_pruned_0_99/vpgnet_pruned_0_99.xmodel -i 2
+
+% mkdir -p /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/vpgnet_pruned_0_99
+% ln -s /usr/share/vitis_ai_library/models/vpgnet_pruned_0_99/vpgnet_pruned_0_99.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/vpgnet_pruned_0_99
+% cat /usr/share/vitis_ai_library/models/vpgnet_pruned_0_99/vpgnet_pruned_0_99.prototxt
+
+
+% cp 0.type-tile_fixed_.bin ref/type-tile_fixed_.bin
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_postprocessor /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/vpgnet_pruned_0_99/vpgnet_pruned_0_99.xmodel
+
+% ~/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/cpu_task/show_binary_image -w 80 -h 60 --num_of_channels 1 -e 1 -f DEBUG.BIN >a.txt
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=0 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/vpgnet_pruned_0_99/vpgnet_pruned_0_99.xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/lanedetect/sample_lanedetect.jpg
+
 ```
