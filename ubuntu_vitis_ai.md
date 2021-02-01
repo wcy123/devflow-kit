@@ -41,6 +41,16 @@ Host aws
 ```
 
 ```console
+#  if the server is shutdown
+
+% ssh xcoengvm229135
+% /tools/batonroot/rodin/devkits/lnx64/aws/f1/aws-login.sh
+% /tools/batonroot/rodin/devkits/lnx64/aws/f1/f1-instance.sh i-0386c279e375ce828 start
+
+
+```
+
+```console
 % ssh -R:10020:xcdl190260:22 aws
 % ssh-keygen
 % # upload pub key to xcdl
@@ -58,6 +68,11 @@ Host xcdl190260
 % git clone --depth 1 gits@xcdl190260:aisw/target_factory
 % git clone --depth 1 gits@xcdl190260:aisw/xir
 % git clone --depth 1 gits@xcdl190260:aisw/vart
+```
+
+# build unilog
+
+``` console
 % cd ~/unilog
 % ./cmake.sh
 % emacs -nw cmake.sh
@@ -65,17 +80,37 @@ Host xcdl190260
 % git checkout -b br-ubuntu-20.04 origin/dev
 % git push -u wcy br-ubuntu-20.04
 % emacs cmake.sh
+% ./cmake.sh --pack=deb
+```
+
+# build  xir
+
+```console
 % # xir
 % cd ~/xir
 % sudo chmod o+w /usr/lib/python3/dist-packages/
-% ./cmake.sh --build-python
+% ./cmake.sh --build-python --pack=deb
+```
+
+# build target factory
+
+```console
 % # target_factory
 % cd ~/target_factory
-% ./cmake.sh
-% # vart
-% ./cmake.sh --pack=deb --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF  --clean --build-python
-% cd $HOME
+% ./cmake.sh --pack=deb
+```
+
+# build vart
+
+``` console
+% cd $HOME/vart
+% ./cmake.sh --pack=deb --cmake-options=-DENABLE_DPU_RUNNER=ON --cmake-options=-DENABLE_SIM_RUNNER=OFF --cmake-options=-DENABLE_CPU_RUNNER=OFF --build-python
+```
+
+# build vitit-ai-library
+
+```console
 % git clone --depth 1 gits@xcdl190260:aisw/Vitis-AI-Library
-% cd Vitis-AI-Library
-% ./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON -DBUILD_PYTHON=ON'
+% cd ~/Vitis-AI-Library
+% ./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON -DBUILD_PYTHON=ON' --pack=deb
 ```
