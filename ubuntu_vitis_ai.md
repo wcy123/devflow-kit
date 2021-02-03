@@ -21,6 +21,7 @@ Host aws
 
 ```console
 % ssh aws
+% sudo apt --fix-broken install
 % sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com --verbose 5DE10266B40665E66D7301F660FC2865A39A32B2
 % sudo add-apt-repository --enable-source ppa:alfonsosanchezbeato/arm64-vitis
 % sudo apt build-dep -y vitis-ai
@@ -113,4 +114,71 @@ Host xcdl190260
 % git clone --depth 1 gits@xcdl190260:aisw/Vitis-AI-Library
 % cd ~/Vitis-AI-Library
 % ./cmake.sh --cmake-options='-DENABLE_OVERVIEW=ON -DBUILD_PYTHON=ON' --pack=deb
+```
+
+
+# copy them back
+
+``` console
+% for  i in /home/ubuntu/build/build.Ubuntu.20.04.aarch64.Debug/vart/libvart_1.3.1_arm64.deb \
+            /home/ubuntu/build/build.Ubuntu.20.04.aarch64.Debug/target_factory/libtarget-factory_1.3.1_arm64.deb \
+            /home/ubuntu/build/build.Ubuntu.20.04.aarch64.Debug/unilog/libunilog_1.3.1_arm64.deb \
+            /home/ubuntu/build/build.Ubuntu.20.04.aarch64.Debug/Vitis-AI-Library/libvitis_ai_library_1.3.1_arm64.deb \
+            /home/ubuntu/build/build.Ubuntu.20.04.aarch64.Debug/xir/libxir_1.3.1_arm64.deb; do \
+        echo scp aws:$i /tmp/; \
+done | sh;
+
+% scp /tmp/*.deb xbjlabdpsvr16:/group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/xdock-vitis-ai-sw/workspace
+```
+
+
+
+# deploy it on board
+
+``` console
+% scp /workspace/*.deb b2:/tmp/
+% ssh b2
+```
+
+``` console
+% # vim /etc/apt/apt.conf.d/70debconf
+% # to enable sock
+% # Acquire::http::proxy "socks5h://10.176.178.16:10080";
+% sudo apt-get install -y gnupg2
+% sudo apt-get install -y tsocks
+% # vim /etc/tsocks.conf
+% /usr/bin/dirmngr & # gpg: no running Dirmngr - starting '/usr/bin/dirmngr'
+% curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x5DE10266B40665E66D7301F660FC2865A39A32B2' | apt-key add -
+% apt-get install -y software-properties-common
+% # add-apt-repository --enable-source ppa:alfonsosanchezbeato/arm64-vitis # failed, so I manually update the source list
+# deb http://ppa.launchpad.net/alfonsosanchezbeato/arm64-vitis/ubuntu focal main
+# deb-src http://ppa.launchpad.net/alfonsosanchezbeato/arm64-vitis/ubuntu focal main
+% sudo apt build-dep -y vitis-ai
+% for  i in libunilog_1.3.1_arm64.deb  libtarget-factory_1.3.1_arm64.deb libxir_1.3.1_arm64.deb libvart_1.3.1_arm64.deb libvitis_ai_library_1.3.1_arm64.deb; do dpkg -i /tmp/$i; done
+% apt-get update --fix-missing
+% apt-get install -y xrt-zocl-dkms
+```
+
+the xrt installation, I get some erros like below.
+
+```
+It is likely that 5.4.0-xilinx-v2020.2 belongs to a chroot's host
+Building for 5.4.0-65-generic
+This package appears to be a binaries-only package
+ you will not be able to build against kernel 5.4.0-65-generic
+  since the package source was not provided
+  Finished DKMS common.postinst
+  install: cannot stat '/usr/src/xrt-2.7.0/driver/zocl/10-zocl.rules': No such file or directory
+  Loading new XRT Linux kernel modules
+  modprobe: FATAL: Module zocl not found in directory /lib/modules/5.4.0-xilinx-v2020.2
+  ****************************************************************
+  * DKMS failed to install XRT drivers.
+  * Please check if kernel development headers are installed for OS variant used.
+  *
+  * Check build logs in /var/lib/dkms/xrt/2.7.0
+  ****************************************************************
+  INFO: Creating ICD entry for Xilinx Platform
+  Setting up linux-headers-generic (5.4.0.65.68) ...
+  Processing triggers for libc-bin (2.31-0ubuntu9) ...
+  Processing triggers for man-db (2.9.1-1) ...
 ```
