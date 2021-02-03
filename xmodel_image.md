@@ -192,3 +192,77 @@
 % env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=0 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/vpgnet_pruned_0_99/vpgnet_pruned_0_99.xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/lanedetect/sample_lanedetect.jpg
 
 ```
+
+
+## `open pose`
+
+``` console
+% cd /usr/share/vitis_ai_library/models/openpose_pruned_0_3
+% model=$(basename $(pwd))
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt $model.xmodel $model.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph $model.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg $model.xmodel $model.svg
+% realpath $model.svg
+% cat subgraph.txt
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/overview/test_jpeg_openpose openpose_pruned_0_3 /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/openpose/sample_openpose.jpg
+
+% mkdir -p ref
+
+% cp dump/subgraph_Mconv1_stage2_L1/output/0.Mconv7_stage6_L2_fixed.bin ref/Mconv7_stage6_L2_fixed.bin
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/openpose_pruned_0_3/openpose_pruned_0_3.xmodel -i 2
+% cp 0.Mconv7_stage6_L2_fixed_.bin ref/
+
+% cp dump/subgraph_Mconv1_stage2_L1/output/0.Mconv7_stage6_L1_fixed.bin ref/Mconv7_stage6_L1_fixed.bin
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/openpose_pruned_0_3/openpose_pruned_0_3.xmodel -i 3
+% cp 0.Mconv7_stage6_L1_fixed_.bin ref/
+
+% cp  ref/0.Mconv7_stage6_L1_fixed_.bin ref/Mconv7_stage6_L1_fixed_.bin
+% cp  ref/0.Mconv7_stage6_L2_fixed_.bin ref/Mconv7_stage6_L2_fixed_.bin
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_postprocessor /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/openpose_pruned_0_3/openpose_pruned_0_3.xmodel
+
+
+% mkdir -p /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/openpose_pruned_0_3
+% ln -s  /usr/share/vitis_ai_library/models/openpose_pruned_0_3/openpose_pruned_0_3.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/openpose_pruned_0_3
+% cat /usr/share/vitis_ai_library/models/openpose_pruned_0_3/openpose_pruned_0_3.prototxt
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=0 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_xmodel  /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/openpose_pruned_0_3/openpose_pruned_0_3.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/openpose/sample_openpose.jpg
+
+```
+
+
+## `tfssd`
+
+``` console
+% cd /usr/share/vitis_ai_library/models/ssd_resnet_50_fpn_coco_tf
+% model=$(basename $(pwd))
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir dump_txt $model.xmodel $model.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir subgraph $model.xmodel >subgraph.txt
+% /home/$USER/build/build.CentOS.7.6.1810.x86_64.Debug/xir/tools/xir svg $model.xmodel $model.svg
+% realpath $model.svg
+% cat subgraph.txt
+% xmodel=$(realpath $model.xmodel)
+% jpeg=/group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/vitis-ai-library-samples-res/samples/tfssd/sample_tfssd.jpg
+
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/overview/test_jpeg_tfssd $model $jpeg
+% mkdir -p ref
+% cp dump/subgraph_FeatureExtractor_resnet_v1_50_fpn_bottom_up_block5_Conv2D/input/0.image_tensor_aquant.bin ref/image_tensor_aquant.bin
+
+
+% env  XLNX_ENABLE_DUMP=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $xmodel -i -1
+% find . | grep aquant_box_encodings
+% cp 0.class_predictions_with_background_fix.bin ref/class_predictions_with_background_fix.bin
+
+% cp ./dump/subgraph_FeatureExtractor_resnet_v1_50_fpn_bottom_up_block5_Conv2D/output/0.concat_aquant.bin ref/concat_aquant.bin
+% /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/graph_task/test_graph_task $xmodel -i 3
+% cp ./dump/subgraph_box_encodings_fix/concat_2f_aquant_box_encodings_0.bin ref/concat_aquant_box_encodings.bin
+% cp dump/subgraph_class_predictions_with_background_fix/concat_1_2f_aquant_class_predictions_with_background_0.bin ref/concat_1_aquant_class_predictions_with_background.bin
+
+% mkdir -p /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/$model
+% ln -s /usr/share/vitis_ai_library/models/$model/$model.xmodel /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/$model
+%
+% touch /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/$model.py
+
+% env DEBUG_IMAGE_UTIL=1 XLNX_ENABLE_DUMP=1 DEBUG_XMODEL_JIT=1 /home/chunywan/build/build.CentOS.7.6.1810.x86_64.Debug/Vitis-AI-Library/xmodel_image/test_postprocessor /group/xbjlab/dphi_software/software/workspace/chunywan/d/working/aisw/Vitis-AI-Library/xmodel_image/models/$model/$model.xmodel
+```
