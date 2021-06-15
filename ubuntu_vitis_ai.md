@@ -157,6 +157,7 @@ done | sh;
 % for  i in libunilog_1.3.1_arm64.deb  libtarget-factory_1.3.1_arm64.deb libxir_1.3.1_arm64.deb libvart_1.3.1_arm64.deb libvitis_ai_library_1.3.1_arm64.deb; do dpkg -i /tmp/$i; done
 % apt-get update --fix-missing
 % apt-get install -y xrt-zocl-dkms
+% apt-get remove xrt-zocl-dkms
 ```
 
 the xrt installation, I get some erros like below.
