@@ -199,6 +199,8 @@ $ cp DeepLab__input_1_fix.bin DeepLab__input_1_fix_4.bin
 $ cd ~/graph_test/0110
 $ env XLNX_ENABLE_FINGERPRINT_CHECK=0 DEBUG_DPU_RUNNER=0  ~/graph_test/test_graph_runner /usr/share/vitis_ai_library/models/SA_gate_pt/SA_gate_pt.xmodel -i 2 && md5sum *.bin
 ```
+
+### Reproduce issue
 ```
 $ env XLNX_ENABLE_DUMP=1 XLNX_ENABLE_FINGERPRINT_CHECK=0 ./test_jpeg_RGBDsegmentation SA_gate_pt sample_rgbdsegmentation_bgr.jpg sample_rgbdsegmentation_hha.jpg
 $ md5sum dump/subgraph_DeepLab__DeepLab_45974/input/0*
@@ -262,4 +264,4 @@ $ env XLNX_ENABLE_FINGERPRINT_CHECK=0 DEBUG_DPU_RUNNER=0  ~/graph_test/test_grap
 $ cp ~/graph_test/ref/DeepLab__input_0_fix.bin ref/DeepLab__input_0_fix_0.bin
 $ cp ~/graph_test/ref/DeepLab__input_1_fix.bin ref/DeepLab__input_1_fix_0.bin
 $ env XLNX_ENABLE_FINGERPRINT_CHECK=0 DEBUG_DPU_RUNNER=0  ~/graph_test/test_graph_runner /usr/share/vitis_ai_library/models/SA_gate_pt/SA_gate_pt.xmodel -i 2 && md5sum *.bin
-``
+```
