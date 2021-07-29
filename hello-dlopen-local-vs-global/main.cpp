@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
   auto foo = load(argv[1]);
   auto bar = load(argv[2]);
   auto r1 = foo();
-  auto r2 = foo();
+  auto r2 = bar();
   cout << "foo= " << r1 << " " << (void*)r1 << endl;
   cout << "bar= " << r2 << " " << (void*)r2 << endl;
   return 0;

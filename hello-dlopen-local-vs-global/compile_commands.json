@@ -3,72 +3,13 @@
         "arguments": [
             "c++",
             "-c",
-            "-fPIC",
             "-g",
             "-O0",
             "-o",
-            "libfoo.so",
-            "foo.cpp"
+            "main",
+            "main.cpp"
         ],
-        "directory": "/workspace/aisw/learn/hello-dlopen-local-vs-global",
-        "file": "foo.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-DCOMMON=\"c1\"",
-            "-fPIC",
-            "-g",
-            "-O0",
-            "-o",
-            "libcommon1.so",
-            "common.cpp"
-        ],
-        "directory": "/workspace/aisw/learn/hello-dlopen-local-vs-global",
-        "file": "common.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-DCOMMON=\"c2\"",
-            "-fPIC",
-            "-g",
-            "-O0",
-            "-o",
-            "libcommon2.so",
-            "common.cpp"
-        ],
-        "directory": "/workspace/aisw/learn/hello-dlopen-local-vs-global",
-        "file": "common.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-fPIC",
-            "-g",
-            "-O0",
-            "-o",
-            "libcommon.so",
-            "common.cpp"
-        ],
-        "directory": "/workspace/aisw/learn/hello-dlopen-local-vs-global",
-        "file": "common.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-fPIC",
-            "-g",
-            "-O0",
-            "-o",
-            "libbar.so",
-            "bar.cpp"
-        ],
-        "directory": "/workspace/aisw/learn/hello-dlopen-local-vs-global",
-        "file": "bar.cpp"
+        "directory": "/workspace/aisw/work_log/hello-dlopen-local-vs-global",
+        "file": "main.cpp"
     }
 ]
