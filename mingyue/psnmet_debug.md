@@ -12,7 +12,7 @@
 ### 50%  debug mode show CYCLE
 ```
 ##
-% env XLNX_SHOW_DPU_COUNTER=1 XLNX_ENABLE_DEBUG_MODE=1 xdputil run ~/test/0823/PSMNet_0_int_50%_compiled_DPUCVDX8G_ISA1_C32B3_3D.xmodel -i 1 /home/root/test/0_50_0/PSMNet__PSMNet_QuantStub_quant1__input_1_fix.bin 2> 0_50_0.log 1>&2 && rm *.bin
+% env XLNX_SHOW_DPU_COUNTER=1 XLNX_ENABLE_DEBUG_MODE=0 xdputil run ~/test/0823/PSMNet_0_int_50%_compiled_DPUCVDX8G_ISA1_C32B3_3D.xmodel -i 1 /home/root/test/0_50_0/PSMNet__PSMNet_QuantStub_quant1__input_1_fix.bin
 % env XLNX_SHOW_DPU_COUNTER=1 XLNX_ENABLE_DEBUG_MODE=1 xdputil run ~/test/0823/PSMNet_0_int_50%_compiled_DPUCVDX8G_ISA1_C32B3_3D.xmodel -i 6 /home/root/test/0_50_0/PSMNet__PSMNet_Add_add25__1837_fix.bin  /home/root/test/0_50_0/PSMNet__PSMNet_Add_add25__1837_fix.bin /home/root/test/0_50_0/PSMNet__PSMNet_Add_add25__1837_fix.bin /home/root/test/0_50_0/PSMNet__PSMNet_Add_add25__1837_fix.bin /home/root/test/0_50_0/PSMNet__PSMNet_Add_add25__1837_fix.bin /home/root/test/0_50_0/PSMNet__PSMNet_Add_add25__1837_fix.bin 2> 0_50_1.log 1>&2 && rm *.bin
 
 
@@ -41,5 +41,5 @@
 ### scp log file to xcd
 ```
 % scp root@10.176.178.116:~/test/0823/*.log ./
-% scp *.log mingyue@xcdl190260:/group/dphi_software/mingyue/psmnet/0823/
+% scp *.log mingyue@xcdl190260:/group/dphi_software/mingyue/psmnet/0823
 ```
