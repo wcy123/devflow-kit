@@ -26,10 +26,12 @@ xir use MR206
 
 % env LD_LIBRARY_PATH=/home/root/mingyue/Debug/lib:/tmp/libs /home/root/mingyue/Debug/share/vitis_ai_library/test/graph_runner/test_graph_runner -i -1 ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel
 
-% env LD_LIBRARY_PATH=/home/root/mingyue/Debug/lib PYTHONPATH=/home/root/mingyue/Debug/lib/python3.8/site-packages/ python3 xdputil.py run -i 3 ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel
-%
 
 ```
+### 4, add graph runner sample : pointpillars_graph_runner
 
+```
+% scp /workspace/aisw/Vitis-AI-Library/graph_runner/samples/pointpillars_graph_runner/pointpillars_graph_runner b1:/home/root/mingyue/
+% env LD_LIBRARY_PATH=/home/root/mingyue/Debug/lib:/tmp/lib /home/root/mingyue/pointpillars_graph_runner ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel ~/pointpillar_VoxelNet_int_compiled_DPUCZDX8G_ISA0_B4096_MAX_BG2.xmodel
 
-### 4, delopy
+```
