@@ -43,3 +43,14 @@
 % scp root@10.176.178.116:~/test/0823/*.log ./
 % scp *.log mingyue@xcdl190260:/group/dphi_software/mingyue/psmnet/0823
 ```
+
+
+
+
+##b2 10.176.179.179
+```
+% rsync -avz /opt/petalinux/2021.1/sysroots/cortexa72-cortexa53-xilinx-linux/install/Debug b2:/home/root/mingyue/
+% rsync -avx /workspace/aisw/Vitis-AI-Library/overview/samples/dpu_task/psmnet b2:/home/root/mingyue
+%
+
+```
