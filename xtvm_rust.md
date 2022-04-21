@@ -42,7 +42,7 @@ $ ../Vitis-AI-Library/cmake.sh --project=xcompiler_tvm
 ```
 # run resnet50 sample
 ```
-$ env PYTHONPATH=/workspace/aisw/tvm/python LD_LIBRARY_PATH=/home/local/Ubuntu,20.04.x86_64.Release/lib:/usr/local/lib python /workspace/aisw/xcompiler_tvm/tests/test_resnet_v1_50.py
+$ env PYTHONPATH=/workspace/aisw/tvm/python LD_LIBRARY_PATH=/home/local/Ubuntu.20.04.x86_64.Debug/lib:/usr/local/lib python /workspace/aisw/xcompiler_tvm/tests/test_resnet_v1_50.py
 
 ```
 
@@ -65,4 +65,20 @@ $ cargo build
 $ cd /workspace/aisw/xcompiler_tvm/rust
 $ cargo build
 $ make
+```
+
+
+# for CXX
+```
+$ unset LD_LIBRARY_PATH; source /opt/petalinux/2021.1/environment-setup-cortexa72-cortexa53-xilinx-linux
+
+$ cd /workspace/aisw/Vitis-AI-Library
+$ make all
+
+$ cd  /workspace/aisw/tvm
+$ ../Vitis-AI-Library/cmake.sh --project=tvm --cmake-options=-DMACHINE_NAME=aarch64-linux-gnu
+
+$ cd /workspace/aisw/xcompiler_tvm
+$ ../Vitis-AI-Library/cmake.sh --project=xcompiler_tvm
+
 ```
