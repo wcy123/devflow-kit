@@ -3,17 +3,25 @@
 # install ros
 
 ```
-% lsl
+% export http_proxy=http://localhost:9181; export https_proxy=http://localhost:9181
+% ls
 % sudo apt update && sudo apt install curl gnupg2 lsb-release
-% sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+% curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
 % echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+```
+
+
+```
+% sudo env http_proxy=http://localhost:9181 apt-get update -o Dir::Etc::sourcelist="sources.list.d/ros.list" \
+    -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+% sudo env http_proxy=http://localhost:9181 apt-get install -y ros-foxy-desktop
 ```
 
 ## install from deb pacakges.
 
 
 ```
-% sudo apt update
+% sudo env http_proxy=http://localhost:9181 https_proxy=http://localhost:9181 apt update
 % sudo apt install -y ros-foxy-desktop
 ```
 
