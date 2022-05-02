@@ -50,4 +50,22 @@
 % wget https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth
 % python eval.py
 % pip3 install --proxy=http://localhost:9181 torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu --user
+% env http_proxy= wget http://xcdl190260/wangchunye/work_log/raw/master/onnx/tutorials/pytorch/super_resulution/model.py
+% python model.py
+% ls -l super_resolution.onnx
+% protoc --decode=onnx.ModelProto --proto_path /home/chunywan/build/onnx/onnx/ onnx-ml.proto < super_resolution.onnx | less -XR
+```
+
+## install onnx runtime
+
+``` console
+% pip --proxy http://localhost:9181 install onnxruntime --user
+```
+
+
+``` console
+% dir=/workspace/aisw/onnx/models/pytorch/super_reslution/
+% mkdir -p $dir; cd $dir; ls -l;pwd
+% wget https://pytorch.org/tutorials/_images/cat_224x224.jpg
+%
 ```
