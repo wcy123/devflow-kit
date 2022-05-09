@@ -97,19 +97,13 @@
 49d7050b88338dd57839159aa4ce8fb0c199b064
 % cd onnxruntime
 % mkdir -p  $HOME/build/onnxruntime
-% ln -s  $HOME/build/onnxruntime /workspace/aisw/onnxruntime/build
-% ls -l build
-% export CMAKE_ARGS=""
-% CMAKE_ARGS+=" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-% CMAKE_ARGS+=" -DCMAKE_PREFIX_PATH=$HOME/.local/Ubuntu.20.04.x86_64.Debug"
-% CMAKE_ARGS+=" -DCMAKE_INSTALL_PREFIX=$HOME/.local/Ubuntu.20.04.x86_64.Debug"
-% CMAKE_ARGS+=" -DCMAKE_BUILD_TYPE=Debug"
-% echo $CMAKE_ARGS
 % cd /workspace/aisw/onnxruntime
 % ./build.sh --build_dir /home/build/onnxruntime --config Debug --build_shared_lib --parallel --build_wheel --skip_tests \
    --cmake_extra_defines "CMAKE_EXPORT_COMPILE_COMMANDS=ON" \
    --cmake_extra_defines "CMAKE_PREFIX_PATH=$HOME/.local/Ubuntu.20.04.x86_64.Debug" \
    --cmake_extra_defines "CMAKE_INSTALL_PREFIX=$HOME/.local/Ubuntu.20.04.x86_64.Debug" \
+   --cmake_extra_defines "onnxruntime_BUILD_SHARED_LIB=ON" \
+   --cmake_extra_defines "onnxruntime_ENABLE_PYTHON=ON"
    2>&1 | tee build.log
 % pip install build/Linux/Debug/dist/onnxruntime-1.12.0-cp38-cp38-linux_x86_64.whl --user
 ```
