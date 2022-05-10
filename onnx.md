@@ -86,26 +86,139 @@
 % sudo make install
 ```
 
+## install absl
+
+``` console
+% cd /workspace/aisw/
+% wget https://github.com/abseil/abseil-cpp/archive/refs/tags/20211102.0.zip
+% unzip 20211102.0.zip
+% cd abseil-cpp-20211102.0
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD) --cmake-options "-DABSL_ENABLE_INSTALL=ON -DABSL_USE_EXTERNAL_GOOGLETEST=ON -DABSL_FIND_GOOGLETEST=ON"
+```
+
+
+## install nsync
+
+``` console
+% cd /workspace/aisw/
+% git clone https://github.com/google/nsync.git
+% cd nsync
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+## install date
+
+``` console
+% cd /workspace/aisw/
+% git clone https://github.com/HowardHinnant/date.git
+% cd date
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+## install mp11
+
+``` console
+% cd /workspace/aisw/
+% git clone  https://github.com/boostorg/mp11.git
+% cd mp11
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+## install json
+``` console
+% cd /workspace/aisw/
+% git clone  https://github.com/nlohmann/json.git
+% cd json
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+## install re2
+
+``` console
+% cd /workspace/aisw/
+% git clone  https://github.com/google/re2.git
+% cd re2
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+## install cpu info
+
+``` console
+% cd /workspace/aisw/
+% git clone https://github.com/pytorch/cpuinfo.git
+% cd cpuinfo
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+
+## install flat buffer
+
+``` console
+% cd /workspace/aisw/
+% git clone  https://github.com/google/flatbuffers.git
+% cd flatbuffers
+% git checkout 6df40a2471737b27271bdd9b900ab5f3aec746c7
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+```
+
+## clone eigen, no need for install, system wise installed version does not work
+
+``` console
+% cd /workspace/aisw/
+% git clone https://gitlab.com/libeigen/eigen.git
+```
+
+## install
 
 ## build  onnx runtime from source code.
 
 ``` console
 % dir=/workspace/aisw/
 % mkdir -p $dir; cd $dir; ls -l;pwd
-% git clone --recursive https://github.com/Microsoft/onnxruntime
+% git clone https://github.com/Microsoft/onnxruntime
+% cd onnxruntime
 % git rev-parse HEAD
 49d7050b88338dd57839159aa4ce8fb0c199b064
-% cd onnxruntime
+% cd /workspace/aisw/onnxruntime
 % mkdir -p  $HOME/build/onnxruntime
 % cd /workspace/aisw/onnxruntime
-% ./build.sh --build_dir /home/build/onnxruntime --config Debug --build_shared_lib --parallel --build_wheel --skip_tests \
+% git submodule list
+% git submodule update --init cmake/external/onnx cmake/external/nsync cmake/external/SafeInt/safeint
+% ./build.sh --build_dir /home/build/onnxruntime --config Debug --build_shared_lib --parallel --build_wheel --skip_tests --skip_submodule_sync\
    --cmake_extra_defines "CMAKE_EXPORT_COMPILE_COMMANDS=ON" \
    --cmake_extra_defines "CMAKE_PREFIX_PATH=$HOME/.local/Ubuntu.20.04.x86_64.Debug" \
    --cmake_extra_defines "CMAKE_INSTALL_PREFIX=$HOME/.local/Ubuntu.20.04.x86_64.Debug" \
    --cmake_extra_defines "onnxruntime_BUILD_SHARED_LIB=ON" \
-   --cmake_extra_defines "onnxruntime_ENABLE_PYTHON=ON"
+   --cmake_extra_defines "BUILD_ONNX_PYTHON=ON" \
+   --cmake_extra_defines "Protobuf_USE_STATIC_LIBS=OFF" \
+   --cmake_extra_defines "onnxruntime_USE_PREINSTALLED_EIGEN=ON" \
+   --cmake_extra_defines "eigen_SOURCE_PATH=/workspace/aisw/eigen" \
+   --cmake_extra_defines "ONNX_USE_PROTOBUF_SHARED_LIBS=ON" \
+   --cmake_extra_defines "onnxruntime_PREFER_SYSTEM_LIB=ON" \
+   --cmake_extra_defines "ABSL_ENABLE_INSTALL=ON" \
+   --cmake_extra_defines "BUILD_SHARED_LIBS=ON" \
+   --cmake_extra_defines "onnxruntime_USE_FULL_PROTOBUF=ON" \
    2>&1 | tee build.log
+% cmake --build $HOME/build/onnxruntime/Debug -v --target onnxruntime_test_all
+% cmake --build $HOME/build/onnxruntime/Debug -v --target onnxruntime_test_all
 % pip install build/Linux/Debug/dist/onnxruntime-1.12.0-cp38-cp38-linux_x86_64.whl --user
+```
+
+
+``` console
+% cd /home/build/onnxruntime/Debug
+% /usr/bin/c++ -DEIGEN_MPL2_ONLY -DEIGEN_USE_THREADS -DNSYNC_ATOMIC_CPP11 -DONNX_ML=1 -DONNX_NAMESPACE=onnx -DONNX_USE_LITE_PROTO=1 -DPLATFORM_POSIX -D__ONNX_NO_DOC_STRINGS -I/workspace/aisw/onnxruntime/include/onnxruntime -I/workspace/aisw/onnxruntime/include/onnxruntime/core/session -I/workspace/aisw/onnxruntime/cmake/external/nsync/public -I/home/build/onnxruntime/Debug -I/workspace/aisw/onnxruntime/onnxruntime -I/home/build/onnxruntime/Debug/_deps/abseil_cpp-src -I/workspace/aisw/eigen -I/include -I/workspace/aisw/onnxruntime/cmake/external/SafeInt -I/home/chunywan/.local/Ubuntu.20.04.x86_64.Debug/include -I/workspace/aisw/onnxruntime/cmake/external/onnx -I/home/build/onnxruntime/Debug/external/onnx  -ffunction-sections -fdata-sections -DCPUINFO_SUPPORTED -g -DGSL_THROW_ON_CONTRACT_VIOLATION -fPIC -Wall -Wextra -Werror -Wno-deprecated-copy -Wno-nonnull-compare -std=gnu++17 -o CMakeFiles/onnxruntime_framework.dir/workspace/aisw/onnxruntime/onnxruntime/core/framework/op_node_proto_helper.cc.txt -E /workspace/aisw/onnxruntime/onnxruntime/core/framework/op_node_proto_helper.cc
+
+% emacs -nw CMakeFiles/onnxruntime_framework.dir/workspace/aisw/onnxruntime/onnxruntime/core/framework/op_node_proto_helper.cc.txt
+% nm -C ./CMakeFiles/onnxruntime_framework.dir/workspace/aisw/onnxruntime/onnxruntime/core/framework/op_node_proto_helper.cc.o | grep AttributeProto_AttributeType_Name
+% nm ./CMakeFiles/onnxruntime_framework.dir/workspace/aisw/onnxruntime/onnxruntime/core/framework/op_node_proto_helper.cc.o | grep AttributeProto_AttributeType_Name
+% cd /home/chunywan/build/onnxruntime/Debug/external/onnx
+% /bin/c++ -fPIC  -ffunction-sections -fdata-sections -DCPUINFO_SUPPORTED -Wnon-virtual-dtor -g -DGSL_THROW_ON_CONTRACT_VIOLATION -O0 -shared -Wl,-soname,libonnx_proto.so -o libonnx_proto.so "CMakeFiles/onnx_proto.dir/onnx/onnx-ml.pb.cc.o" "CMakeFiles/onnx_proto.dir/onnx/onnx-operators-ml.pb.cc.o" "CMakeFiles/onnx_proto.dir/onnx/onnx-data.pb.cc.o" /usr/lib/x86_64-linux-gnu/libprotobuf.a && nm libonnx_proto.so | grep AttributeProto_AttributeType_Name
+% nm  CMakeFiles/onnx_proto.dir/onnx/onnx-ml.pb.cc.o | grep Version_Name
+% /usr/bin/c++  -shared -o libonnx_proto.so CMakeFiles/onnx_proto.dir/onnx/onnx-ml.pb.cc.o && nm libonnx_proto.so | grep AttributeProto_AttributeType_Name
+% rm libonnx_proto.so ; /usr/bin/c++ -Wl,-v -shared -o libonnx_proto.so CMakeFiles/onnx_proto.dir/onnx/onnx-ml.pb.cc.o && nm libonnx_proto.so | grep Version_Name
+% /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccxX7kG6.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -shared -z relro -o libonnx_proto.so /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. -v CMakeFiles/onnx_proto.dir/onnx/onnx-ml.pb.cc.o -lstdc++ -lm -lgcc_s -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o && nm libonnx_proto.so | grep Version_Name
+% rm libonnx_proto.so; /usr/bin/ld   -shared  -o libonnx_proto.so /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../..  CMakeFiles/onnx_proto.dir/onnx/onnx-ml.pb.cc.o -lstdc++ -lm -lgcc_s -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o && nm libonnx_proto.so | grep Version_Name
 ```
 
 
@@ -133,15 +246,23 @@ https://github.com/onnx/tensorflow-onnx/blob/main/tutorials/keras-resnet50.ipynb
 ```
 
 
-## install absl
+## vaip undefined reference
 
 ``` console
-% cd /home/build
-% wget https://github.com/abseil/abseil-cpp/archive/refs/tags/20211102.0.zip
-% unzip 20211102.0.zip
-% cd abseil-cpp-20211102.0
-% cmake -S /home/build/abseil-cpp-20211102.0 -B /home/build/build/abseil-cpp -DCMAKE_PREFIX_PATH=/installation/dir -DCMAKE_INSTALL_PREFIX=$HOME/.local/Ubuntu.20.04.x86_64.Debug -DABSL_ENABLE_INSTALL=ON -DABSL_USE_EXTERNAL_GOOGLETEST=ON -DABSL_FIND_GOOGLETEST=ON
-% cmake --build /home/build/build/abseil-cpp -j $(nproc)
-% cmake --install /home/build/build/abseil-cpp
+% cd /workspace/aisw/
+% echo _ZN11onnxruntime7logging8Category11onnxruntimeE | c++filt
+% cd /home/build/onnxruntime/Debug
+% nm libonnxruntime.so.1.12.0 | grep _ZN11onnxruntime7logging8Category11onnxruntimeE
 
+```
+
+``` console
+% cd /home/build/onnxruntime/Debug
+% /usr/bin/ar qc libfoo.a foo.o
+% nm libfoo.a
+% /usr/bin/c++ -fPIC  -ffunction-sections -fdata-sections -DCPUINFO_SUPPORTED -g -DGSL_THROW_ON_CONTRACT_VIOLATION  -Xlinker --version-script=/home/build/onnxruntime/Debug/onnxruntime.lds -Xlinker --no-undefined -Xlinker --gc-sections -z noexecstack  -Wl,-rpath='$ORIGIN' -shared -Wl,-soname,liuse_foo.so.1.12.0 -o libuse_foo.so.1.12.0 use_foo.o
+% /usr/bin/c++ -fPIC -Xlinker --version-script=/home/build/onnxruntime/Debug/onnxruntime.lds -Xlinker --no-undefined -Xlinker --gc-sections -z noexecstack  -Wl,-rpath='$ORIGIN'    -Wl,-rpath='$ORIGIN' -shared -Wl,-soname,liuse_foo.so.1.12.0 -o libuse_foo.so.1.12.0 use_foo.o libfoo.a
+% nm libuse_foo.so.1.12.0 | grep foo
+% nm libuse_foo.so.1.12.0 | grep bar
+% /usr/bin/python3 /workspace/aisw/onnxruntime/tools/ci_build/gen_def.py --version_file /workspace/aisw/onnxruntime/onnxruntime/../VERSION_NUMBER --src_root /workspace/aisw/onnxruntime/onnxruntime --config cpu --style=gcc --output /home/build/onnxruntime/Debug/onnxruntime.lds --output_source /home/build/onnxruntime/Debug/generated_source.c
 ```
