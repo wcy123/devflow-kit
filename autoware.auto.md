@@ -89,8 +89,8 @@ $ echo $ROS_VERSION
 ``` console
 xbjlabdpwstn05% ssh localhost
 xbjlabdpwstn05% source /opt/ros/foxy/setup.bash
-xbjlabdpwstn05% export ROS_DOMAIN_ID=1
+xbjlabdpwstn05% export ROS_DOMAIN_ID=7
 xbjlabdpwstn05% ros2 topic list # parameter_events and rosout are built-in topic
 % SIMULATOR_ROOT=/scratch/$USER/Downloads/svlsimulator-linux64-2021.3
-% env LD_LIBRARY_PATH=$SIMULATOR_ROOT/simulator_Data/Plugins:/opt/ros/foxy/lib ROS_DOMAIN_ID=1 HOME=/scratch/$USER/  DISPLAY=127.0.0.1:17941   http_proxy=http://localhost:9181   $SIMULATOR_ROOT/simulator
+% env LD_LIBRARY_PATH=$SIMULATOR_ROOT/simulator_Data/Plugins:/opt/ros/foxy/lib ROS_DOMAIN_ID=7 HOME=/scratch/$USER/  DISPLAY=127.0.0.1:17941   http_proxy=http://localhost:9181   $SIMULATOR_ROOT/simulator
 ```

@@ -111,7 +111,7 @@
 ``` console
 % cd /workspace/aisw/
 % git clone https://github.com/HowardHinnant/date.git
-% cd date
+% cd /workspace/aisw/date
 % ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
 ```
 
@@ -120,7 +120,8 @@
 ``` console
 % cd /workspace/aisw/
 % git clone  https://github.com/boostorg/mp11.git
-% cd mp11
+% cd /workspace/aisw/mp11
+% # it requires network connection, set proxy if possible.
 % ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
 ```
 
@@ -128,7 +129,7 @@
 ``` console
 % cd /workspace/aisw/
 % git clone  https://github.com/nlohmann/json.git
-% cd json
+% cd /workspace/aisw/json
 % ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
 ```
 
@@ -137,7 +138,7 @@
 ``` console
 % cd /workspace/aisw/
 % git clone  https://github.com/google/re2.git
-% cd re2
+% cd /workspace/aisw/re2
 % ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
 ```
 
@@ -146,8 +147,10 @@
 ``` console
 % cd /workspace/aisw/
 % git clone https://github.com/pytorch/cpuinfo.git
-% cd cpuinfo
+% cd /workspace/aisw/cpuinfo
 % ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+# we need to disable test for cross compilation
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD) --cmake-options='-DCPUINFO_BUILD_UNIT_TESTS=off -DCPUINFO_BUILD_MOCK_TESTS=off -DCPUINFO_BUILD_BENCHMARKS=off'
 ```
 
 
@@ -156,9 +159,11 @@
 ``` console
 % cd /workspace/aisw/
 % git clone  https://github.com/google/flatbuffers.git
-% cd flatbuffers
+% cd /workspace/aisw/flatbuffers
 % git checkout 6df40a2471737b27271bdd9b900ab5f3aec746c7
 % ../Vitis-AI-Library/cmake.sh --project $(basename $PWD)
+# again, we need to disable test for cross compilation
+% ../Vitis-AI-Library/cmake.sh --project $(basename $PWD) --cmake-options='-DFLATBUFFERS_BUILD_TESTS=off -DFLATBUFFERS_BUILD_FLATC=off'
 ```
 
 ## clone eigen, no need for install, system wise installed version does not work
@@ -200,8 +205,48 @@
    --cmake_extra_defines "onnxruntime_USE_FULL_PROTOBUF=ON" \
    2>&1 | tee build.log
 % cmake --build $HOME/build/onnxruntime/Debug -v --target onnxruntime_test_all
-% cmake --build $HOME/build/onnxruntime/Debug -v --target onnxruntime_test_all
+
 % pip install build/Linux/Debug/dist/onnxruntime-1.12.0-cp38-cp38-linux_x86_64.whl --user
+
+# cross compilation
+% git submodule update --init cmake/external/onnx cmake/external/nsync cmake/external/SafeInt/safeint cmake/external/googletest
+% ./build.sh --build_dir /home/build/onnxruntime/petalinux --config Debug --build_shared_lib --parallel --build_wheel --skip_tests --skip_submodule_sync\
+   --cmake_extra_defines "CMAKE_TOOLCHAIN_FILE=/opt/petalinux/2021.2/sysroots/x86_64-petalinux-linux/usr/share/cmake/OEToolchainConfig.cmake" \
+   --cmake_extra_defines "CMAKE_PREFIX_PATH=/install/Debug" \
+   --cmake_extra_defines "CMAKE_INSTALL_PREFIX=/opt/petalinux/2021.2/sysroots/cortexa72-cortexa53-xilinx-linux/install/Debug" \
+   --cmake_extra_defines "onnxruntime_BUILD_SHARED_LIB=ON" \
+   --cmake_extra_defines "BUILD_ONNX_PYTHON=OFF" \
+   --cmake_extra_defines "onnxruntime_ENABLE_PYTHON=OFF" \
+   --cmake_extra_defines "Protobuf_USE_STATIC_LIBS=OFF" \
+   --cmake_extra_defines "onnxruntime_USE_PREINSTALLED_EIGEN=ON" \
+   --cmake_extra_defines "eigen_SOURCE_PATH=/workspace/aisw/eigen" \
+   --cmake_extra_defines "ONNX_USE_PROTOBUF_SHARED_LIBS=ON" \
+   --cmake_extra_defines "onnxruntime_PREFER_SYSTEM_LIB=ON" \
+   --cmake_extra_defines "ABSL_ENABLE_INSTALL=ON" \
+   --cmake_extra_defines "BUILD_SHARED_LIBS=ON" \
+   --cmake_extra_defines "onnxruntime_USE_FULL_PROTOBUF=ON" \
+   2>&1 | tee build.log
+% cmake --build $HOME/build/onnxruntime/petalinux/Debug -v --target onnxruntime_test_all -j $(nproc)
+% cmake --build $HOME/build/onnxruntime/petalinux/Debug -v --target onnxruntime -j $(nproc)
+# miminz size
+% ./build.sh --build_dir /home/build/onnxruntime/petalinux --config MinSizeRel --build_shared_lib --parallel --build_wheel --skip_tests --skip_submodule_sync\
+   --cmake_extra_defines "CMAKE_TOOLCHAIN_FILE=/opt/petalinux/2021.2/sysroots/x86_64-petalinux-linux/usr/share/cmake/OEToolchainConfig.cmake" \
+   --cmake_extra_defines "CMAKE_PREFIX_PATH=/install/Debug" \
+   --cmake_extra_defines "CMAKE_INSTALL_PREFIX=/opt/petalinux/2021.2/sysroots/cortexa72-cortexa53-xilinx-linux/install/Debug" \
+   --cmake_extra_defines "onnxruntime_BUILD_SHARED_LIB=ON" \
+   --cmake_extra_defines "BUILD_ONNX_PYTHON=OFF" \
+   --cmake_extra_defines "onnxruntime_ENABLE_PYTHON=OFF" \
+   --cmake_extra_defines "Protobuf_USE_STATIC_LIBS=OFF" \
+   --cmake_extra_defines "onnxruntime_USE_PREINSTALLED_EIGEN=ON" \
+   --cmake_extra_defines "eigen_SOURCE_PATH=/workspace/aisw/eigen" \
+   --cmake_extra_defines "ONNX_USE_PROTOBUF_SHARED_LIBS=ON" \
+   --cmake_extra_defines "onnxruntime_PREFER_SYSTEM_LIB=ON" \
+   --cmake_extra_defines "ABSL_ENABLE_INSTALL=ON" \
+   --cmake_extra_defines "BUILD_SHARED_LIBS=ON" \
+   --cmake_extra_defines "onnxruntime_USE_FULL_PROTOBUF=ON" \
+   2>&1 | tee build.log
+% cmake --build $HOME/build/onnxruntime/petalinux/MinSizeRel -v --target onnxruntime_test_all -j $(nproc)
+% cmake --build $HOME/build/onnxruntime/petalinux/MinSizeRel -v --target onnxruntime -j $(nproc)
 ```
 
 
