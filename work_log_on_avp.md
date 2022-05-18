@@ -232,18 +232,20 @@ start the simulation.
 
 
 ``` console
+% echo $ROS_DOMAIN_ID
 xbjlabdpwstn05% ssh localhost
 xbjlabdpwstn05% source /opt/ros/foxy/setup.bash
-xbjlabdpwstn05% export ROS_DOMAIN_ID=8
+xbjlabdpwstn05% export ROS_DOMAIN_ID=1
 xbjlabdpwstn05% ros2 topic list # parameter_events and rosout are built-in topic
 % SIMULATOR_ROOT=/scratch/$USER/Downloads/svlsimulator-linux64-2021.3
-% env LD_LIBRARY_PATH=$SIMULATOR_ROOT/simulator_Data/Plugins:/opt/ros/foxy/lib ROS_DOMAIN_ID=8 HOME=/scratch/$USER/  DISPLAY=127.0.0.1:17941   http_proxy=http://localhost:9181   $SIMULATOR_ROOT/simulator
+% env LD_LIBRARY_PATH=$SIMULATOR_ROOT/simulator_Data/Plugins:/opt/ros/foxy/lib ROS_DOMAIN_ID=1 HOME=/scratch/$USER/  DISPLAY=127.0.0.1:17941   http_proxy=http://localhost:9181   $SIMULATOR_ROOT/simulator
 ```
 
 
 
 ``` console
 % find /home/local/test/Autoware.Auto/src/ -iname lgsvl_simulation.param.yaml
+% source /home/local/test/Autoware.Auto/install/setup.bash
 % ros2 launch lgsvl_simulation sim.launch.py simulation_params:=/home/local/test/Autoware.Auto/src/launch/avp_demos/param/lgsvl_simulation.param.yaml
 % # no module lgsvl
 % find /home/local/AutowareAuto.master/src -type d -iname lgsvl
@@ -255,4 +257,10 @@ xbjlabdpwstn05% ros2 topic list # parameter_events and rosout are built-in topic
 
 ``` console
 % ros2 run tf2_tools view_frames.py
+```
+
+``` console
+% ros2 topic pub -r 1 -t 1 /localization/initialpose \
+geometry_msgs/msg/PoseWithCovarianceStamped  \
+'{header: {stamp: {sec: 1652771953, nanosec: 274787965}, frame_id: map}, pose: {pose: {position: {x: -108.094, 'y': -2.0545, z: -28.905}, orientation: {x: 0, 'y': 0, z: 0.0, w: 1.0}}}}'
 ```
