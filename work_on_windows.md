@@ -27,176 +27,187 @@ https://thesysadminchannel.com/solved-add-windowscapability-failed-error-code-0x
 and enable proxy
 
 
+## install Anaconda
+
+
 ## connect to
 
-``` console
-% ssh-copy-id -o ProxyJump=localhost:10022 xcdvdiwin10-058
-% ssh -J localhost:10022 xcdvdiwin10-058
-```
-
-``` console
-> %windir%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -NoExit -Command "& 'C:\Users\chunywan\Anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\Users\chunywan\Anaconda3' "
-
-% conda config --set proxy_servers.https http://127.0.0.1:9181
-% conda config --set proxy_servers.http http://127.0.0.1:9181
-% conda create --name myenv git cmake python vs2019_win-64
-% conda activate myenv
-% conda list
+```console
+% ls
+% ssh xcdvdiwin10-058 # from XCD
+% # start anaconda
+> %windir%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -NoExit -Command "& 'C:\Users\%USERNAME%\Anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\Users\%USERNAME%\Anaconda3' "
 % python --version
-% git --version
-% net use z:
-% Get-PSDrive
-% net use z: \\xcdswsvm2-lif2\dphi_software # ok
-% Get-Location
-% powershell
+% conda config --add channels defaults
+% conda config --remove channels conda-forge
+% conda config --get channels
+% conda create -n myenv3 cmake git ninja python vs2019_win-64 boost glog json-c libprotobuf
+% conda activate myenv3
+% mamba install -c conda-forge json-c
+%
+% net use z: \\xcdswsvm2-lif2\dphi_software
 % function prompt {"$(Split-Path -leaf  -path (Get-Location)) % "}
-% pwd
-% cd Z:\software\workspace\chunywan\d\working\xdock-vitis-ai-sw\workspace\aisw
-% cd \\xcdswsvm2-lif2\dphi_software\software\workspace\chunywan\d\working\xdock-vitis-ai-sw\workspace\aisw
-% ls
-% pwd
-% Split-Path -leaf  -path (Get-Location)
-% git clone gits@xcdl190260:vitis/conda-feedstock.git
-% cd \\xcdswsvm2-lif2\dphi_software\software\workspace\chunywan\d\working\xdock-vitis-ai-sw\workspace\aisw\conda-feedstock
-% Get-PSDriver
-% Set-PSDrive Z
-% Set-Location -Path "Z:\"
-% cd Z:\software\workspace\chunywan\d\working\xdock-vitis-ai-sw\workspace\aisw\conda-feedstock
-% ls
-% type build_all.sh
-% conda install vs2019_win-64
-% conda build  --channel conda-forge  xrt-feedstock
-% conda debug --channel conda-forge  xrt-feedstock
-% conda purge --channel conda-forge  xrt-feedstock
-% $ENV:PATH
+% $Env:CONDA_PYTHON_EXE --version
 % $Env:HTTP_PROXY = "http://127.0.0.1:9181"
 % $Env:HTTPS_PROXY = "http://127.0.0.1:9181"
-% conda activate myenv1
-% conda list
-% conda config --help
-% conda config --get channels
-% conda config --remove channels conda-forge
-% mamba config --get channels
-% conda config --add channels conda-forge
-% conda config --get default
-% conda search vs2019
+% cmd
+% where protoc
+% protoc --version
+% %comspec% /k "C:\msvsn2019\VC\Auxiliary\Build\vcvars64.bat"
 ```
 
+## build xrt
+
+```console
+% cd Z:\software\workspace\$Env:USERNAME\d\working\xdock-vitis-ai-sw\workspace\aisw\XRT-IPU
+%
+% $Env:SRC_DIR = "Z:\software\workspace\$Env:USERNAME\d\working\xdock-vitis-ai-sw\workspace\aisw\XRT-IPU"
+% dir $Env:SRC_DIR
+% cmd
+% echo %HTTPS_PROXY%
+% mkdir %SRC_DIR%\build-ext
+
+
+% rmdir /s/q %SRC_DIR%\build-ext
+% python %SRC_DIR%\src\runtime_src\tools\scripts\xrtdeps-win19.py --boost skip --icd --opencl --install_dir %CONDA_PREFIX%\Library --build_dir %SRC_DIR%\build-ext"
+% c:
+% xcopy %SRC_DIR%\build-ext\OpenCL-Headers\CL \include\CL /C/H/E/I/F/Y
+% set BUILD_DIR=C:/build/xrt
+% echo %SRC_DIR% %BUILD_DIR%
+% rmdir /s/q c:\build\xrt
+% cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR%/src -B C:/build/xrt -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library -DCMAKE_CXX_FLAGS="/DBOOST_ALL_NO_LIB /D_WINDOWS /EHsc"
+% rmdir /s/q %CONDA_PREFIX%\Library\include\CL
+% cmake --build %BUILD_DIR% --config Release --verbose -j 4
+% cmake --install %BUILD_DIR% --config Release
+% cmake --install %BUILD_DIR% --config Release --prefix %CONDA_PREFIX%/Library # xrt override
+
+
+## build unilog
+
 ``` console
-% conda install conda-tree
-% conda build  --channel conda-forge  --override-channels  xrt-feedstock
-% conda-inspect channels conda-forge
-% conda install --channel conda-forge compilers
-# https://stackoverflow.com/questions/62288835/how-to-interpret-conda-package-conflicts
-% conda install -n base -c conda-forge mamba
-% mamba build xrt-feedstock
-% mamba debug xrt-feedstock
-% mamba create --name myenv2 git
-% conda activate myenv2
-% conda config --get channels
+% set SRC_DIR=Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\unilog
+% set BUILD_DIR=C:/build/unilog
+% dir %SRC_DIR%
+% cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR% -B %BUILD_DIR% -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library
+% cmake --build %BUILD_DIR% -j 4 --config Release
+% cmake --install %BUILD_DIR% --config Release
+```
+
+## build xir
+
+``` console
+% set SRC_DIR=Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\xir
+% set BUILD_DIR=C:/build/xir
+% dir %SRC_DIR%
+% cmake -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR% -B %BUILD_DIR% -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library
+% cmake --build %BUILD_DIR% -j 4 --config Release
+% findstr protoc %BUILD_DIR%\CMakeCache.txt
+% protoc --version
+% where protoc
+% cmake --install %BUILD_DIR% --config Release
+```
+
+## build target factory
+
+``` console
+% set SRC_DIR=Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\target_factory
+% set BUILD_DIR=C:/build/target_factory
+% dir %SRC_DIR%
+% cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR% -B %BUILD_DIR% -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library
+% findstr protoc %BUILD_DIR%\CMakeCache.txt
+% cmake --build %BUILD_DIR% -j 4 --config Release
+% cmake --install %BUILD_DIR% --config Release
+```
+
+## build vart
+
+``` console
+% set SRC_DIR=Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\vart
+% set BUILD_DIR=C:/build/vart
+% dir %SRC_DIR%
+% rmdir /s/q c:\build\vart
+% cmake -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR% -B %BUILD_DIR% -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library -DENABLE_DPU_RUNNER=true
+% cmake --build %BUILD_DIR% -j 4 --config Release
+% cmake --build %BUILD_DIR% -j 4 --config Release --target xrt-device-handle --verbose
+% cmake --install %BUILD_DIR% --config Release
+
+% dir C:\build\vart\xrt-device-handle\xrt-device-handle.dir\Release\xrt_device_handle_imp.obj;
+% dumpbin /ALL C:\build\vart\xrt-device-handle\xrt-device-handle.dir\Release\xrt_device_handle_imp.obj >c:\a.txt
+% dumpbin /ALL C:\Users\chunywan\Anaconda3\envs\myenv3\Library\xrt\lib\xrt_core.lib >c:\b.txt
+% dumpbin /ALL C:\Users\chunywan\Anaconda3\envs\myenv3\Library\xrt\lib\xrt_coreutil.lib >c:\b.txt
+```
+
+## build xcompiler
+
+``` console
+% set SRC_DIR=Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\xcompiler
+% set BUILD_DIR=C:/build/xcompiler
+% dir %SRC_DIR%
+% cmake -G "Visual Studio 16 2019" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR% -B %BUILD_DIR% -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library
+% findstr protoc C:\build\xcompiler\CMakeCache.txt
+% cmake --build %BUILD_DIR% -j 4 --config Release --verbose
+% cmake --build %BUILD_DIR% -j 4 --config Release --verbose --target xcompiler 1>c:\temp\build.out 2>c:\temp\build.log
+% cmake --install %BUILD_DIR% --config Release
+% dumpbin /ALL C:\build\xcompiler\src\Release\xcompiler-core.lib >c:\temp\log.txt
+% dumpbin /ALL C:\build\xcompiler\src\xcompiler.dir\Release\main.obj >c:\temp\main.txt
+```
+
+## build onnxruntime
+
+
+```console
+% z:
+% cd Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\onnxruntime
+% type build.bat
+% c:
+% set BUILD_DIR=c:\build\onnxruntime\Release
+% cd %BUILD_DIR%
+% dir %BUILD_DIR%\*.sln
+% rmdir /s/q c:\build\onnxruntime;
+% python C:\Users\chunywan\Desktop\onnxruntime\tools\ci_build\build.py  --build_shared_lib  --skip_submodule_sync --config Release --parallel 4 --use_vitisai --build_dir c:\build\onnxruntime --cmake_extra_defines "CMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library" --skip_tests
+
+% cmake --build %BUILD_DIR% --config Release --target onnxruntime
+% cmake --build %BUILD_DIR% --config Release --target onnxruntime --verbose
+% cmake --install %BUILD_DIR% --config Release
+% dumpbin /ALL C:\Users\chunywan\Anaconda3\envs\myenv3\Library\lib\xir.lib >c:\a.txt
+% dir C:\Users\chunywan\Anaconda3\envs\myenv3\Library\lib | findstr vitis
+% dumpbin /ALL c:\build\onnxruntime\Release\onnxruntime_providers_vitisai.dir\Release\export_to_xir.obj >c:\b.txt
 %
 ```
 
-``` console
-% conda search vs2019
-% conda search pyopencl
-% conda search opencl
-% mamba search --info intel-opencl-rt
-% mamba repoquery search intel-opencl-rt
-% mamba repoquery depends intel-opencl-rt
-% mamba repoquery depends xternsor
-% mamba repoquery whoneeds intel-opencl-rt
-% mamba install conda-tree
-% conda search 'conda-build
-```
-
-note:
-
-1. 不要添加 conda-forge
-2. 尽量指定版本
+## build `test_onnx_runner`
 
 ``` console
-% cd C:\Users\chunywan\Anaconda3\conda-bld\xrt_1656060134849
-% cd C:\Users\chunywan\Anaconda3\conda-bld
-% cd ".."
+% mkdir C:\Users\chunywan\Desktop\test_onnx_runner
+% copy Z:\software\workspace\%USERNAME%\d\working\xdock-vitis-ai-sw\workspace\aisw\vaip\test\test_onnx_runner.cpp C:\Users\chunywan\Desktop\test_onnx_runner
+% code C:\Users\chunywan\Desktop\test_onnx_runner\CMakeLists.txt
+% set BUILD_DIR=c:\build\test_onnx_runner
+% set SRC_DIR=C:\Users\chunywan\Desktop\test_onnx_runner
+% cmake -G "Visual Studio 16 2019" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -S %SRC_DIR% -B %BUILD_DIR% -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=%CONDA_PREFIX%/Library -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%/Library
+% cmake --build %BUILD_DIR% --config release --verbose
+% dir C:\Users\chunywan\Anaconda3\envs\myenv3\Library\include
+% cd C:\Users\chunywan\Anaconda3\envs\myenv3\Library\lib
+% cd c:\build\onnxruntime
+% dir C:\build\test_onnx_runner\Release\test_onnx_runner.exe
+% cp -av
+% set ENABLE_SAVE_GRAPH_TXT=1
+% set XLNX_ENABLE_DUMP_XIR_MODEL=c:\temp\xir.xmodel
+% set XLNX_ENABLE_DUMP_ONNX_MODEL=c:\temp\onnx.onnx
+% set XLNX_ENABLE_DUMP_COMPILED_MODEL=c:\temp\compiled.xmodel
+% set XLNX_ENABLE_DUMP_ONNX_GRAPH_TXT=c:\temp\onnx.txt
+% set XLNX_TARGET_NAME=DPUCZDX8G_ISA1_B4096
+% set XLNX_TARGET_NAME=DPUCAHX8L_ISA0
+% set DUMMY_RUNNER_BATCH_SIZE=1
+% set DEBUG_VITIS_AI_EP_DUMMY_RUNNER=1%
+% set PATH=%PATH%;%CONDA_PREFIX%\Library\xrt\bin
+% scp  -P 23762 xcdl190253:/home/public/zhaolin/pytorch/ENet_xilinx/quantize_result/ENet_int.onnx c:\temp
+% C:\build\test_onnx_runner\Release\test_onnx_runner.exe  c:\temp\ENet_int.onnx
 
-% cd C:\Users\chunywan\Anaconda3\conda-bld\xrt_1656060134849\work
-
-% cd C:\Users\chunywan\Anaconda3\conda-bld\xrt_1656060134849\work_moved_xrt-1.1.0-hf8fef2a_1_win-64_main_build_loop #
-
-% dir
-
-```
-
-try to run xrtdeps-win19.py
-
-``` console
-% dir src\runtime_src\tools\scripts\xrtdeps-win19.py
-% type
-% dir src\runtime_src\tools\scripts
-% python src\runtime_src\tools\scripts\xrtdeps-win19.py --boost skip --icd --opencl --install_dir %PREFIX% --build_dir %SRC_DIR%\build-release
-% dir
 ```
 
 
 ``` console
-% dir %PREFIX%\include
-
-% cd %SRC_DIR%
-
-% python %SRC_DIR%\src\runtime_src\tools\scripts\xrtdeps-win19.py --boost skip --icd --opencl --install_dir %LIBRARY_PREFIX% --build_dir %SRC_DIR%\build-ext
-
-% xcopy %SRC_DIR%\build-ext\OpenCL-Headers\CL %LIBRARY_INC%\CL /C/H/E/I
-% xcopy %SRC_DIR%\build-ext\OpenCL-Headers\CL \include\CL /C/H/E/I
-% dir %SRC_DIR%\build-ext\OpenCL-Headers\CL
-
-% dir %LIBRARY_INC%\CL
-% mkdir %SRC_DIR%\build-release
-% cd %SRC_DIR%\build-release
-% cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DPython3_EXECUTABLE="%PYTHON%" -S %SRC_DIR%/src -B %SRC_DIR%/build-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%PREFIX% -DCMAKE_INSTALL_PREFIX=%PREFIX% -DCMAKE_CXX_FLAGS="/DBOOST_ALL_NO_LIB /D_WINDOWS /EHsc"
-% cmake --build %SRC_DIR%/build-release --config Release --verbose --target xrt_coreutil
-
-% cd %SRC_DIR\build\WRelease%
-% cmake --build . --config Release --verbose --target xrt_coreutil
-
-% cmake --build %SRC_DIR%/build-release --config Release --verbose --target xrt_coreutil
-% cmake --build %SRC_DIR%/build-release --config Release --verbose --target xdp_core
-% cmake --build %SRC_DIR%/build-release --config Release --verbose --target xocl -j 4
-% cmake --build %SRC_DIR%/build-release --config Release --verbose -j 4
-
-% cd build-release
-
-% rmdir /S /Q C:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\build-release\OpenCL-Headers\CL
-
-% C:\msvsn2019\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe  /nologo /TP -DBOOST_BIND_GLOBAL_PLACEHOLDERS -DBOOST_LOCALE_HIDE_AUTO_PTR -DXRT_AIE_BUILD -DXRT_ENABLE_AIE -D_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\src\runtime_src -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\src\runtime_src\core\include -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\build-release\gen -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\build-release -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\_h_env\Library\include -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\src\include\1_2 -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\src\runtime_src\xocl\api -I\include /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /Zc:__cplusplus /WX /W4 -DXRT_XOCL_SOURCE -std:c++17 /showIncludes /Foruntime_src\xocl\CMakeFiles\xocl.dir\api\clCreateContext.cpp.obj /Fdruntime_src\xocl\CMakeFiles\xocl.dir\ /FS  -c C:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\src\runtime_src\xocl\api\clCreateContext.cpp 2>Z:\software\workspace\chunywan\d\working\xdock-vitis-ai-sw\workspace\aisw\tmp\a.txt 1>Z:\software\workspace\chunywan\d\working\xdock-vitis-ai-sw\workspace\aisw\tmp\b.txt
-
-> C:\msvsn2019\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe  /nologo /TP -DBOOST_BIND_GLOBAL_PLACEHOLDERS -DBOOST_LOCALE_HIDE_AUTO_PTR -DXRT_AIE_BUILD -DXRT_ENABLE_AIE -D_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\src\runtime_src -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\src\runtime_src\core\include -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\build-release\gen -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\build-release -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\include -IC:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\src\runtime_src\core  /w /MD /O2 /Ob2 /DNDEBUG /Zc:__cplusplus  /W4 -std:c++17  /Foruntime_src\core\common\api\CMakeFiles\core_common_api_library_objects.dir\xrt_bo.cpp.obj /Fdruntime_src\core\common\api\CMakeFiles\core_common_api_library_objects.dir\ /FS -c C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\src\runtime_src\core\common\api\xrt_bo.cpp
-
-C:\msvsn2019\VC\Tools\MSVC\14.29.30133\bin\HostX64\x64\link.exe /ERRORREPORT:QUEUE /OUT:"C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\build\WRelease\runtime_src\core\common\Release\xrt_coreutil.dll" /INCREMENTAL:NO /NOLOGO "C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib" "C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_system.lib" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"C:/Users/chunywan/Anaconda3/conda-bld/debug_1656079768710/work/build/WRelease/runtime_src/core/common/Release/xrt_coreutil.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/chunywan/Anaconda3/conda-bld/debug_1656079768710/work/build/WRelease/runtime_src/core/common/Release/xrt_coreutil.lib" /MACHINE:X64  /machine:x64 /DLL C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\build\WRelease\runtime_src\core\common\core_common_library_objects.dir\Release\config_reader.obj
-
-C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib
-
-dumpbin.exe -headers C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib >c:\temp\a.txt
-
-> dumpbin.exe /?
-> dumpbin.exe /exports C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib >c:\temp\a.txt
-> dumpbin.exe /summary C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib >c:\temp\a.txt
-> dumpbin.exe /directives C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib
-> dumpbin.exe /headers C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib
-> dumpbin.exe /relocations C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\_h_env\Library\lib\libboost_filesystem.lib
-> findstr libboost_filesystem-vc142-mt-x64-1_73.lib "C:\Users\chunywan\Anaconda3\conda-bld\debug_1656079768710\work\build\WRelease\runtime_src\core\common\core_common_library_objects.dir\Release\config_reader.obj"
-
-2>c:\temp\b.txt
-
-% cd %SRC_DIR%\build
-
-%
-% build_ipu19.bat -clean
-% build_ipu19.bat -release %LIBRARY_PREFIX%
-
-% type C:\Users\chunywan\Anaconda3\conda-bld\debug_1656062602488\work\build-release\OpenCL-Headers\CL\cl_ext.h
-
-% dir runtime_src\xocl\CMakeFiles\xocl.dir\api\
+% xcopy -av c:
 ```
 
 ## too long file
