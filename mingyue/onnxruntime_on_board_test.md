@@ -41,3 +41,15 @@
 
 % /group/xbjlab/dphi_software/software/workspace/mingyue/d/Debug/bin/resnet50_pt /home/root/mingyue/ResNet_int.onnx /home/root/mingyue/sample_classification.jpg
 ```
+
+
+### python sample
+```
+% scp -r /workspace/test_onnx_runner/resnet50_python mingyue@xbjlabdpsvr16:/group/xbjlab/dphi_software/software/workspace/mingyue/d/Debug/
+
+% scp ~/build/build.linux.2022.2.aarch64.Debug/onnxruntime/Debug/dist/onnxruntime_vitisai-1.15.0-cp39-cp39-linux_x86_64.whl mingyue@xbjlabdpsvr16:/group/xbjlab/dphi_software/software/workspace/mingyue/d/Debug/onnxruntime_vitisai-1.15.0-py3-none-any.whl
+
+%pip install /group/xbjlab/dphi_software/software/workspace/mingyue/d/Debug/onnxruntime_vitisai-1.15.0-py3-none-any.whl
+%python  /group/xbjlab/dphi_software/software/workspace/mingyue/d/Debug/resnet50_python/test.py
+
+```
