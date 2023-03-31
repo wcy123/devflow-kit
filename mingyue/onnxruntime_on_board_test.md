@@ -1,3 +1,4 @@
+### cross compile and copy file to xbjlab
 ```
 % unset LD_LIBRARY_PATH; source /opt/petalinux/2022.2/environment-setup-cortexa72-cortexa53-xilinx-linux
 % python main.py --type debug  --dev-mode
@@ -14,6 +15,7 @@
 % ssh -R9181:localhost:3128 -J xbjjmphost01, xbjlabdpsvr16 root@10.176.178.83
 ```
 
+### test on board
 
 ```
 % ssh root@10.176.178.83
