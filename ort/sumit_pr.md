@@ -70,4 +70,60 @@ git remote set-url wcy123 git@github.com:wcy123/onnxruntime.git
 |  1 file changed, 1 deletion(-)
 ```
 
+
+# lint runner
+
+```
+set_proxy http://localhost:9181
+pip install --user lintrunner lintrunner-adapters
+lintrung sner -a
+git status
+git push -u wcy123 vitis-ai-3.5-v2
+```
+
+
+# remove
+
+```
+cd /workspace/onnxruntime
+git fetch --all
+git status
+git reset --hard wcy123/vitis-ai-3.5-v2
+git log origin/vitis-ai-3.5-v2
+git cherry-pick 35654946ce3274d886cb1b06efaa9bafeca9ffc5
+for i in `find  onnxruntime/core/providers/vitisai -iname "*.cpp"`; do git mv $i ${i%.cpp}.cc; done
+for i in `find  onnxruntime/core/providers/vitisai -iname "*.hpp"`; do git mv $i ${i%.hpp}.h; done
+git status
+lintrunner -a
+git add .
+git status
+git commit -m 'rename *.cpp -> *.cc and *.hpp -> *.h'
+git push
+
+python /workspace/vai-rt/main.py --dev-mode --project onnxruntime
+y
+n
+g c
+
+
+
+```
+
+
+
+```
+ sudo rm -fr /usr/lib/x86_64-linux-gnu/libprotobuf.a
+ sudo rm -fr /usr/bin/protoc
+# sudo find /usr/share/  -iname '*protobuf*.cmake'
+ sudo rm -fr /usr/include/google/protobuf/
+ python /workspace/vai-rt/main.py --dev-mode --project onnxruntime
+ python /workspace/vai-rt/main.py --dev-mode --project unilog target_factory xir xcompiler vaip --clean
+ python /workspace/vai-rt/main.py  --dev-mode --exclude-project onnxruntimecat
+```
+
+
+
+```
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/home/chunywan/.local/Ubuntu.20.04.x86_64.Debug -DCMAKE_PREFIX_PATH=/home/chunywan/.local/Ubuntu.20.04.x86_64.Debug -DBUILD_PYTHON=ON -DBUILD_TEST=ON -B /home/chunywan/build/build.Ubuntu.20.04.x86_64.Debug/vaip -S /workspace/vaip --debug-find-pkg=Protobuf
+```
 ;;(local-set-key (kbd "C-b") tmux-cc-key-map)
