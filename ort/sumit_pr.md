@@ -76,7 +76,10 @@ git remote set-url wcy123 git@github.com:wcy123/onnxruntime.git
 ```
 set_proxy http://localhost:9181
 pip install --user lintrunner lintrunner-adapters
-lintrung sner -a
+lintrunner init
+lintrunner -a
+lintrunner --all-files --force-color -v
+# pip uninstall --user ruff black pylint
 git status
 git push -u wcy123 vitis-ai-3.5-v2
 ```
@@ -126,4 +129,37 @@ g c
 ```
 cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/home/chunywan/.local/Ubuntu.20.04.x86_64.Debug -DCMAKE_PREFIX_PATH=/home/chunywan/.local/Ubuntu.20.04.x86_64.Debug -DBUILD_PYTHON=ON -DBUILD_TEST=ON -B /home/chunywan/build/build.Ubuntu.20.04.x86_64.Debug/vaip -S /workspace/vaip --debug-find-pkg=Protobuf
 ```
+
+
+# install `viewdog`
+
+https://github.com/reviewdog/reviewdog
+
+
+```
+# Install the latest version. (Install it into ./bin/ by default).
+curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s
+sudo install bin/reviewdog /usr/local/bin
+rm bin/reviewdog
+reviewdog -list
+cd /workspace;
+git clone https://github.com/reviewdog/action-misspell.git
+cd action-misspell
+ls -l
+sudo -E apt-get update
+# sudo -E apt-get install misspell #unable find the package
+
+cd ~/build/
+wget https://github.com/client9/misspell/releases/download/v0.3.4/misspell_0.3.4_linux_64bit.tar.gz
+tar xvf misspell_0.3.4_linux_64bit.tar.gz
+sudo mv misspell /usr/local/bin/
+misspell --help
+
+cd /workspace/onnxruntime
+reviewdog -f=misspell -reporter=console misspell
+reviewdog -f=misspell -reporter=local misspell ./onnxruntime/core/providers/vitisai/vitisai_execution_provider.h
+find . -type f -name "*" -print0 | xargs -0 misspell | reviewdog -f=misspell -reporter=github-pr-check
+
+```
+
 ;;(local-set-key (kbd "C-b") tmux-cc-key-map)

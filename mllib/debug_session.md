@@ -147,3 +147,28 @@ x /32wd &C2.data
 x /32wd &C3.data
 
 ```
+
+
+```
+cd /workspace/mllib/L1/regression/conv/Conv_DPU_0
+ls -l data/
+cmp data/ofm32.txt data/ofm32_ref.txt || paste data/ofm32.txt data/ofm32_ref.txt | head
+emacs -nw "/workspace/mllib/internal/models/python/tv_gen_dpu.py"
+python /workspace/mllib/internal/models/python/tv_gen_dpu.py --use_json /workspace/mllib/internal/models/python/testcases/Conv2D.json
+```
+
+
+```
+git status
+git checkout -b conv_dpu_improve_0
+git add -p
+
+git commit -m 'use as_type(float32) and prohibit inline for more accurate mearsurement'
+git rvs
+git push -u origin conv_dpu_improve_0
+```
+
+```
+ls -l | grep in
+emacs -nw profile_instr_0_0.txt
+```

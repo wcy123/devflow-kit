@@ -14,8 +14,15 @@ ssh -R9181:localhost:3128 -J xcdl190074 xcdl190252
 while sleep 1; do echo xcoengvm229033; done
 ```
 
-
 ```
 ssh -R9181:localhost:3128 -J xcdl190074 xcdl190253
 while sleep 1; do echo xcoengvm229033; done
+```
+
+
+```
+brew install mutt
+sudo chgrp mail /usr/local/Cellar/mutt/2.2.10/bin/mutt_dotlock
+sudo chmod g+s /usr/local/Cellar/mutt/2.2.10/bin/mutt_dotlock
+brew install libetpan
 ```
