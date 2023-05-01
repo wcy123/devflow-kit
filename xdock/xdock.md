@@ -26,3 +26,17 @@ sudo chgrp mail /usr/local/Cellar/mutt/2.2.10/bin/mutt_dotlock
 sudo chmod g+s /usr/local/Cellar/mutt/2.2.10/bin/mutt_dotlock
 brew install libetpan
 ```
+
+
+```
+ssh xcoengvm229033
+tmux attach
+ls -l
+# do not install protobuf
+emacs -nw base/Dockerfile
+```
+
+
+```
+docker login xcoartifactory:443
+```
