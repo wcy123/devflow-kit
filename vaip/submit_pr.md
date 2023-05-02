@@ -162,4 +162,19 @@ find . -type f -name "*" -print0 | xargs -0 misspell | reviewdog -f=misspell -re
 
 ```
 
+
+
+# final test
+
+
+```
+cd /workspace/onnxruntime
+git rvs
+git fetch --all
+git checkout upstream/main
+python /workspace/vai-rt/main.py --dev-mode --project onnxruntime
+cd /workspace/vaip
+python ci/main.py run 5
+python ci/main.py run 43
+```
 ;;(local-set-key (kbd "C-b") tmux-cc-key-map)
