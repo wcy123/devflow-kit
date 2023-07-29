@@ -79,8 +79,36 @@ make xclbin v_op=opt_config1.h
 
 
 ```
+ssh xcosdaem430
+ssh xcoengvm229033
+ssh xcosda143
+cd /proj/rdi/staff/chunywan/d/working/aisw/xdock-vitis-ai-sw/workspace/
 git clone git@gitenterprise.xilinx.com:IPU/run_snl.git
 cd run_snl
 ls -l
+# fix /usr/bin/env: ‘python’: No such file or directory
+sudo ln -s /usr/bin/python3 /usr/bin/python
+# /wrk/acceleration/tools/git-2.16.2/bin/../libexec/git-core/git-remote-https: error while loading shared libraries: libssl.so.10: cannot open shared object file: No such file or directory
 ./clone.sh
+vim ~/.docker/config.json
+
+
+{
+ "proxies": {
+   "default": {
+     "httpProxy": "http://localhost:9181",
+     "httpsProxy": "https://localhost:9181",
+   }
+ }
+}
+bash ./docker_build.sh
+```
+
+
+dpufw , read https://confluence.xilinx.com/display/~satyapr/IPU+Simnow+Debug+Bible#IPUSimnowDebugBible-RegisterSpec:
+
+http://cervino-doc/aie2/?version=AIE2_MASTER
+
+```
+
 ```
