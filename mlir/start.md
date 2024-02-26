@@ -9,10 +9,10 @@ mkdir -p ~/build/llvm-project/
 sudo -E apt-get install -y lld
 
 cmake -G Ninja  \
-   -DLLVM_ENABLE_PROJECTS='mlir;lld;clang;clang-tools-extra' \
+   -DLLVM_ENABLE_PROJECTS='mlir;lld' \
    -DLLVM_BUILD_EXAMPLES=ON \
    -DLLVM_TARGETS_TO_BUILD="Native;NVPTX;AMDGPU" \
-   -DCMAKE_BUILD_TYPE=Release \
+   -DCMAKE_BUILD_TYPE=Debug \
    -DLLVM_ENABLE_LLD=ON \
    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
    -DLLVM_ENABLE_ASSERTIONS=ON \
@@ -29,8 +29,8 @@ cp -av $BUILD/llvm-project/compile_commands.json /workspace/llvm-project/
 # -DLLVM_USE_SANITIZER="Address;Undefined"
 # Optionally, enabling integration tests as well
 # -DMLIR_INCLUDE_INTEGRATION_TESTS=ON
-cmake --build $BUILD/llvm-project  --target check-mlir
-cmake --build $BUILD/llvm-project
+cmake --build $BUILD/llvm-project  --target check-mlir -j $(nproc)&& \
+cmake --build $BUILD/llvm-project -j $(nproc) && \
 cmake --install $BUILD/llvm-project   --prefix $PREFIX
 grep cmake $BUILD/llvm-project/install_manifest.txt
 ```
