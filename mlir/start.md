@@ -8,15 +8,17 @@ cd /workspace/llvm-project
 mkdir -p ~/build/llvm-project/
 sudo -E apt-get install -y lld
 
-cmake -G Ninja  \
+cmake -E time cmake -G Ninja  \
    -DLLVM_ENABLE_PROJECTS='mlir;lld' \
    -DLLVM_BUILD_EXAMPLES=ON \
-   -DLLVM_TARGETS_TO_BUILD="Native;NVPTX;AMDGPU" \
    -DCMAKE_BUILD_TYPE=Debug \
-   -DLLVM_ENABLE_LLD=ON \
    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
    -DLLVM_ENABLE_ASSERTIONS=ON \
    -S /workspace/llvm-project/llvm \
+    -DCMAKE_C_COMPILER=clang \
+    -DLLVM_ENABLE_LLD=ON \
+    -DCMAKE_CXX_COMPILER=clang++ \
+    -DLLVM_ENABLE_RTTI=ON \
    -B $BUILD/llvm-project
 
 cp -av $BUILD/llvm-project/compile_commands.json /workspace/llvm-project/
@@ -29,8 +31,8 @@ cp -av $BUILD/llvm-project/compile_commands.json /workspace/llvm-project/
 # -DLLVM_USE_SANITIZER="Address;Undefined"
 # Optionally, enabling integration tests as well
 # -DMLIR_INCLUDE_INTEGRATION_TESTS=ON
-cmake --build $BUILD/llvm-project  --target check-mlir -j $(nproc)&& \
-cmake --build $BUILD/llvm-project -j $(nproc) && \
-cmake --install $BUILD/llvm-project   --prefix $PREFIX
+cmake -E time cmake --build $BUILD/llvm-project  --target check-mlir -j $(nproc)&& \
+cmake -E time cmake --build $BUILD/llvm-project -j $(nproc) && \
+cmake -E time cmake --install $BUILD/llvm-project   --prefix $PREFIX
 grep cmake $BUILD/llvm-project/install_manifest.txt
 ```
