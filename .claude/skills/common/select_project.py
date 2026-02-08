@@ -79,14 +79,22 @@ def detect_mode():
         return "traditional"
 
 def list_projects():
-    """List available projects in workspace mode"""
+    """List available projects in workspace mode
+
+    Type 1 projects: have project.yaml (backlog in their own repo)
+    Type 2 projects: have backlog.md (devflow-kit tracking)
+    """
     projects_dir = Path("docs/projects")
     if not projects_dir.exists():
         return []
 
     projects = []
     for project_dir in projects_dir.iterdir():
-        if project_dir.is_dir() and (project_dir / "backlog.md").exists():
+        # Valid project if has either project.yaml (Type 1) or backlog.md (Type 2)
+        if project_dir.is_dir() and (
+            (project_dir / "project.yaml").exists() or
+            (project_dir / "backlog.md").exists()
+        ):
             projects.append(project_dir.name)
 
     return sorted(projects)
