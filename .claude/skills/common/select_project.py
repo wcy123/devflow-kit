@@ -103,20 +103,21 @@ def list_projects():
 def update_cache(project):
     """Update cache to latest origin/main (workspace mode only)
 
-    If cache doesn't exist and project is Type 1 (has project.yaml with git_url),
-    clone it. Type 2 projects don't need cache (backlog is local).
+    Cache is needed for both Type 1 and Type 2 projects to browse code.
+    If cache doesn't exist, clone from git_url in project.yaml.
     """
     cache_dir = Path(f"workspace/cache/{project}")
 
-    # If cache doesn't exist, try to create it (Type 1 projects only)
+    # If cache doesn't exist, create it by cloning
     if not cache_dir.exists():
         project_yaml = Path(f"docs/projects/{project}/project.yaml")
 
-        # Type 2 project - no cache needed
+        # Need project.yaml with git_url to clone
         if not project_yaml.exists():
+            print(f"Warning: No project.yaml found for {project}, cannot create cache", file=sys.stderr)
             return
 
-        # Type 1 project - read git_url and clone
+        # Read git_url and clone
         try:
             import yaml
             with open(project_yaml) as f:
