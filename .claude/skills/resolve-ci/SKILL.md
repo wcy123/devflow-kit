@@ -27,11 +27,20 @@ Before running /resolve-ci:
 
 ## Workflow
 
-### Phase 0: Detect Project
+### Phase 0: Detect Project and Workflow Mode
 
-Run: `python .claude/skills/common/select_project.py [PROJECT_NAME]`
+**Run detection script:**
+```bash
+python .claude/skills/common/select_project.py [PROJECT_NAME]
+```
 
-Parse JSON output for `mode` and `project` (needed for workspace cleanup).
+**Parse JSON output:**
+- `mode`: "traditional" (stay in current dir) or "workspace" (cleanup workspace/issues/)
+- `project`: Project name
+
+**Mode affects cleanup:**
+- **Traditional mode:** No cleanup needed (user continues working in their repo)
+- **Workspace mode:** Delete `workspace/issues/{project}-{issue_num}/` after merge
 
 ### Main Monitoring Loop
 
