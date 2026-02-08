@@ -199,7 +199,7 @@ git pull origin main
 
 ```bash
 # After editing CONTRIBUTING.md
-git add docs/project/CONTRIBUTING.md
+git add docs/projects/devflow-kit/CONTRIBUTING.md
 ```
 
 ---
@@ -214,7 +214,7 @@ git status
 
 # Should show:
 # Modified: .gitignore
-# Modified: docs/project/CONTRIBUTING.md
+# Modified: docs/projects/devflow-kit/CONTRIBUTING.md
 # Deleted: .claude/skills/create-issue/
 # Deleted: .claude/skills/fix-issue/
 # Deleted: .claude/skills/resolve-ci/
@@ -230,7 +230,7 @@ git status .claude/skills/
 ### Step 4.3: Stage changes
 
 ```bash
-git add .gitignore docs/project/CONTRIBUTING.md
+git add .gitignore docs/projects/devflow-kit/CONTRIBUTING.md
 git add .claude/skills/  # Stages deletions only (symlinks ignored)
 ```
 

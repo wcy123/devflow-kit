@@ -68,9 +68,9 @@ The issue resolution workflow integrates three skills to automate the complete j
 6. Draft PR tracks all documentation additions
 
 **Output:**
-- Issue files: `docs/project/issues/NNN-name.md`
-- Plan files (optional): `docs/project/plans/NNN-name-plan.md`
-- Updated backlog: `docs/project/backlog.md`
+- Issue files: `docs/projects/devflow-kit/issues/NNN-name.md`
+- Plan files (optional): `docs/projects/devflow-kit/plans/NNN-name-plan.md`
+- Updated backlog: `docs/projects/devflow-kit/backlog.md`
 - Draft PR with all issue documentation
 
 **When done:** Issues are documented and ready for implementation.
@@ -273,5 +273,5 @@ After implementation is complete (auto or manual):
 - **Git Workflow:** `docs/workflows/git-workflow.md`
 - **PR Workflow:** `docs/workflows/pr-workflow.md`
 - **Build Workflow:** `docs/workflows/build-workflow.md`
-- **Project Backlog:** `docs/project/backlog.md`
-- **Contributing Guidelines:** `docs/project/CONTRIBUTING.md`
+- **Project Backlog:** `docs/projects/devflow-kit/backlog.md`
+- **Contributing Guidelines:** `docs/projects/devflow-kit/CONTRIBUTING.md`

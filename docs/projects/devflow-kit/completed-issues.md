@@ -32,10 +32,10 @@ git show b09abe6
 
 ```bash
 # Shows complete issue file with detailed analysis, design discussions, session notes
-git show <commit>~1:docs/project/issues/NNN-*.md
+git show <commit>~1:docs/projects/devflow-kit/issues/NNN-*.md
 
 # Example: View issue #007 complete analysis (before deletion)
-git show b09abe6~1:docs/project/issues/007-example-issue.md
+git show b09abe6~1:docs/projects/devflow-kit/issues/007-example-issue.md
 ```
 
 ### View Code Changes
@@ -62,10 +62,10 @@ gh pr view 108
 
 ```bash
 # Search for plan files related to an issue
-git log --all --full-history -- "docs/project/plans/*007*"
+git log --all --full-history -- "docs/projects/devflow-kit/plans/*007*"
 
 # View a specific plan file
-git show <commit>:docs/project/plans/007-example-plan.md
+git show <commit>:docs/projects/devflow-kit/plans/007-example-plan.md
 ```
 
 **Note:** The commit hash points to the merge commit that completed the issue. All implementation details, design rationale, and code changes are preserved in git history permanently.

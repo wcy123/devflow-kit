@@ -1,6 +1,6 @@
-# Work Log Documentation
+# devflow-kit Documentation
 
-This directory contains a generic backlog system and workflow documentation for tracking work items, issues, and improvements across projects.
+This directory contains a multi-project workflow system with Claude Code skills for tracking work items, issues, and improvements across multiple projects simultaneously.
 
 ---
 
@@ -9,16 +9,19 @@ This directory contains a generic backlog system and workflow documentation for 
 ```
 docs/
 ├── README.md                          # This file
+├── design/                            # Architecture and design documents
 ├── workflows/                         # Workflow documentation
 │   ├── issue-resolution-workflow.md   # Complete issue lifecycle workflow
 │   ├── git-workflow.md               # Git branching and commit practices
 │   └── git-workflow-reference.md     # Detailed git workflow reference
-└── project/                          # Project tracking
-    ├── backlog.md                    # Active issues index
-    ├── completed-issues.md           # Completed issues archive
-    ├── issue-dependency-analysis.md  # Issue dependencies and planning
-    └── issues/                       # Individual issue files
-        └── TEMPLATE.md               # Issue template
+└── projects/                          # Multi-project tracking
+    └── devflow-kit/                   # devflow-kit project (meta)
+        ├── backlog.md                 # Active issues index
+        ├── completed-issues.md        # Completed issues archive
+        ├── issue-dependency-analysis.md  # Issue dependencies
+        ├── issues/                    # Individual issue files
+        │   └── TEMPLATE.md            # Issue template
+        └── plans/                     # Implementation plans
 ```
 
 **Note:** This is a generic, shareable backlog system. Project-specific files like PR workflows, build workflows, and contributing guidelines have been removed to make it portable across different projects.
@@ -31,17 +34,17 @@ docs/
 
 ```bash
 # View backlog
-cat docs/project/backlog.md
+cat docs/projects/devflow-kit/backlog.md
 
 # View completed issues
-cat docs/project/completed-issues.md
+cat docs/projects/devflow-kit/completed-issues.md
 ```
 
 ### Create a New Issue
 
 1. Copy the template:
    ```bash
-   cp docs/project/issues/TEMPLATE.md docs/project/issues/001-my-issue.md
+   cp docs/projects/devflow-kit/issues/TEMPLATE.md docs/projects/devflow-kit/issues/001-my-issue.md
    ```
 
 2. Fill in the required sections:
@@ -50,9 +53,9 @@ cat docs/project/completed-issues.md
    - Solution
    - Evidence (optional but recommended)
 
-3. Add to backlog table in `docs/project/backlog.md`
+3. Add to backlog table in `docs/projects/devflow-kit/backlog.md`
 
-4. Update `docs/project/issue-dependency-analysis.md` if there are dependencies
+4. Update `docs/projects/devflow-kit/issue-dependency-analysis.md` if there are dependencies
 
 ### Complete an Issue
 
@@ -61,7 +64,7 @@ When implementation is done:
 1. Add entry to `completed-issues.md`
 2. Update "Recent (last 5)" in `backlog.md`
 3. Remove from backlog table in `backlog.md`
-4. Delete issue file: `git rm docs/project/issues/NNN-*.md`
+4. Delete issue file: `git rm docs/projects/devflow-kit/issues/NNN-*.md`
 5. Commit: `git commit -m "docs: complete issue #NNN"`
 
 See [backlog.md](project/backlog.md) for detailed completion workflow.
@@ -86,18 +89,18 @@ cp -r docs /path/to/new-project/docs
 
 # Clean up project-specific data in new project
 cd /path/to/new-project
-# Edit docs/project/backlog.md - remove old issues, keep template structure
-# Keep docs/project/issues/TEMPLATE.md
+# Edit docs/projects/devflow-kit/backlog.md - remove old issues, keep template structure
+# Keep docs/projects/devflow-kit/issues/TEMPLATE.md
 # Remove old issue files if any
 ```
 
 **What gets copied:**
 - ✅ `.claude/` - Claude Code skills and hooks
 - ✅ `docs/workflows/` - Generic workflow documentation
-- ✅ `docs/project/backlog.md` - Backlog template (edit to remove old issues)
-- ✅ `docs/project/completed-issues.md` - Template (start fresh)
-- ✅ `docs/project/issue-dependency-analysis.md` - Template
-- ✅ `docs/project/issues/TEMPLATE.md` - Issue template
+- ✅ `docs/projects/devflow-kit/backlog.md` - Backlog template (edit to remove old issues)
+- ✅ `docs/projects/devflow-kit/completed-issues.md` - Template (start fresh)
+- ✅ `docs/projects/devflow-kit/issue-dependency-analysis.md` - Template
+- ✅ `docs/projects/devflow-kit/issues/TEMPLATE.md` - Issue template
 
 ### Option 2: Sync Script (For Multiple Projects)
 
@@ -137,16 +140,16 @@ mkdir -p "$TARGET_DIR/docs/workflows"
 cp -r "$SOURCE_DIR/docs/workflows"/* "$TARGET_DIR/docs/workflows/"
 
 # Copy project templates (don't overwrite existing backlog)
-mkdir -p "$TARGET_DIR/docs/project/issues"
-cp "$SOURCE_DIR/docs/project/issues/TEMPLATE.md" "$TARGET_DIR/docs/project/issues/"
+mkdir -p "$TARGET_DIR/docs/projects/devflow-kit/issues"
+cp "$SOURCE_DIR/docs/projects/devflow-kit/issues/TEMPLATE.md" "$TARGET_DIR/docs/projects/devflow-kit/issues/"
 
 # Only copy these if they don't exist (don't overwrite project data)
-[ ! -f "$TARGET_DIR/docs/project/backlog.md" ] && \
-    cp "$SOURCE_DIR/docs/project/backlog.md" "$TARGET_DIR/docs/project/"
-[ ! -f "$TARGET_DIR/docs/project/completed-issues.md" ] && \
-    cp "$SOURCE_DIR/docs/project/completed-issues.md" "$TARGET_DIR/docs/project/"
-[ ! -f "$TARGET_DIR/docs/project/issue-dependency-analysis.md" ] && \
-    cp "$SOURCE_DIR/docs/project/issue-dependency-analysis.md" "$TARGET_DIR/docs/project/"
+[ ! -f "$TARGET_DIR/docs/projects/devflow-kit/backlog.md" ] && \
+    cp "$SOURCE_DIR/docs/projects/devflow-kit/backlog.md" "$TARGET_DIR/docs/projects/devflow-kit/"
+[ ! -f "$TARGET_DIR/docs/projects/devflow-kit/completed-issues.md" ] && \
+    cp "$SOURCE_DIR/docs/projects/devflow-kit/completed-issues.md" "$TARGET_DIR/docs/projects/devflow-kit/"
+[ ! -f "$TARGET_DIR/docs/projects/devflow-kit/issue-dependency-analysis.md" ] && \
+    cp "$SOURCE_DIR/docs/projects/devflow-kit/issue-dependency-analysis.md" "$TARGET_DIR/docs/projects/devflow-kit/"
 
 echo "✅ Sync complete!"
 echo ""
@@ -185,8 +188,8 @@ ln -s .workflow-tools/.claude .claude
 ln -s .workflow-tools/docs/workflows docs/workflows
 
 # Copy templates for project-specific data
-cp .workflow-tools/docs/project/backlog.md docs/project/backlog.md
-cp .workflow-tools/docs/project/issues/TEMPLATE.md docs/project/issues/TEMPLATE.md
+cp .workflow-tools/docs/projects/devflow-kit/backlog.md docs/projects/devflow-kit/backlog.md
+cp .workflow-tools/docs/projects/devflow-kit/issues/TEMPLATE.md docs/projects/devflow-kit/issues/TEMPLATE.md
 ```
 
 ### What to Share vs Keep Separate
@@ -196,13 +199,13 @@ cp .workflow-tools/docs/project/issues/TEMPLATE.md docs/project/issues/TEMPLATE.
 - `.claude/hooks/` - Workflow enforcement hooks
 - `.claude/settings.json` - Hook configuration
 - `docs/workflows/` - All workflow documentation
-- `docs/project/issues/TEMPLATE.md` - Issue template
+- `docs/projects/devflow-kit/issues/TEMPLATE.md` - Issue template
 
 **⚠️ Keep Project-Specific:**
-- `docs/project/backlog.md` - Each project has its own issues
-- `docs/project/completed-issues.md` - Project history
-- `docs/project/issues/*.md` - Actual issue files
-- `docs/project/issue-dependency-analysis.md` - Project dependencies
+- `docs/projects/devflow-kit/backlog.md` - Each project has its own issues
+- `docs/projects/devflow-kit/completed-issues.md` - Project history
+- `docs/projects/devflow-kit/issues/*.md` - Actual issue files
+- `docs/projects/devflow-kit/issue-dependency-analysis.md` - Project dependencies
 - `.claude/settings.local.json` - User/project overrides
 
 ---

@@ -127,7 +127,7 @@ def check_backlog_location(project, cache_dir):
     # Try to check if backlog exists in project's origin/main
     try:
         result = subprocess.run(
-            ["git", "-C", str(cache_dir), "show", "origin/main:docs/project/backlog.md"],
+            ["git", "-C", str(cache_dir), "show", "origin/main:docs/projects/devflow-kit/backlog.md"],
             capture_output=True,
             text=True,
             check=True
@@ -147,10 +147,10 @@ def resolve_paths(mode, project):
         if location == "remote":
             # Type 1: Project has own backlog
             paths = {
-                "backlog": str(cache_dir / "docs/project/backlog.md"),
-                "issues_dir": str(cache_dir / "docs/project/issues/"),
-                "completed": str(cache_dir / "docs/project/completed-issues.md"),
-                "dependencies": str(cache_dir / "docs/project/issue-dependency-analysis.md"),
+                "backlog": str(cache_dir / "docs/projects/devflow-kit/backlog.md"),
+                "issues_dir": str(cache_dir / "docs/projects/devflow-kit/issues/"),
+                "completed": str(cache_dir / "docs/projects/devflow-kit/completed-issues.md"),
+                "dependencies": str(cache_dir / "docs/projects/devflow-kit/issue-dependency-analysis.md"),
                 "location": "remote"
             }
         else:
@@ -165,10 +165,10 @@ def resolve_paths(mode, project):
     else:
         # Traditional mode - work in current directory
         paths = {
-            "backlog": "docs/project/backlog.md",
-            "issues_dir": "docs/project/issues/",
-            "completed": "docs/project/completed-issues.md",
-            "dependencies": "docs/project/issue-dependency-analysis.md",
+            "backlog": "docs/projects/devflow-kit/backlog.md",
+            "issues_dir": "docs/projects/devflow-kit/issues/",
+            "completed": "docs/projects/devflow-kit/completed-issues.md",
+            "dependencies": "docs/projects/devflow-kit/issue-dependency-analysis.md",
             "location": "local"
         }
 
@@ -243,8 +243,8 @@ Display brief mode message: "Working in: {PROJECT} ({MODE} mode)"
 ```
 
 2. Update all hardcoded paths to use variables:
-   - Change `docs/project/backlog.md` → `$BACKLOG`
-   - Change `docs/project/issues/` → `$ISSUES_DIR`
+   - Change `docs/projects/devflow-kit/backlog.md` → `$BACKLOG`
+   - Change `docs/projects/devflow-kit/issues/` → `$ISSUES_DIR`
 
 **Tasks:**
 1. Read current `.claude/skills/create-issue/SKILL.md`
@@ -337,7 +337,7 @@ This removes the temporary work directory after successful PR merge.
 cd ~/morphizen.github.1
 /create-issue
 # Should detect: mode=traditional, project=morphizen
-# Should use: docs/project/backlog.md
+# Should use: docs/projects/devflow-kit/backlog.md
 ```
 
 **2. Workspace Mode (in devflow-kit, existing project):**
@@ -347,7 +347,7 @@ cd ~/devflow-kit
 # Should ask to select project
 # Should detect: mode=workspace
 # Should update cache: git pull origin/main
-# Should use: workspace/cache/{project}/docs/project/ (if Type 1) or docs/projects/{project}/ (if Type 2)
+# Should use: workspace/cache/{project}/docs/projects/devflow-kit/ (if Type 1) or docs/projects/{project}/ (if Type 2)
 ```
 
 **3. Workspace Mode - fix-issue:**

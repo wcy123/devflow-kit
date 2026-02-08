@@ -45,7 +45,7 @@ devflow-kit/                              # Renamed from work_log
 └── docs/
     ├── projects/                         # Multi-project support
     │   ├── devflow-kit/                  # Meta: issues about devflow-kit itself
-    │   │   ├── backlog.md                # (migrated from docs/project/)
+    │   │   ├── backlog.md                # (migrated from docs/projects/devflow-kit/)
     │   │   ├── completed-issues.md
     │   │   ├── issue-dependency-analysis.md
     │   │   └── issues/
@@ -55,7 +55,7 @@ devflow-kit/                              # Renamed from work_log
 ```
 
 **Approach:**
-1. **Restructure** - Move `docs/project/` → `docs/projects/devflow-kit/`
+1. **Restructure** - Move `docs/projects/devflow-kit/` → `docs/projects/devflow-kit/`
 2. **Rename** - Rename directory `work_log` → `devflow-kit`
 3. **Public repo** - Create `github.com/wcy123/devflow-kit` (public)
 4. **Git setup** - Update remote to point to public GitHub

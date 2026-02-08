@@ -20,8 +20,8 @@ Add multi-project support to all workflow skills (create-issue, fix-issue, resol
 **Current design:**
 ```python
 # Hardcoded in all skills
-backlog = "docs/project/backlog.md"
-issues_dir = "docs/project/issues/"
+backlog = "docs/projects/devflow-kit/backlog.md"
+issues_dir = "docs/projects/devflow-kit/issues/"
 ```
 
 **Why this is problematic:**
@@ -108,10 +108,10 @@ def resolve_paths(mode, project):
   "mode": "workspace",
   "project": "morphizen",
   "paths": {
-    "backlog": "workspace/cache/morphizen/docs/project/backlog.md",
-    "issues_dir": "workspace/cache/morphizen/docs/project/issues/",
-    "completed": "workspace/cache/morphizen/docs/project/completed-issues.md",
-    "dependencies": "workspace/cache/morphizen/docs/project/issue-dependency-analysis.md",
+    "backlog": "workspace/cache/morphizen/docs/projects/devflow-kit/backlog.md",
+    "issues_dir": "workspace/cache/morphizen/docs/projects/devflow-kit/issues/",
+    "completed": "workspace/cache/morphizen/docs/projects/devflow-kit/completed-issues.md",
+    "dependencies": "workspace/cache/morphizen/docs/projects/devflow-kit/issue-dependency-analysis.md",
     "location": "remote"
   }
 }
