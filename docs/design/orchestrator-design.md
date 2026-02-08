@@ -601,6 +601,95 @@ class OrchestratorShell(cmd.Cmd):
 - Suggest remediation steps
 - Never crash the shell
 
+### Readline Integration
+
+**Automatic Features:**
+
+The `cmd.Cmd` module automatically integrates with `readline` (if available), providing:
+- Command history navigation (Up/Down arrows)
+- Line editing (Ctrl+A, Ctrl+E, Ctrl+K, etc.)
+- Basic tab completion for commands
+
+**Enhanced Tab Completion:**
+
+```python
+import readline
+
+class OrchestratorShell(cmd.Cmd):
+    def __init__(self):
+        super().__init__()
+        # Configure readline
+        readline.set_completer_delims(' \t\n')
+        readline.parse_and_bind('tab: complete')
+
+    def complete_send(self, text, line, begidx, endidx):
+        """Tab completion for session names"""
+        active = [s for s in self.sessions.keys() if not self.sessions[s].archived]
+        return [sid for sid in active if sid.startswith(text)]
+
+    def complete_show(self, text, line, begidx, endidx):
+        """Tab completion for show command"""
+        return self.complete_send(text, line, begidx, endidx)
+
+    def complete_history(self, text, line, begidx, endidx):
+        """Tab completion for history command"""
+        return self.complete_send(text, line, begidx, endidx)
+
+    def complete_stop(self, text, line, begidx, endidx):
+        """Tab completion for stop command"""
+        return self.complete_send(text, line, begidx, endidx)
+
+    def complete_delete(self, text, line, begidx, endidx):
+        """Tab completion for delete command (includes archived)"""
+        return [sid for sid in self.sessions.keys() if sid.startswith(text)]
+```
+
+**Persistent Command History:**
+
+```python
+class OrchestratorShell(cmd.Cmd):
+    def __init__(self):
+        super().__init__()
+        self.history_file = 'workspace/.orchestrator/history'
+
+        # Load command history
+        if os.path.exists(self.history_file):
+            readline.read_history_file(self.history_file)
+
+        # Limit history size
+        readline.set_history_length(1000)
+
+    def do_exit(self, args):
+        """Exit orchestrator"""
+        # Save command history
+        os.makedirs(os.path.dirname(self.history_file), exist_ok=True)
+        readline.write_history_file(self.history_file)
+        return True
+```
+
+**User Experience:**
+
+```bash
+orchestrator> send mor<TAB>
+# Auto-completes to:
+morphizen-042  morphizen-043
+
+orchestrator> send morphizen-042 "implement feature"
+
+# Later, press Up arrow
+orchestrator> <UP>
+# Recalls: send morphizen-042 "implement feature"
+
+# Edit and reuse
+orchestrator> send morphizen-042 "run tests"
+```
+
+**Benefits:**
+- ✅ Faster command entry (tab completion)
+- ✅ Easy command recall (persistent history)
+- ✅ Reduced typing errors
+- ✅ Standard readline keybindings (familiar to terminal users)
+
 ---
 
 ## Future Considerations
