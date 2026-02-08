@@ -22,21 +22,24 @@ Automate issue selection, workspace setup, and implementation for backlog issues
 
 **Run detection script:**
 ```bash
-python .claude/skills/common/select_project.py [PROJECT_NAME]
+python .claude/skills/common/select_project.py
 ```
 
-**If output contains `"action": "select_project"`:** Ask user to select from listed projects, then re-run with selected name.
+**If output contains `"action": "select_project"`:** Ask user to select from listed projects, then re-run:
+```bash
+python .claude/skills/common/select_project.py <selected_project>
+```
 
-**Parse JSON output:**
-- `mode`: "traditional" (work in current dir) or "workspace" (clone to workspace/issues/)
+**Parse JSON output for:**
+- `mode`: "traditional" or "workspace"
 - `project`: Project name
-- `paths.backlog`, `paths.issues_dir`, `paths.completed`: Use these for reading backlog
+- `paths.*`: backlog, issues_dir, completed
 
-**Display to user:** "Working on: {project} ({mode} mode)"
+**Display:** "Working on: {project} ({mode} mode)"
 
-**Mode affects Phase 4 (Workspace Setup):**
-- **Traditional mode:** Work in current directory, create feature branch here
-- **Workspace mode:** Clone to `workspace/issues/{project}-{issue_num}/`, work there
+**Mode affects Phase 4:**
+- **Traditional:** Work in current dir, create feature branch here
+- **Workspace:** Clone to `workspace/issues/{project}-{issue_num}/`, work there
 
 ---
 

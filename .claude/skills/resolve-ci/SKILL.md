@@ -31,16 +31,21 @@ Before running /resolve-ci:
 
 **Run detection script:**
 ```bash
-python .claude/skills/common/select_project.py [PROJECT_NAME]
+python .claude/skills/common/select_project.py
 ```
 
-**Parse JSON output:**
-- `mode`: "traditional" (stay in current dir) or "workspace" (cleanup workspace/issues/)
+**If output contains `"action": "select_project"`:** Ask user to select from listed projects, then re-run:
+```bash
+python .claude/skills/common/select_project.py <selected_project>
+```
+
+**Parse JSON output for:**
+- `mode`: "traditional" or "workspace"
 - `project`: Project name
 
 **Mode affects cleanup:**
-- **Traditional mode:** No cleanup needed (user continues working in their repo)
-- **Workspace mode:** Delete `workspace/issues/{project}-{issue_num}/` after merge
+- **Traditional:** No cleanup needed
+- **Workspace:** Delete `workspace/issues/{project}-{issue_num}/` after merge
 
 ### Main Monitoring Loop
 

@@ -603,19 +603,22 @@ Is the topic complex?
 
 **Run detection script:**
 ```bash
-python .claude/skills/common/select_project.py [PROJECT_NAME]
+python .claude/skills/common/select_project.py
 ```
 
-**If output contains `"action": "select_project"`:** Ask user to select from listed projects, then re-run with selected name.
+**If output contains `"action": "select_project"`:** Ask user to select from listed projects, then re-run:
+```bash
+python .claude/skills/common/select_project.py <selected_project>
+```
 
-**Parse JSON output:**
-- `mode`: "traditional" (work in current dir) or "workspace" (work from devflow-kit hub)
+**Parse JSON output for:**
+- `mode`: "traditional" or "workspace"
 - `project`: Project name
-- `paths.backlog`, `paths.issues_dir`, `paths.completed`: Use these instead of hardcoded paths
+- `paths.*`: backlog, issues_dir, completed
 
-**Display to user:** "Working on: {project} ({mode} mode)"
+**Display:** "Working on: {project} ({mode} mode)"
 
-**Throughout this skill:** Use `paths.*` values for all backlog/issue operations. Mode determines where work happens but doesn't change the skill flow.
+**Use `paths.*` throughout** instead of hardcoded paths.
 
 ---
 
