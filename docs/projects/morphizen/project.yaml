@@ -1,0 +1,8 @@
+# MorphiZen Project Configuration
+#
+# This file configures the morphizen project for use with devflow-kit orchestrator.
+# MorphiZen is a Type 1 project: it has its own backlog in its repository at
+# docs/project/backlog.md (singular path).
+
+name: morphizen
+git_url: https://github.com/ROCm/MorphiZen.git
