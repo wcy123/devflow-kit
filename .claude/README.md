@@ -27,10 +27,6 @@ Team-shared Claude Code skills are located in `skills/`:
   - Handles conflicts and enables auto-merge
   - See `skills/resolve-ci/SKILL.md` for details
 
-- **`/build-and-test`** - Build and test the project
-  - Runs build and test commands
-  - See `skills/build-and-test/SKILL.md` for details
-
 ## Hook Enforcement System
 
 The `settings.json` file contains PreToolUse hooks that enforce the git workflow rules defined in `.clinerules/git-rules.md`. These hooks run automatically before Claude Code executes certain tool operations.
