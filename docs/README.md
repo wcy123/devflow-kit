@@ -101,12 +101,19 @@ cd /path/to/new-project
 
 ### Option 2: Sync Script (For Multiple Projects)
 
-Create a sync script to update multiple projects:
+Use the provided sync script to update multiple projects:
+
+```bash
+# From work-log-2026 repository
+./scripts/sync-workflow.sh /path/to/target-project
+```
+
+**The sync script (`scripts/sync-workflow.sh`):**
 
 ```bash
 #!/bin/bash
 # sync-workflow.sh
-# Usage: ./sync-workflow.sh /path/to/target-project
+# Usage: ./scripts/sync-workflow.sh /path/to/target-project
 
 SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
 TARGET_DIR="$1"
