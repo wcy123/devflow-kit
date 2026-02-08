@@ -10,7 +10,7 @@ Archive of all completed and merged issues.
 
 | # | Author | PR | Commit | Date | Title |
 |---|--------|----|---------|----|-------|
-| Example | @user | [#1](link) | `abc123` | 2026-02-08 | Example completed issue |
+| #001 | @wcy123 | [#1](https://github.com/wcy123/devflow-kit/pull/1) | TBD | 2026-02-08 | Restructure and Rename to devflow-kit |
 
 ---
 

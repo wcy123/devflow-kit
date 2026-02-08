@@ -7,16 +7,14 @@ Issue tracking: `backlog.md` (index) + `issues/NNN-name.md` (detailed files)
 ## Backlog
 
 **Quick dependencies:**
-- **#002 blocked by #001** ⚠️ - Must complete restructure before integration
-- **#003 blocked by #001** ⚠️ - Needs multi-project structure in place
+- None (all issues unblocked)
 
 See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 
 | # | Title | Pri | Est | Group | Blocked | Files |
 |---|-------|-----|-----|-------|---------|-------|
-| [#001](issues/001-restructure-and-rename-to-devflow-kit.md) | Restructure and Rename to devflow-kit | H | 2h | Infrastructure | - | docs/projects/devflow-kit/*, .git/config |
-| [#002](issues/002-morphizen-integration-with-devflow-kit.md) | MorphiZen Integration with devflow-kit | H | 1.5h | Integration | #001 | .gitignore, .claude/skills/*, CONTRIBUTING.md |
-| [#003](issues/003-skills-multi-project-support.md) | Skills - Multi-project Support | H | 3h | Skills | #001 | .claude/skills/common/select_project.py, .claude/skills/*/SKILL.md |
+| [#002](issues/002-morphizen-integration-with-devflow-kit.md) | MorphiZen Integration with devflow-kit | H | 1.5h | Integration | - | .gitignore, .claude/skills/*, CONTRIBUTING.md |
+| [#003](issues/003-skills-multi-project-support.md) | Skills - Multi-project Support | H | 3h | Skills | - | .claude/skills/common/select_project.py, .claude/skills/*/SKILL.md |
 
 **Legend:**
 - **Pri**: Priority (C=Critical, H=High, M=Medium, L=Low)
@@ -32,7 +30,7 @@ See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 See **[completed-issues.md](completed-issues.md)** for full archive of all completed issues.
 
 **Recent (last 5):**
-- No completed issues yet
+- #001 - Restructure and Rename to devflow-kit (2026-02-08)
 
 ---
 
