@@ -601,34 +601,11 @@ Is the topic complex?
 
 ## Phase 0: Detect Project
 
-Run project detection to determine paths:
+Run: `python .claude/skills/common/select_project.py [PROJECT_NAME]`
 
-```bash
-PROJECT_INFO=$(python .claude/skills/common/select_project.py)
-```
+If output has `"action": "select_project"`, ask user to select project, then re-run with project name.
 
-If output contains `"action": "select_project"`, ask user to select from available projects using AskUserQuestion tool, then re-run with:
-
-```bash
-PROJECT_INFO=$(python .claude/skills/common/select_project.py PROJECT_NAME)
-```
-
-Parse JSON and extract paths:
-
-```bash
-BACKLOG=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['paths']['backlog'])")
-ISSUES_DIR=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['paths']['issues_dir'])")
-COMPLETED=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['paths']['completed'])")
-MODE=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['mode'])")
-PROJECT=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['project'])")
-```
-
-Display brief mode message: "Working on: {PROJECT} ({MODE} mode)"
-
-**Use these variables throughout the skill** instead of hardcoded paths:
-- `$BACKLOG` instead of `docs/projects/devflow-kit/backlog.md`
-- `$ISSUES_DIR` instead of `docs/projects/devflow-kit/issues/`
-- `$COMPLETED` instead of `docs/projects/devflow-kit/completed-issues.md`
+Parse JSON output for: `mode`, `project`, `paths.backlog`, `paths.issues_dir`, `paths.completed`. Use `paths.*` values throughout instead of hardcoded paths.
 
 ---
 

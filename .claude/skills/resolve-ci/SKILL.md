@@ -29,26 +29,9 @@ Before running /resolve-ci:
 
 ### Phase 0: Detect Project
 
-Run project detection to determine mode:
+Run: `python .claude/skills/common/select_project.py [PROJECT_NAME]`
 
-```bash
-PROJECT_INFO=$(python .claude/skills/common/select_project.py)
-```
-
-If output contains `"action": "select_project"`, ask user to select from available projects, then re-run with:
-
-```bash
-PROJECT_INFO=$(python .claude/skills/common/select_project.py PROJECT_NAME)
-```
-
-Parse JSON and extract mode:
-
-```bash
-MODE=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['mode'])")
-PROJECT=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['project'])")
-```
-
-Store these for cleanup phase.
+Parse JSON output for `mode` and `project` (needed for workspace cleanup).
 
 ### Main Monitoring Loop
 
