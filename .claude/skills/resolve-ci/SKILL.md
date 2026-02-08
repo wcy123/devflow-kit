@@ -16,47 +16,53 @@ Autonomously resolve merge conflicts and CI failures until PR merges, then clean
 
 ---
 
-## Phase 0: PR Finalization
+## Workflow
 
-**Run BEFORE monitoring** - Requires PR to be marked READY first. Finalizes PR documentation (backlog updates, file cleanup).
+Call monitor-pr.py. It checks prerequisites and returns status codes.
 
-1. **Validate PR status** - Check if PR is already marked ready for review
-   ```bash
-   gh pr view {PR_NUM} --json isDraft
-   ```
-   - If `isDraft: true`: Exit with friendly reminder "PR is still in draft. Please review your implementation and mark it ready for review first: `gh pr ready {PR_NUM}`"
-   - If `isDraft: false`: Proceed with finalization
-   - Note: monitor-pr.py also validates this, but checking early provides immediate feedback
+### Prerequisites Checked by monitor-pr.py
 
-2. **Read issue file** - understand context
+The script validates:
+1. PR is marked ready (not draft) - `STATUS:NEEDS_READY` if draft
+2. PR is finalized (title doesn't contain `[WIP]`) - `STATUS:NEEDS_FINALIZATION` if still WIP
 
-3. **Craft PR title** - `gh pr edit {PR_NUM} --title "Issue #{N}: {type}: {desc}"`
+### Status Code: NEEDS_FINALIZATION
 
-4. **Write PR description** - create summary, problem, solution, changes
+When monitor-pr.py returns `STATUS:NEEDS_FINALIZATION`, AI must complete Phase 0:
 
-5. **Update completed-issues.md:**
+1. **Read issue file** - understand context from `docs/project/issues/{NUM}-*.md`
+
+2. **Craft PR title** - Remove `[WIP]`, add proper type
+   - Format: `Issue #{NUM}: {type}: {description}`
+   - Example: `Issue #038: docs: document lazy symlink resolution const_cast`
+
+3. **Write comprehensive PR body**
+   - Read issue and plan files
+   - Create sections: Summary, Problem, Context, Solution, Benefits, Changes
+   - Include implementation details and rationale
+
+4. **Update completed-issues.md:**
    - Add entry to top of current month's table
    - Format: `| #{NUM} | {AUTHOR} | #{PR} | {COMMIT} | {DATE} | {TITLE} |`
+   - Use `TBD` for commit hash (will be updated after merge)
 
-6. **Update backlog.md:**
-   - Add to "Recent (last 5)" compact list
-   - Remove oldest if >5
+5. **Update backlog.md:**
+   - Add to "Recent (last 5)" compact list (prepend, remove oldest if >5)
    - Delete from active backlog table
-   - Remove from "Quick dependencies" section
+   - Remove from "Quick dependencies" section if referenced
 
-7. **Update issue-dependency-analysis.md:**
-   - Remove all references to `#{NUM}`
-
-8. **Delete files:**
+6. **Delete files:**
    - `git rm docs/project/issues/{NUM}-*.md`
    - `git rm docs/project/plans/{NUM}-*.md` (if exists)
 
-9. **Commit and push:**
-   - `git add docs/project/backlog.md docs/project/completed-issues.md docs/project/issue-dependency-analysis.md`
+7. **Commit and push:**
+   - `git add docs/project/backlog.md docs/project/completed-issues.md`
    - `git commit -m "docs: complete issue #{NUM}"`
    - `git push fork {BRANCH}`
 
-**Proceed to Main Loop.**
+8. **Re-run monitor-pr.py** to continue with monitoring
+
+After finalization, monitor-pr.py will proceed to Main Loop.
 
 ---
 
