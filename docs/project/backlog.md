@@ -2,8 +2,6 @@
 
 Issue tracking: `backlog.md` (index) + `issues/NNN-name.md` (detailed files)
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for issue quality guidelines.
-
 ---
 
 ## Backlog
@@ -37,7 +35,7 @@ See **[completed-issues.md](completed-issues.md)** for full archive of all compl
 
 ## Completing an Issue
 
-When implementation is done (code complete, tests pass), update the backlog before marking PR ready:
+When implementation is done (code complete, tests pass), update the backlog:
 
 1. Add to completed-issues.md - Add entry to top of current month's table with: #, Author, PR, Commit, Date, Title
 2. Update backlog.md - Add to "Recent (last 5)" list in compact format, remove oldest if >5
@@ -45,8 +43,6 @@ When implementation is done (code complete, tests pass), update the backlog befo
 4. Delete issue file: `git rm docs/project/issues/042-*.md`
 5. Remove from dependencies - Clean up any references in "Quick dependencies" section
 6. Commit: `git commit -m "docs: complete issue #042"`
-7. Push
-8. Mark PR ready for review
 
 **CRITICAL: PR Title Must Include Issue Number**
 
@@ -63,9 +59,7 @@ This ensures PR is easily linked to the issue and makes tracking easier.
 
 1. Copy `issues/TEMPLATE.md` to `issues/NNN-name.md`
 2. Fill required sections: Description, Problem, Solution, Evidence
-3. Delete empty optional sections (Plans/Sessions/PRs/Notes)
+3. Delete empty optional sections (Plans/Sessions/Notes)
 4. Add link to backlog.md
 
 Numbering: 001, 002, 003, etc.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for quality guidelines.
