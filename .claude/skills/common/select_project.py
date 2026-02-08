@@ -101,13 +101,47 @@ def list_projects():
     return sorted(projects)
 
 def update_cache(project):
-    """Update cache to latest origin/main (workspace mode only)"""
+    """Update cache to latest origin/main (workspace mode only)
+
+    If cache doesn't exist and project is Type 1 (has project.yaml with git_url),
+    clone it. Type 2 projects don't need cache (backlog is local).
+    """
     cache_dir = Path(f"workspace/cache/{project}")
 
+    # If cache doesn't exist, try to create it (Type 1 projects only)
     if not cache_dir.exists():
-        print(f"Warning: Cache directory not found for {project}", file=sys.stderr)
-        return
+        project_yaml = Path(f"docs/projects/{project}/project.yaml")
 
+        # Type 2 project - no cache needed
+        if not project_yaml.exists():
+            return
+
+        # Type 1 project - read git_url and clone
+        try:
+            import yaml
+            with open(project_yaml) as f:
+                config = yaml.safe_load(f)
+            git_url = config.get("git_url")
+            if not git_url:
+                print(f"Warning: No git_url in {project_yaml}", file=sys.stderr)
+                return
+
+            # Create cache directory and clone
+            cache_dir.parent.mkdir(parents=True, exist_ok=True)
+            print(f"Cloning {project} to cache...", file=sys.stderr)
+            subprocess.run(
+                ["git", "clone", git_url, str(cache_dir)],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            print(f"✓ Cloned {project} cache", file=sys.stderr)
+            return
+        except Exception as e:
+            print(f"⚠️ Warning: Failed to clone {project} cache: {e}", file=sys.stderr)
+            return
+
+    # Cache exists - update it
     try:
         subprocess.run(
             ["git", "-C", str(cache_dir), "pull", "origin", "main"],
@@ -116,7 +150,7 @@ def update_cache(project):
             check=True
         )
         print(f"✓ Updated {project} cache to latest origin/main", file=sys.stderr)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         print(f"⚠️ Warning: Failed to update {project} cache. Using existing version.", file=sys.stderr)
 
 def check_backlog_location(project, cache_dir):
