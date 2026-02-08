@@ -7,13 +7,14 @@ Issue tracking: `backlog.md` (index) + `issues/NNN-name.md` (detailed files)
 ## Backlog
 
 **Quick dependencies:**
-- None currently
+- **#002 blocked by #001** ⚠️ - Must complete restructure before integration
 
 See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 
 | # | Title | Pri | Est | Group | Blocked | Files |
 |---|-------|-----|-----|-------|---------|-------|
 | [#001](issues/001-restructure-and-rename-to-devflow-kit.md) | Restructure and Rename to devflow-kit | H | 2h | Infrastructure | - | docs/project/*, .git/config |
+| [#002](issues/002-morphizen-integration-with-devflow-kit.md) | MorphiZen Integration with devflow-kit | H | 1.5h | Integration | #001 | .gitignore, .claude/skills/*, CONTRIBUTING.md |
 
 **Legend:**
 - **Pri**: Priority (C=Critical, H=High, M=Medium, L=Low)
