@@ -27,7 +27,10 @@ devflow-kit supports **two distinct workflows** for working with projects:
 ```bash
 ~/morphizen.github.1/
 ├── .claude/skills/ → ~/devflow-kit/.claude/skills/  # Symlinked
-├── docs/projects/PROJECT_NAME/                                      # Project's own backlog
+├── docs/project/                                    # Project's own backlog (singular!)
+│   ├── backlog.md
+│   ├── issues/
+│   └── completed-issues.md
 └── src/
 ```
 
@@ -230,20 +233,26 @@ Projects fall into two categories based on backlog location:
 
 ### Type 1: Projects with Own Backlog (e.g., MorphiZen)
 
-**Backlog lives:** In the project's repo `docs/projects/PROJECT_NAME/backlog.md`
+**Backlog lives:** In the project's repo `docs/project/backlog.md` (singular!)
 
 **From devflow-kit workspace:**
 ```bash
-# Check remote backlog
-git show origin/main:docs/projects/PROJECT_NAME/backlog.md
+# Check remote backlog (singular path!)
+git show origin/main:docs/project/backlog.md
 
 # Or from cache
-cat workspace/cache/morphizen/docs/projects/PROJECT_NAME/backlog.md
+cat workspace/cache/morphizen/docs/project/backlog.md
+```
+
+**Metadata in devflow-kit:**
+```bash
+docs/projects/morphizen/
+└── project.yaml    # Only metadata, no backlog.md here!
 ```
 
 **Characteristics:**
-- Source of truth: Project's repo
-- devflow-kit reads from remote
+- Source of truth: Project's repo at `docs/project/` (singular)
+- devflow-kit only stores metadata at `docs/projects/{name}/`
 - Changes go through PRs to project
 - Good for projects that adopted devflow-kit workflow
 
@@ -270,17 +279,20 @@ devflow-kit/docs/projects/onnx-hipdnn-ep/
 
 ```python
 def get_backlog_path(project):
-    # Check if project has own backlog
+    # Check if project has own backlog (singular path!)
     try:
-        result = git_show(f"origin/main:docs/projects/PROJECT_NAME/backlog.md")
-        # Type 1: Use remote backlog
-        return f"workspace/cache/{project}/docs/projects/PROJECT_NAME/backlog.md"
+        result = git_show(f"origin/main:docs/project/backlog.md")
+        # Type 1: Use cached project repo (singular path!)
+        return f"workspace/cache/{project}/docs/project/backlog.md"
     except FileNotFound:
-        # Type 2: Use devflow-kit tracking
+        # Type 2: Use devflow-kit tracking (plural path!)
         return f"docs/projects/{project}/backlog.md"
 ```
 
-**No metadata needed:** Detection happens dynamically.
+**Key distinction:**
+- Type 1: Project repo uses `docs/project/` (singular)
+- Type 2: devflow-kit uses `docs/projects/{project}/` (plural)
+- Detection happens dynamically, no metadata needed
 
 ---
 
@@ -345,20 +357,24 @@ workspace/cache/new-project/  # Cloned from git_url
 
 **Setup:**
 ```bash
-~/morphizen.github.1/.claude/skills/ → devflow-kit (symlinks)
+~/morphizen.github.1/
+├── .claude/skills/ → devflow-kit (symlinks)
+└── docs/project/          # Singular!
+    ├── backlog.md
+    └── issues/
 ```
 
 **Usage:**
 ```bash
 cd ~/morphizen.github.1
 /create-issue
-→ Brief message: "Working in: MorphiZen (local mode)"
-→ Creates issues in: docs/projects/PROJECT_NAME/issues/
-→ Updates: docs/projects/PROJECT_NAME/backlog.md
+→ Brief message: "Working in: MorphiZen (traditional mode)"
+→ Creates issues in: docs/project/issues/         # Singular!
+→ Updates: docs/project/backlog.md                # Singular!
 ```
 
 **Characteristics:**
-- Skills detect: Not in devflow-kit (no docs/projects/)
+- Skills detect: Not in devflow-kit (no docs/projects/ plural)
 - Work directly in current directory
 - Commit to MorphiZen repo
 
@@ -367,14 +383,19 @@ cd ~/morphizen.github.1
 **Setup:**
 ```bash
 ~/devflow-kit/
-└── workspace/cache/morphizen/  # Persistent clone
+├── docs/projects/morphizen/
+│   └── project.yaml                    # Only metadata!
+└── workspace/cache/morphizen/          # Persistent clone
+    └── docs/project/                   # Singular! Backlog lives here
+        ├── backlog.md
+        └── issues/
 ```
 
 **Usage:**
 ```bash
 cd ~/devflow-kit
 /fix-issue
-→ Reads: workspace/cache/morphizen/docs/projects/PROJECT_NAME/backlog.md
+→ Reads: workspace/cache/morphizen/docs/project/backlog.md    # Singular!
 → Clones to: workspace/issues/morphizen-042/
 → Works in: workspace/issues/morphizen-042/morphizen/
 → Creates PR to: ROCm/MorphiZen
@@ -383,6 +404,8 @@ cd ~/devflow-kit
 
 **Characteristics:**
 - User never leaves devflow-kit
+- MorphiZen backlog stored in its own repo (Type 1)
+- devflow-kit only stores metadata
 - Can work on multiple issues in parallel
 - Clean workspace after completion
 

@@ -9,23 +9,32 @@
 Project detection, cache management, and path resolution for multi-project workflow.
 Used by all skills (create-issue, fix-issue, resolve-ci).
 
+PATH STRUCTURE:
+    Traditional mode:  docs/project/backlog.md            (singular - fixed)
+    Workspace Type 1:  workspace/cache/{project}/docs/project/backlog.md  (singular - project's own)
+    Workspace Type 2:  docs/projects/{project}/backlog.md (plural - devflow-kit tracking)
+
 SMART CALL DESIGN FOR TOKEN EFFICIENCY:
 
 TRADITIONAL MODE (one call):
+    Working in project repo (e.g., ~/morphizen.github.1/)
+
     python select_project.py
 
     Output: {
         "mode": "traditional",
-        "project": "morphizen",
+        "project": "current",
         "paths": {
-            "backlog": "docs/projects/devflow-kit/backlog.md",
+            "backlog": "docs/project/backlog.md",    # Singular!
             ...
         }
     }
     Token cost: ~150 tokens
-    No selection needed - return everything immediately.
+    No selection needed - paths are fixed.
 
 WORKSPACE MODE (two calls):
+    Working in devflow-kit hub (~/devflow-kit/)
+
     Call 1 (no args): Get project list
         python select_project.py
 
@@ -40,17 +49,21 @@ WORKSPACE MODE (two calls):
         Output: {
             "mode": "workspace",
             "project": "morphizen",
-            "paths": {...}
+            "paths": {
+                "backlog": "workspace/cache/morphizen/docs/project/backlog.md"  # Type 1
+                # OR "docs/projects/morphizen/backlog.md"  # Type 2
+            }
         }
         Token cost: ~150 tokens
 
         Total: ~190 tokens
 
 WHY THIS DESIGN:
-- Traditional mode: One call (no selection needed)
+- Traditional mode: One call (no selection needed, fixed paths)
 - Workspace mode: Two calls (only when selection needed)
 - Scales well (100 projects doesn't bloat first call)
 - Script handles complexity (Type 1/2 detection, cache updates)
+- No git detection needed in traditional mode
 """
 import os
 import sys
@@ -78,27 +91,9 @@ def list_projects():
 
     return sorted(projects)
 
-def detect_from_git():
-    """Detect project name from git remote URL in traditional mode"""
-    try:
-        result = subprocess.run(
-            ["git", "remote", "get-url", "origin"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        url = result.stdout.strip()
-        # Extract project name from URL (last path component, remove .git)
-        name = url.rstrip('/').split('/')[-1]
-        if name.endswith('.git'):
-            name = name[:-4]
-        return name
-    except subprocess.CalledProcessError:
-        print("Error: Could not detect project name from git remote", file=sys.stderr)
-        sys.exit(1)
 
 def get_project(mode):
-    """Get project name (select from list in workspace, detect from git in traditional)"""
+    """Get project name (select from list in workspace, N/A in traditional)"""
     if mode == "workspace":
         projects = list_projects()
         if not projects:
@@ -116,7 +111,8 @@ def get_project(mode):
             # No argument - return project list for AI to present to user
             return None  # Signal that we need user selection
     else:
-        return detect_from_git()
+        # Traditional mode - project name not needed (paths are fixed)
+        return "current"
 
 def update_cache(project):
     """Update cache to latest origin/main"""
@@ -140,20 +136,25 @@ def update_cache(project):
 
 def check_backlog_location(project, cache_dir):
     """Check if project has own backlog (Type 1) or uses devflow-kit tracking (Type 2)"""
-    # Try to check if backlog exists in project's origin/main
+    # Try to check if backlog exists in project's origin/main (singular path!)
     try:
         result = subprocess.run(
-            ["git", "-C", str(cache_dir), "show", "origin/main:docs/projects/devflow-kit/backlog.md"],
+            ["git", "-C", str(cache_dir), "show", "origin/main:docs/project/backlog.md"],
             capture_output=True,
             text=True,
             check=True
         )
-        return "remote"  # Type 1: Project has own backlog
+        return "remote"  # Type 1: Project has own backlog at docs/project/
     except subprocess.CalledProcessError:
         return "local"  # Type 2: Use devflow-kit tracking
 
 def resolve_paths(mode, project):
-    """Resolve backlog and issue paths based on mode and project"""
+    """Resolve backlog and issue paths based on mode and project
+
+    Traditional mode: docs/project/ (singular - fixed paths)
+    Workspace Type 1: workspace/cache/{project}/docs/project/ (singular - project has own backlog)
+    Workspace Type 2: docs/projects/{project}/ (plural - devflow-kit tracking)
+    """
     if mode == "workspace":
         cache_dir = Path(f"workspace/cache/{project}")
 
@@ -161,16 +162,16 @@ def resolve_paths(mode, project):
         location = check_backlog_location(project, cache_dir)
 
         if location == "remote":
-            # Type 1: Project has own backlog
+            # Type 1: Project has own backlog at docs/project/ (singular!)
             paths = {
-                "backlog": str(cache_dir / "docs/projects/devflow-kit/backlog.md"),
-                "issues_dir": str(cache_dir / "docs/projects/devflow-kit/issues/"),
-                "completed": str(cache_dir / "docs/projects/devflow-kit/completed-issues.md"),
-                "dependencies": str(cache_dir / "docs/projects/devflow-kit/issue-dependency-analysis.md"),
+                "backlog": str(cache_dir / "docs/project/backlog.md"),
+                "issues_dir": str(cache_dir / "docs/project/issues/"),
+                "completed": str(cache_dir / "docs/project/completed-issues.md"),
+                "dependencies": str(cache_dir / "docs/project/issue-dependency-analysis.md"),
                 "location": "remote"
             }
         else:
-            # Type 2: devflow-kit tracking
+            # Type 2: devflow-kit tracking at docs/projects/{project}/ (plural!)
             paths = {
                 "backlog": f"docs/projects/{project}/backlog.md",
                 "issues_dir": f"docs/projects/{project}/issues/",
@@ -179,12 +180,12 @@ def resolve_paths(mode, project):
                 "location": "local"
             }
     else:
-        # Traditional mode - work in current directory
+        # Traditional mode - work in current directory, docs/project/ (singular!)
         paths = {
-            "backlog": "docs/projects/devflow-kit/backlog.md",
-            "issues_dir": "docs/projects/devflow-kit/issues/",
-            "completed": "docs/projects/devflow-kit/completed-issues.md",
-            "dependencies": "docs/projects/devflow-kit/issue-dependency-analysis.md",
+            "backlog": "docs/project/backlog.md",
+            "issues_dir": "docs/project/issues/",
+            "completed": "docs/project/completed-issues.md",
+            "dependencies": "docs/project/issue-dependency-analysis.md",
             "location": "local"
         }
 
