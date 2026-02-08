@@ -18,19 +18,52 @@ Automate issue selection, workspace setup, and implementation for backlog issues
 
 ---
 
-## Phase 0: Pre-Selection Sync
+## Phase 0: Detect Project
+
+Run project detection to determine paths:
+
+```bash
+PROJECT_INFO=$(python .claude/skills/common/select_project.py)
+```
+
+If output contains `"action": "select_project"`, ask user to select from available projects using AskUserQuestion tool, then re-run with:
+
+```bash
+PROJECT_INFO=$(python .claude/skills/common/select_project.py PROJECT_NAME)
+```
+
+Parse JSON and extract paths:
+
+```bash
+BACKLOG=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['paths']['backlog'])")
+ISSUES_DIR=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['paths']['issues_dir'])")
+COMPLETED=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['paths']['completed'])")
+MODE=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['mode'])")
+PROJECT=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['project'])")
+```
+
+Display brief mode message: "Working on: {PROJECT} ({MODE} mode)"
+
+**Use these variables throughout the skill** instead of hardcoded paths:
+- `$BACKLOG` instead of `docs/projects/devflow-kit/backlog.md`
+- `$ISSUES_DIR` instead of `docs/projects/devflow-kit/issues/`
+- `$COMPLETED` instead of `docs/projects/devflow-kit/completed-issues.md`
+
+---
+
+## Phase 1: Pre-Selection Sync
 
 Ensure on main branch with no uncommitted changes, then sync local main with origin/main via `git pull origin main`.
 
 ---
 
-## Phase 1: Issue Selection
+## Phase 2: Issue Selection
 
-### Step 1.1: Load backlog and open PRs
+### Step 2.1: Load backlog and open PRs
 
 Read backlog table and get open PRs to detect file conflicts.
 
-### Step 1.2: Smart recommendation
+### Step 2.2: Smart recommendation
 
 Parse backlog table, filter out blocked/conflicting issues, rank by priority (C > H > M > L), apply tie-breakers (blockers first, quick wins, sequential within group).
 
@@ -38,13 +71,13 @@ Display top recommendation with metadata. User can request more options or selec
 
 ---
 
-## Phase 2: Review and Confirm
+## Phase 3: Review and Confirm
 
-### Step 2.1: Read issue and plans
+### Step 3.1: Read issue and plans
 
-Read issue file and find plans: `docs/project/plans/${ISSUE_NUM}-*.md`.
+Read issue file and find plans: `docs/projects/devflow-kit/plans/${ISSUE_NUM}-*.md`.
 
-### Step 2.2: Display full context
+### Step 3.2: Display full context
 
 Show complete issue content:
 - Issue metadata (number, title, type, priority)
@@ -53,7 +86,7 @@ Show complete issue content:
 - Files to be changed
 - Plans status: None / Single plan (show filename and summary) / Multiple plans (list all with summaries)
 
-### Step 2.3: Ask user to proceed
+### Step 3.3: Ask user to proceed
 
 After showing full context, offer: Proceed / Cancel.
 
@@ -61,7 +94,7 @@ If user cancels, exit without creating workspace.
 
 ---
 
-## Phase 3: Workspace Setup
+## Phase 4: Workspace Setup
 
 Run `python .claude/skills/fix-issue/setup-workspace.py <issue_num>` to:
 - Check prerequisites (on main, no uncommitted changes)
@@ -75,13 +108,13 @@ Run `python .claude/skills/fix-issue/setup-workspace.py <issue_num>` to:
 
 ---
 
-## Phase 3.5: Plan Revision
+## Phase 4.5: Plan Revision
 
 If multi-PR patterns detected in plans, revise to single-PR approach, commit, and push.
 
 ---
 
-## Phase 4: Implementation
+## Phase 5: Implementation
 
 **CRITICAL: Single-PR Enforcement**
 
@@ -94,11 +127,11 @@ If plan mentions creating PRs: SKIP that instruction and continue.
 
 ---
 
-### Step 4.1: Ask user
+### Step 5.1: Ask user
 
 Offer: Auto-implement / Manual / Cancel.
 
-### Step 4.2: If YES - Auto-implement
+### Step 5.2: If YES - Auto-implement
 
 Read plan, execute implementation steps using Edit/Write tools.
 
@@ -106,17 +139,17 @@ Build and test. If failures occur, offer: fix attempt, continue anyway, or cance
 
 Commit with validation (no AI mentions), run pre-commit, push to fork.
 
-### Step 4.3: If NO - Manual implementation
+### Step 5.3: If NO - Manual implementation
 
 Exit skill. User implements manually on the feature branch.
 
 ---
 
-## Phase 5: Finalization
+## Phase 6: Finalization
 
 After implementation is complete (auto or manual), finalize the PR and backlog:
 
-### Step 5.1: Craft PR title and body
+### Step 6.1: Craft PR title and body
 
 1. **Read issue and plan files** for context
 2. **Update PR title** - Remove `[WIP]`, add proper type:
@@ -130,7 +163,7 @@ After implementation is complete (auto or manual), finalize the PR and backlog:
    - Include implementation details and rationale
    - Use `gh pr edit {PR_NUM} --body "..."`
 
-### Step 5.2: Update backlog
+### Step 6.2: Update backlog
 
 1. **Update completed-issues.md:**
    - Add entry to top of current month's table
@@ -143,15 +176,15 @@ After implementation is complete (auto or manual), finalize the PR and backlog:
    - Remove from "Quick dependencies" section if referenced
 
 3. **Delete files:**
-   - `git rm docs/project/issues/{NNN}-*.md`
-   - `git rm docs/project/plans/{NNN}-*.md` (if exists)
+   - `git rm docs/projects/devflow-kit/issues/{NNN}-*.md`
+   - `git rm docs/projects/devflow-kit/plans/{NNN}-*.md` (if exists)
 
 4. **Commit and push:**
-   - `git add docs/project/backlog.md docs/project/completed-issues.md`
+   - `git add docs/projects/devflow-kit/backlog.md docs/projects/devflow-kit/completed-issues.md`
    - `git commit -m "docs: complete issue #NNN"`
    - `git push fork {BRANCH}`
 
-### Step 5.3: Exit with reminder
+### Step 6.3: Exit with reminder
 
 **PR remains DRAFT** - User must review before marking ready.
 

@@ -27,6 +27,31 @@ Before running /resolve-ci:
 
 ## Workflow
 
+### Phase 0: Detect Project
+
+Run project detection to determine mode:
+
+```bash
+PROJECT_INFO=$(python .claude/skills/common/select_project.py)
+```
+
+If output contains `"action": "select_project"`, ask user to select from available projects, then re-run with:
+
+```bash
+PROJECT_INFO=$(python .claude/skills/common/select_project.py PROJECT_NAME)
+```
+
+Parse JSON and extract mode:
+
+```bash
+MODE=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['mode'])")
+PROJECT=$(echo "$PROJECT_INFO" | python -c "import sys, json; print(json.load(sys.stdin)['project'])")
+```
+
+Store these for cleanup phase.
+
+### Main Monitoring Loop
+
 Call monitor-pr.py. It validates prerequisites then monitors CI.
 
 ### Validation by monitor-pr.py
@@ -120,3 +145,34 @@ When `STATUS:NEEDS_FIX_CI`:
    ```bash
    git add <file> && git commit -m "fix: ..." && git push fork "{BRANCH_NAME}"
    ```
+
+---
+
+## Workspace Cleanup (Workspace Mode Only)
+
+When `STATUS:CLEANUP_COMPLETE` and mode is "workspace":
+
+1. **Determine issue directory:**
+   ```bash
+   # Extract issue number from branch name
+   ISSUE_NUM=$(git branch --show-current | grep -oP 'issue-\K\d+')
+   ```
+
+2. **Return to devflow-kit root:**
+   ```bash
+   cd ~/devflow-kit  # Or wherever devflow-kit is located
+   ```
+
+3. **Clean up workspace issue directory:**
+   ```bash
+   rm -rf workspace/issues/{PROJECT}-{ISSUE_NUM}/
+   ```
+
+4. **Confirm cleanup:**
+   ```
+   ✓ Cleaned up workspace/issues/{PROJECT}-{ISSUE_NUM}/
+   ```
+
+This removes the temporary work directory after successful PR merge.
+
+**Note:** In traditional mode, no cleanup is needed - user continues working in their repository.
