@@ -7,16 +7,14 @@ Issue tracking: `backlog.md` (index) + `issues/NNN-name.md` (detailed files)
 ## Backlog
 
 **Quick dependencies:**
-- **#002 blocked by #001** ⚠️ - Must complete restructure before integration
-- **#003 blocked by #001** ⚠️ - Needs multi-project structure in place
+- None (all issues unblocked)
 
 See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 
 | # | Title | Pri | Est | Group | Blocked | Files |
 |---|-------|-----|-----|-------|---------|-------|
-| [#001](issues/001-restructure-and-rename-to-devflow-kit.md) | Restructure and Rename to devflow-kit | H | 2h | Infrastructure | - | docs/project/*, .git/config |
-| [#002](issues/002-morphizen-integration-with-devflow-kit.md) | MorphiZen Integration with devflow-kit | H | 1.5h | Integration | #001 | .gitignore, .claude/skills/*, CONTRIBUTING.md |
-| [#003](issues/003-skills-multi-project-support.md) | Skills - Multi-project Support | H | 3h | Skills | #001 | .claude/skills/common/select_project.py, .claude/skills/*/SKILL.md |
+| [#002](issues/002-morphizen-integration-with-devflow-kit.md) | MorphiZen Integration with devflow-kit | H | 1.5h | Integration | - | .gitignore, .claude/skills/*, CONTRIBUTING.md |
+| [#003](issues/003-skills-multi-project-support.md) | Skills - Multi-project Support | H | 3h | Skills | - | .claude/skills/common/select_project.py, .claude/skills/*/SKILL.md |
 
 **Legend:**
 - **Pri**: Priority (C=Critical, H=High, M=Medium, L=Low)
@@ -32,7 +30,7 @@ See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 See **[completed-issues.md](completed-issues.md)** for full archive of all completed issues.
 
 **Recent (last 5):**
-- No completed issues yet
+- #001 - Restructure and Rename to devflow-kit (2026-02-08)
 
 ---
 
@@ -43,7 +41,7 @@ When implementation is done (code complete, tests pass), update the backlog:
 1. Add to completed-issues.md - Add entry to top of current month's table with: #, Author, PR, Commit, Date, Title
 2. Update backlog.md - Add to "Recent (last 5)" list in compact format, remove oldest if >5
 3. Remove from backlog.md - Delete from active backlog table
-4. Delete issue file: `git rm docs/project/issues/042-*.md`
+4. Delete issue file: `git rm docs/projects/devflow-kit/issues/042-*.md`
 5. Remove from dependencies - Clean up any references in "Quick dependencies" section
 6. Commit: `git commit -m "docs: complete issue #042"`
 

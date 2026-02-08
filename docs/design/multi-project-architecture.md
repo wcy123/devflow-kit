@@ -27,7 +27,7 @@ devflow-kit supports **two distinct workflows** for working with projects:
 ```bash
 ~/morphizen.github.1/
 ├── .claude/skills/ → ~/devflow-kit/.claude/skills/  # Symlinked
-├── docs/project/                                      # Project's own backlog
+├── docs/projects/PROJECT_NAME/                                      # Project's own backlog
 └── src/
 ```
 
@@ -94,12 +94,12 @@ if current_directory_has("docs/projects/"):  # Plural
     # Clone to workspace/, track in docs/projects/{name}/
 else:
     workflow = "traditional"
-    # Work in current directory, use local docs/project/
+    # Work in current directory, use local docs/projects/PROJECT_NAME/
 ```
 
 **Why this works:**
 - devflow-kit has `docs/projects/` (plural) - multi-project tracking
-- Projects have `docs/project/` (singular) - single project tracking
+- Projects have `docs/projects/PROJECT_NAME/` (singular) - single project tracking
 - Clear distinction prevents ambiguity
 
 **Edge case:** If user is in a directory without `.claude/`, skills don't exist, so `/fix-issue` command won't work. No special handling needed - it's impossible to invoke.
@@ -198,7 +198,7 @@ git_url: https://github.com/ROCm/MorphiZen.git
 - Traditional workflow is external (user's choice to set up symlinks)
 
 **❌ has_own_backlog / backlog_mode**
-- Reason: Auto-detect by checking `git show origin/main:docs/project/backlog.md`
+- Reason: Auto-detect by checking `git show origin/main:docs/projects/PROJECT_NAME/backlog.md`
 - Dynamic check is more reliable than stale metadata
 
 **❌ Fork URL**
@@ -230,15 +230,15 @@ Projects fall into two categories based on backlog location:
 
 ### Type 1: Projects with Own Backlog (e.g., MorphiZen)
 
-**Backlog lives:** In the project's repo `docs/project/backlog.md`
+**Backlog lives:** In the project's repo `docs/projects/PROJECT_NAME/backlog.md`
 
 **From devflow-kit workspace:**
 ```bash
 # Check remote backlog
-git show origin/main:docs/project/backlog.md
+git show origin/main:docs/projects/PROJECT_NAME/backlog.md
 
 # Or from cache
-cat workspace/cache/morphizen/docs/project/backlog.md
+cat workspace/cache/morphizen/docs/projects/PROJECT_NAME/backlog.md
 ```
 
 **Characteristics:**
@@ -272,9 +272,9 @@ devflow-kit/docs/projects/onnx-hipdnn-ep/
 def get_backlog_path(project):
     # Check if project has own backlog
     try:
-        result = git_show(f"origin/main:docs/project/backlog.md")
+        result = git_show(f"origin/main:docs/projects/PROJECT_NAME/backlog.md")
         # Type 1: Use remote backlog
-        return f"workspace/cache/{project}/docs/project/backlog.md"
+        return f"workspace/cache/{project}/docs/projects/PROJECT_NAME/backlog.md"
     except FileNotFound:
         # Type 2: Use devflow-kit tracking
         return f"docs/projects/{project}/backlog.md"
@@ -353,8 +353,8 @@ workspace/cache/new-project/  # Cloned from git_url
 cd ~/morphizen.github.1
 /create-issue
 → Brief message: "Working in: MorphiZen (local mode)"
-→ Creates issues in: docs/project/issues/
-→ Updates: docs/project/backlog.md
+→ Creates issues in: docs/projects/PROJECT_NAME/issues/
+→ Updates: docs/projects/PROJECT_NAME/backlog.md
 ```
 
 **Characteristics:**
@@ -374,7 +374,7 @@ cd ~/morphizen.github.1
 ```bash
 cd ~/devflow-kit
 /fix-issue
-→ Reads: workspace/cache/morphizen/docs/project/backlog.md
+→ Reads: workspace/cache/morphizen/docs/projects/PROJECT_NAME/backlog.md
 → Clones to: workspace/issues/morphizen-042/
 → Works in: workspace/issues/morphizen-042/morphizen/
 → Creates PR to: ROCm/MorphiZen
@@ -426,7 +426,7 @@ cd ~/devflow-kit
 
 **Examples:**
 - ✅ Check for `docs/projects/` to detect workspace mode
-- ✅ Check `origin/main:docs/project/` to detect backlog location
+- ✅ Check `origin/main:docs/projects/PROJECT_NAME/` to detect backlog location
 - ❌ Store workflow_type in metadata
 
 ### 2. Minimal Metadata

@@ -1,6 +1,6 @@
 # Claude Code Configuration
 
-This directory contains Claude Code configuration files for the work-log-2026 project.
+This directory contains Claude Code configuration files for the devflow-kit project.
 
 ## Files
 
