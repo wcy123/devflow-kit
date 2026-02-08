@@ -123,7 +123,7 @@ def main():
     issue_num = sys.argv[1]
 
     # Find issue file
-    pattern = f"docs/project/issues/{issue_num}-*.md"
+    pattern = f"docs/projects/devflow-kit/issues/{issue_num}-*.md"
     matches = glob.glob(pattern)
     if not matches:
         print(f"❌ Issue file not found: {pattern}")
