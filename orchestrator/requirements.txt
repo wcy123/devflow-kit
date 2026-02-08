@@ -1,0 +1,8 @@
+# Orchestrator dependencies
+
+# YAML parsing for project configuration
+PyYAML>=6.0
+
+# Process management (built-in, but noted for clarity)
+# subprocess - standard library
+# readline - standard library (may need python-readline on some systems)
