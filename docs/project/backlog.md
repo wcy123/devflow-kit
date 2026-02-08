@@ -7,13 +7,13 @@ Issue tracking: `backlog.md` (index) + `issues/NNN-name.md` (detailed files)
 ## Backlog
 
 **Quick dependencies:**
-- Example: **#003 relates to #001, #002** - Brief explanation of relationship
+- None currently
 
 See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 
 | # | Title | Pri | Est | Group | Blocked | Files |
 |---|-------|-----|-----|-------|---------|-------|
-| [#001](issues/001-example-issue.md) | Example Issue Title | M | 1h | Example Group | - | example_file.cpp |
+| [#001](issues/001-restructure-and-rename-to-devflow-kit.md) | Restructure and Rename to devflow-kit | H | 2h | Infrastructure | - | docs/project/*, .git/config |
 
 **Legend:**
 - **Pri**: Priority (C=Critical, H=High, M=Medium, L=Low)
