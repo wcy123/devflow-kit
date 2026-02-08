@@ -72,11 +72,12 @@ import subprocess
 from pathlib import Path
 
 def detect_mode():
-    """Detect workspace vs traditional mode"""
-    if os.path.exists("docs/projects"):  # Plural
-        return "workspace"
-    else:
-        return "traditional"
+    """Detect workspace vs traditional mode
+
+    workspace: docs/projects/ exists (plural)
+    traditional: docs/projects/ doesn't exist
+    """
+    return "workspace" if os.path.exists("docs/projects") else "traditional"
 
 def list_projects():
     """List available projects in workspace mode
@@ -99,31 +100,8 @@ def list_projects():
 
     return sorted(projects)
 
-
-def get_project(mode):
-    """Get project name (select from list in workspace, N/A in traditional)"""
-    if mode == "workspace":
-        projects = list_projects()
-        if not projects:
-            print("Error: No projects found in docs/projects/", file=sys.stderr)
-            sys.exit(1)
-
-        # Workspace mode requires project name as argument
-        if len(sys.argv) > 1:
-            project = sys.argv[1]
-            if project not in projects:
-                print(f"Error: Project '{project}' not found. Available: {', '.join(projects)}", file=sys.stderr)
-                sys.exit(1)
-            return project
-        else:
-            # No argument - return project list for AI to present to user
-            return None  # Signal that we need user selection
-    else:
-        # Traditional mode - project name not needed (paths are fixed)
-        return "current"
-
 def update_cache(project):
-    """Update cache to latest origin/main"""
+    """Update cache to latest origin/main (workspace mode only)"""
     cache_dir = Path(f"workspace/cache/{project}")
 
     if not cache_dir.exists():
@@ -140,19 +118,18 @@ def update_cache(project):
         print(f"✓ Updated {project} cache to latest origin/main", file=sys.stderr)
     except subprocess.CalledProcessError as e:
         print(f"⚠️ Warning: Failed to update {project} cache. Using existing version.", file=sys.stderr)
-        print(f"   Error: {e.stderr}", file=sys.stderr)
 
 def check_backlog_location(project, cache_dir):
     """Check if project has own backlog (Type 1) or uses devflow-kit tracking (Type 2)"""
-    # Try to check if backlog exists in project's origin/main (singular path!)
+    # Check if backlog exists in project's repo at docs/project/ (singular!)
     try:
-        result = subprocess.run(
+        subprocess.run(
             ["git", "-C", str(cache_dir), "show", "origin/main:docs/project/backlog.md"],
             capture_output=True,
             text=True,
             check=True
         )
-        return "remote"  # Type 1: Project has own backlog at docs/project/
+        return "remote"  # Type 1: Project has own backlog
     except subprocess.CalledProcessError:
         return "local"  # Type 2: Use devflow-kit tracking
 
@@ -163,33 +140,9 @@ def resolve_paths(mode, project):
     Workspace Type 1: workspace/cache/{project}/docs/project/ (singular - project has own backlog)
     Workspace Type 2: docs/projects/{project}/ (plural - devflow-kit tracking)
     """
-    if mode == "workspace":
-        cache_dir = Path(f"workspace/cache/{project}")
-
-        # Detect backlog location
-        location = check_backlog_location(project, cache_dir)
-
-        if location == "remote":
-            # Type 1: Project has own backlog at docs/project/ (singular!)
-            paths = {
-                "backlog": str(cache_dir / "docs/project/backlog.md"),
-                "issues_dir": str(cache_dir / "docs/project/issues/"),
-                "completed": str(cache_dir / "docs/project/completed-issues.md"),
-                "dependencies": str(cache_dir / "docs/project/issue-dependency-analysis.md"),
-                "location": "remote"
-            }
-        else:
-            # Type 2: devflow-kit tracking at docs/projects/{project}/ (plural!)
-            paths = {
-                "backlog": f"docs/projects/{project}/backlog.md",
-                "issues_dir": f"docs/projects/{project}/issues/",
-                "completed": f"docs/projects/{project}/completed-issues.md",
-                "dependencies": f"docs/projects/{project}/issue-dependency-analysis.md",
-                "location": "local"
-            }
-    else:
-        # Traditional mode - work in current directory, docs/project/ (singular!)
-        paths = {
+    if mode == "traditional":
+        # Traditional mode - fixed paths at docs/project/ (singular!)
+        return {
             "backlog": "docs/project/backlog.md",
             "issues_dir": "docs/project/issues/",
             "completed": "docs/project/completed-issues.md",
@@ -197,50 +150,75 @@ def resolve_paths(mode, project):
             "location": "local"
         }
 
-    return paths
+    # Workspace mode - detect Type 1 vs Type 2
+    cache_dir = Path(f"workspace/cache/{project}")
+    location = check_backlog_location(project, cache_dir)
+
+    if location == "remote":
+        # Type 1: Project has own backlog at docs/project/ (singular!)
+        return {
+            "backlog": str(cache_dir / "docs/project/backlog.md"),
+            "issues_dir": str(cache_dir / "docs/project/issues/"),
+            "completed": str(cache_dir / "docs/project/completed-issues.md"),
+            "dependencies": str(cache_dir / "docs/project/issue-dependency-analysis.md"),
+            "location": "remote"
+        }
+    else:
+        # Type 2: devflow-kit tracking at docs/projects/{project}/ (plural!)
+        return {
+            "backlog": f"docs/projects/{project}/backlog.md",
+            "issues_dir": f"docs/projects/{project}/issues/",
+            "completed": f"docs/projects/{project}/completed-issues.md",
+            "dependencies": f"docs/projects/{project}/issue-dependency-analysis.md",
+            "location": "local"
+        }
 
 def main():
-    # 1. Detect workflow mode
-    #    - "workspace": Running from devflow-kit hub (docs/projects/ exists)
-    #    - "traditional": Running from project directory (docs/projects/ doesn't exist)
     mode = detect_mode()
 
-    # 2. Select/detect project name
-    #    - Workspace mode: Returns None if no arg (need user selection)
-    #    - Traditional mode: Auto-detect from git remote URL
-    project = get_project(mode)
-
-    # CALL 1: No project selected yet (workspace mode, no args)
-    # Return minimal JSON with project list for AI to present to user
-    if project is None:
-        projects = list_projects()
+    # TRADITIONAL MODE: Return everything in one call
+    if mode == "traditional":
+        paths = resolve_paths("traditional", "current")
         result = {
-            "mode": mode,
+            "mode": "traditional",
+            "project": "current",
+            "paths": paths
+        }
+        print(json.dumps(result, indent=2))
+        return 0
+
+    # WORKSPACE MODE: Check if project arg provided
+    projects = list_projects()
+    if not projects:
+        print("Error: No projects found in docs/projects/", file=sys.stderr)
+        sys.exit(1)
+
+    # CALL 1: No project arg - return project list
+    if len(sys.argv) < 2:
+        result = {
+            "mode": "workspace",
             "projects": projects
         }
         print(json.dumps(result, indent=2))
         return 0
 
-    # CALL 2: Project selected (traditional mode or workspace mode with arg)
-    # 3. Update cache to latest origin/main (workspace mode only)
-    #    - Ensures backlog/issues are always current before skills run
-    #    - Gracefully handles cache update failures (warns but continues)
-    if mode == "workspace":
-        update_cache(project)
+    # CALL 2: Project arg provided - validate and return paths
+    project = sys.argv[1]
+    if project not in projects:
+        print(f"Error: Project '{project}' not found. Available: {', '.join(projects)}", file=sys.stderr)
+        sys.exit(1)
 
-    # 4. Resolve paths based on mode and backlog location
-    #    - Returns correct paths to backlog.md, issues/, completed-issues.md
-    #    - Handles both Type 1 (remote backlog) and Type 2 (local tracking)
-    paths = resolve_paths(mode, project)
+    # Update cache before resolving paths
+    update_cache(project)
 
-    # 5. Return JSON result to stdout
-    #    - Format: {"mode": "...", "project": "...", "paths": {...}}
+    # Resolve paths for selected project
+    paths = resolve_paths("workspace", project)
+
     result = {
-        "mode": mode,
+        "mode": "workspace",
         "project": project,
         "paths": paths
     }
-
     print(json.dumps(result, indent=2))
     return 0
 
