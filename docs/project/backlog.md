@@ -37,7 +37,7 @@ See **[completed-issues.md](completed-issues.md)** for full archive of all compl
 
 When implementation is done (code complete, tests pass), update the backlog:
 
-1. Add to completed-issues.md - Add entry to top of current month's table with: #, Author, Commit, Date, Title
+1. Add to completed-issues.md - Add entry to top of current month's table with: #, Author, PR, Commit, Date, Title
 2. Update backlog.md - Add to "Recent (last 5)" list in compact format, remove oldest if >5
 3. Remove from backlog.md - Delete from active backlog table
 4. Delete issue file: `git rm docs/project/issues/042-*.md`
