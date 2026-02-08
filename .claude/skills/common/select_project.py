@@ -8,6 +8,37 @@
 """
 Project detection, cache management, and path resolution for multi-project workflow.
 Used by all skills (create-issue, fix-issue, resolve-ci).
+
+TWO-CALL APPROACH FOR TOKEN EFFICIENCY:
+
+Call 1 (no args): Get mode and project list
+    Traditional mode: {"mode": "traditional", "project": "morphizen"}
+    Workspace mode:   {"mode": "workspace", "projects": ["devflow-kit", "morphizen"]}
+    Token cost: ~40 tokens
+
+    AI parses output, asks user to select project (if workspace mode), then...
+
+Call 2 (with project arg): Get resolved paths for selected project
+    python select_project.py morphizen
+
+    Output: {
+        "mode": "workspace",
+        "project": "morphizen",
+        "paths": {
+            "backlog": "workspace/cache/morphizen/docs/projects/devflow-kit/backlog.md",
+            "issues_dir": "workspace/cache/morphizen/docs/projects/devflow-kit/issues/",
+            ...
+        }
+    }
+    Token cost: ~150 tokens
+
+    Total per skill invocation: ~190 tokens
+
+WHY TWO CALLS:
+- Only returns paths for selected project (not all projects)
+- Scales well (100 projects doesn't bloat first call)
+- Script handles complexity (Type 1/2 detection, cache updates)
+- AI handles user interaction (its strength)
 """
 import os
 import sys
@@ -55,15 +86,14 @@ def detect_from_git():
         sys.exit(1)
 
 def get_project(mode):
-    """Get project name (ask in workspace, detect in traditional)"""
+    """Get project name (select from list in workspace, detect from git in traditional)"""
     if mode == "workspace":
         projects = list_projects()
         if not projects:
             print("Error: No projects found in docs/projects/", file=sys.stderr)
             sys.exit(1)
 
-        # Ask user to select (Claude will handle this via AskUserQuestion)
-        # For now, output projects and expect project name via arg
+        # Workspace mode requires project name as argument
         if len(sys.argv) > 1:
             project = sys.argv[1]
             if project not in projects:
@@ -71,8 +101,8 @@ def get_project(mode):
                 sys.exit(1)
             return project
         else:
-            print(json.dumps({"action": "select_project", "projects": projects}))
-            sys.exit(0)
+            # No argument - return project list for AI to present to user
+            return None  # Signal that we need user selection
     else:
         return detect_from_git()
 
@@ -155,10 +185,22 @@ def main():
     mode = detect_mode()
 
     # 2. Select/detect project name
-    #    - Workspace mode: Ask user to select from available projects in docs/projects/
+    #    - Workspace mode: Returns None if no arg (need user selection)
     #    - Traditional mode: Auto-detect from git remote URL
     project = get_project(mode)
 
+    # CALL 1: No project selected yet (workspace mode, no args)
+    # Return minimal JSON with project list for AI to present to user
+    if project is None:
+        projects = list_projects()
+        result = {
+            "mode": mode,
+            "projects": projects
+        }
+        print(json.dumps(result, indent=2))
+        return 0
+
+    # CALL 2: Project selected (traditional mode or workspace mode with arg)
     # 3. Update cache to latest origin/main (workspace mode only)
     #    - Ensures backlog/issues are always current before skills run
     #    - Gracefully handles cache update failures (warns but continues)
@@ -171,7 +213,6 @@ def main():
     paths = resolve_paths(mode, project)
 
     # 5. Return JSON result to stdout
-    #    - Skills parse this JSON to get mode, project, and paths
     #    - Format: {"mode": "...", "project": "...", "paths": {...}}
     result = {
         "mode": mode,

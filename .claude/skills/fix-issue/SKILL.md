@@ -20,13 +20,14 @@ Automate issue selection, workspace setup, and implementation for backlog issues
 
 ## Phase 0: Detect Project and Workflow Mode
 
-Run `python .claude/skills/common/select_project.py`
+**Call 1:** Run `python .claude/skills/common/select_project.py`
 
-If output has `"projects"` list: use AskUserQuestion to let user select, then re-run with selected project.
+**If output has `"projects"` list:** Use AskUserQuestion to let user select, then **Call 2:** Run with selected project:
+`python .claude/skills/common/select_project.py <selected_project>`
 
-Parse JSON for: `mode`, `project`, `paths.*` (backlog, issues_dir, completed)
+**Parse JSON for:** `mode`, `project`, `paths.*` (backlog, issues_dir, completed)
 
-Display: "Working on: {project} ({mode} mode)"
+**Display:** "Working on: {project} ({mode} mode)"
 
 **Mode affects Phase 4:**
 - **Traditional:** Work in current dir, create feature branch here

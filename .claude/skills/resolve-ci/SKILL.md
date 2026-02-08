@@ -29,11 +29,12 @@ Before running /resolve-ci:
 
 ### Phase 0: Detect Project and Workflow Mode
 
-Run `python .claude/skills/common/select_project.py`
+**Call 1:** Run `python .claude/skills/common/select_project.py`
 
-If output has `"projects"` list: use AskUserQuestion to let user select, then re-run with selected project.
+**If output has `"projects"` list:** Use AskUserQuestion to let user select, then **Call 2:** Run with selected project:
+`python .claude/skills/common/select_project.py <selected_project>`
 
-Parse JSON for: `mode`, `project`
+**Parse JSON for:** `mode`, `project`
 
 **Mode affects cleanup:**
 - **Traditional:** No cleanup needed
