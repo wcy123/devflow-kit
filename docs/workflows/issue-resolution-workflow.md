@@ -253,7 +253,5 @@ The issue resolution workflow integrates three skills to automate the complete j
 ## Related Documentation
 
 - **Git Workflow:** `docs/workflows/git-workflow.md`
-- **PR Workflow:** `docs/workflows/pr-workflow.md`
-- **Build Workflow:** `docs/workflows/build-workflow.md`
+- **Git Workflow Reference:** `docs/workflows/git-workflow-reference.md`
 - **Project Backlog:** `docs/project/backlog.md`
-- **Contributing Guidelines:** `docs/project/CONTRIBUTING.md`
