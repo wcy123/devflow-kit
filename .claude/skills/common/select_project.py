@@ -9,36 +9,48 @@
 Project detection, cache management, and path resolution for multi-project workflow.
 Used by all skills (create-issue, fix-issue, resolve-ci).
 
-TWO-CALL APPROACH FOR TOKEN EFFICIENCY:
+SMART CALL DESIGN FOR TOKEN EFFICIENCY:
 
-Call 1 (no args): Get mode and project list
-    Traditional mode: {"mode": "traditional", "project": "morphizen"}
-    Workspace mode:   {"mode": "workspace", "projects": ["devflow-kit", "morphizen"]}
-    Token cost: ~40 tokens
-
-    AI parses output, asks user to select project (if workspace mode), then...
-
-Call 2 (with project arg): Get resolved paths for selected project
-    python select_project.py morphizen
+TRADITIONAL MODE (one call):
+    python select_project.py
 
     Output: {
-        "mode": "workspace",
+        "mode": "traditional",
         "project": "morphizen",
         "paths": {
-            "backlog": "workspace/cache/morphizen/docs/projects/devflow-kit/backlog.md",
-            "issues_dir": "workspace/cache/morphizen/docs/projects/devflow-kit/issues/",
+            "backlog": "docs/projects/devflow-kit/backlog.md",
             ...
         }
     }
     Token cost: ~150 tokens
+    No selection needed - return everything immediately.
 
-    Total per skill invocation: ~190 tokens
+WORKSPACE MODE (two calls):
+    Call 1 (no args): Get project list
+        python select_project.py
 
-WHY TWO CALLS:
-- Only returns paths for selected project (not all projects)
+        Output: {"mode": "workspace", "projects": ["devflow-kit", "morphizen"]}
+        Token cost: ~40 tokens
+
+        AI asks user to select project, then...
+
+    Call 2 (with project arg): Get paths for selected project
+        python select_project.py morphizen
+
+        Output: {
+            "mode": "workspace",
+            "project": "morphizen",
+            "paths": {...}
+        }
+        Token cost: ~150 tokens
+
+        Total: ~190 tokens
+
+WHY THIS DESIGN:
+- Traditional mode: One call (no selection needed)
+- Workspace mode: Two calls (only when selection needed)
 - Scales well (100 projects doesn't bloat first call)
 - Script handles complexity (Type 1/2 detection, cache updates)
-- AI handles user interaction (its strength)
 """
 import os
 import sys
