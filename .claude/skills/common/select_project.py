@@ -188,6 +188,7 @@ def main():
         return 0
 
     # WORKSPACE MODE: Check if project arg provided
+    # Get all available projects (needed for both Call 1 and Call 2 validation)
     projects = list_projects()
     if not projects:
         print("Error: No projects found in docs/projects/", file=sys.stderr)
