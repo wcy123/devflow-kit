@@ -96,46 +96,68 @@ copy_if_different() {
     fi
 }
 
-# Helper function: copy directory recursively, checking each file
-# Args: source_dir target_dir description_prefix
-copy_dir_if_different() {
-    local src_dir="$1"
-    local dst_dir="$2"
-    local desc_prefix="$3"
+# Helper function: copy file only if exists in source
+copy_file() {
+    local rel_path="$1"
+    local desc="$2"
+    local src="$SOURCE_DIR/$rel_path"
+    local dst="$TARGET_DIR/$rel_path"
 
-    mkdir -p "$dst_dir"
-
-    # Find all files in source directory
-    find "$src_dir" -type f | while read -r src_file; do
-        # Calculate relative path
-        local rel_path="${src_file#$src_dir/}"
-        local dst_file="$dst_dir/$rel_path"
-        local desc="$desc_prefix/$rel_path"
-
-        copy_if_different "$src_file" "$dst_file" "$desc"
-    done
+    if [ -f "$src" ]; then
+        copy_if_different "$src" "$dst" "$desc"
+    else
+        echo "⚠️  Warning: Source file not found: $src"
+    fi
 }
 
-# Copy Claude skills and configuration
-echo "📦 Syncing Claude Code skills and hooks..."
-copy_dir_if_different "$SOURCE_DIR/.claude/skills" "$TARGET_DIR/.claude/skills" ".claude/skills"
-copy_dir_if_different "$SOURCE_DIR/.claude/hooks" "$TARGET_DIR/.claude/hooks" ".claude/hooks"
-copy_if_different "$SOURCE_DIR/.claude/settings.json" "$TARGET_DIR/.claude/settings.json" ".claude/settings.json"
-copy_if_different "$SOURCE_DIR/.claude/README.md" "$TARGET_DIR/.claude/README.md" ".claude/README.md"
+echo "📦 Syncing Claude Code configuration..."
+echo ""
 
-# Copy workflow documentation
+# Claude configuration files
+copy_file ".claude/README.md" ".claude/README.md"
+copy_file ".claude/settings.json" ".claude/settings.json"
+
+# Claude hooks
+echo ""
+echo "🪝 Syncing Claude hooks..."
+copy_file ".claude/hooks/pre-bash.py" ".claude/hooks/pre-bash.py"
+copy_file ".claude/hooks/post-bash.py" ".claude/hooks/post-bash.py"
+copy_file ".claude/hooks/post-file-edit.py" ".claude/hooks/post-file-edit.py"
+
+# Claude skills
+echo ""
+echo "🛠️  Syncing Claude skills..."
+echo ""
+echo "  create-issue skill:"
+copy_file ".claude/skills/create-issue/SKILL.md" ".claude/skills/create-issue/SKILL.md"
+
+echo ""
+echo "  fix-issue skill:"
+copy_file ".claude/skills/fix-issue/SKILL.md" ".claude/skills/fix-issue/SKILL.md"
+copy_file ".claude/skills/fix-issue/README.md" ".claude/skills/fix-issue/README.md"
+copy_file ".claude/skills/fix-issue/setup-workspace.py" ".claude/skills/fix-issue/setup-workspace.py"
+copy_file ".claude/skills/fix-issue/TEST_REPORT.md" ".claude/skills/fix-issue/TEST_REPORT.md"
+
+echo ""
+echo "  resolve-ci skill:"
+copy_file ".claude/skills/resolve-ci/SKILL.md" ".claude/skills/resolve-ci/SKILL.md"
+copy_file ".claude/skills/resolve-ci/README.md" ".claude/skills/resolve-ci/README.md"
+copy_file ".claude/skills/resolve-ci/monitor-pr.py" ".claude/skills/resolve-ci/monitor-pr.py"
+
+# Workflow documentation
 echo ""
 echo "📄 Syncing workflow documentation..."
-copy_dir_if_different "$SOURCE_DIR/docs/workflows" "$TARGET_DIR/docs/workflows" "docs/workflows"
-copy_if_different "$SOURCE_DIR/docs/README.md" "$TARGET_DIR/docs/README.md" "docs/README.md"
+copy_file "docs/README.md" "docs/README.md"
+copy_file "docs/workflows/issue-resolution-workflow.md" "docs/workflows/issue-resolution-workflow.md"
+copy_file "docs/workflows/git-workflow.md" "docs/workflows/git-workflow.md"
+copy_file "docs/workflows/git-workflow-reference.md" "docs/workflows/git-workflow-reference.md"
 
-# Copy project templates
+# Project templates
 echo ""
-echo "📋 Syncing issue templates..."
-mkdir -p "$TARGET_DIR/docs/project/issues"
-copy_if_different "$SOURCE_DIR/docs/project/issues/TEMPLATE.md" "$TARGET_DIR/docs/project/issues/TEMPLATE.md" "docs/project/issues/TEMPLATE.md"
+echo "📋 Syncing project templates..."
+copy_file "docs/project/issues/TEMPLATE.md" "docs/project/issues/TEMPLATE.md"
 
-# Only copy project-specific files if they don't exist (never overwrite these)
+# Project-specific files (only if they don't exist)
 echo ""
 echo "📝 Checking project-specific files..."
 if [ ! -f "$TARGET_DIR/docs/project/backlog.md" ]; then
@@ -192,6 +214,13 @@ if [ ${#WARNED_FILES[@]} -gt 0 ]; then
     echo ""
 fi
 
+echo "Files synced:"
+echo "  📦 Claude configuration: README.md, settings.json"
+echo "  🪝 Claude hooks: pre-bash.py, post-bash.py, post-file-edit.py"
+echo "  🛠️  Claude skills: create-issue, fix-issue, resolve-ci"
+echo "  📄 Workflow docs: issue-resolution, git-workflow, git-workflow-reference"
+echo "  📋 Templates: issue TEMPLATE.md"
+echo ""
 echo "Next steps:"
 echo "  1. cd $TARGET_DIR"
 echo "  2. Review synced files"
