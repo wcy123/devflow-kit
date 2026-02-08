@@ -72,3 +72,5 @@ devflow-kit/                              # Renamed from work_log
 ## Plans
 
 - [Restructure and Rename Plan](../plans/001-restructure-and-rename-to-devflow-kit-plan.md) - Created 2026-02-08
+
+Started: 2026-02-08
