@@ -14,7 +14,6 @@ See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 | # | Title | Pri | Est | Group | Blocked | Files |
 |---|-------|-----|-----|-------|---------|-------|
 | [#002](issues/002-morphizen-integration-with-devflow-kit.md) | MorphiZen Integration with devflow-kit | H | 1.5h | Integration | - | .gitignore, .claude/skills/*, CONTRIBUTING.md |
-| [#003](issues/003-skills-multi-project-support.md) | Skills - Multi-project Support | H | 3h | Skills | - | .claude/skills/common/select_project.py, .claude/skills/*/SKILL.md |
 
 **Legend:**
 - **Pri**: Priority (C=Critical, H=High, M=Medium, L=Low)
@@ -30,6 +29,7 @@ See [issue-dependency-analysis.md](issue-dependency-analysis.md) for details.
 See **[completed-issues.md](completed-issues.md)** for full archive of all completed issues.
 
 **Recent (last 5):**
+- #003 - Skills - Multi-project Support (2026-02-08)
 - #001 - Restructure and Rename to devflow-kit (2026-02-08)
 
 ---

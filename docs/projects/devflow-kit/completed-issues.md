@@ -10,6 +10,7 @@ Archive of all completed and merged issues.
 
 | # | Author | PR | Commit | Date | Title |
 |---|--------|----|---------|----|-------|
+| #003 | @wcy123 | [#2](https://github.com/wcy123/devflow-kit/pull/2) | TBD | 2026-02-08 | Skills - Multi-project Support |
 | #001 | @wcy123 | [#1](https://github.com/wcy123/devflow-kit/pull/1) | TBD | 2026-02-08 | Restructure and Rename to devflow-kit |
 
 ---
