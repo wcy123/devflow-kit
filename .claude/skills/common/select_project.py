@@ -150,19 +150,29 @@ def resolve_paths(mode, project):
 
 def main():
     # 1. Detect workflow mode
+    #    - "workspace": Running from devflow-kit hub (docs/projects/ exists)
+    #    - "traditional": Running from project directory (docs/projects/ doesn't exist)
     mode = detect_mode()
 
-    # 2. Select/detect project
+    # 2. Select/detect project name
+    #    - Workspace mode: Ask user to select from available projects in docs/projects/
+    #    - Traditional mode: Auto-detect from git remote URL
     project = get_project(mode)
 
-    # 3. Update cache (workspace mode only)
+    # 3. Update cache to latest origin/main (workspace mode only)
+    #    - Ensures backlog/issues are always current before skills run
+    #    - Gracefully handles cache update failures (warns but continues)
     if mode == "workspace":
         update_cache(project)
 
-    # 4. Resolve paths
+    # 4. Resolve paths based on mode and backlog location
+    #    - Returns correct paths to backlog.md, issues/, completed-issues.md
+    #    - Handles both Type 1 (remote backlog) and Type 2 (local tracking)
     paths = resolve_paths(mode, project)
 
-    # 5. Return JSON
+    # 5. Return JSON result to stdout
+    #    - Skills parse this JSON to get mode, project, and paths
+    #    - Format: {"mode": "...", "project": "...", "paths": {...}}
     result = {
         "mode": mode,
         "project": project,
