@@ -80,8 +80,8 @@ This backlog system is designed to be shared across multiple projects. Here are 
 When starting a new project, copy the entire system:
 
 ```bash
-# From the work-log-2026 repository
-cd /path/to/work-log-2026
+# From the devflow-kit repository
+cd /path/to/devflow-kit
 
 # Copy to new project
 cp -r .claude /path/to/new-project/.claude
@@ -107,7 +107,7 @@ cd /path/to/new-project
 Use the provided sync script to update multiple projects:
 
 ```bash
-# From work-log-2026 repository
+# From devflow-kit repository
 ./scripts/sync-workflow.sh /path/to/target-project
 ```
 
@@ -333,7 +333,7 @@ This backlog system can be adapted to your needs:
 
 When you improve the workflow system in one project:
 
-1. Update in work-log-2026 (the master template)
+1. Update in devflow-kit (the master template)
 2. Commit and push changes
 3. Sync to other projects using your chosen sharing method
 4. Test in target projects
@@ -343,7 +343,7 @@ When you improve the workflow system in one project:
 Consider tagging releases of the workflow system:
 
 ```bash
-cd work-log-2026
+cd devflow-kit
 git tag -a v1.0 -m "Stable backlog system release"
 git push origin v1.0
 ```
