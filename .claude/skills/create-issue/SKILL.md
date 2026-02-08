@@ -601,24 +601,15 @@ Is the topic complex?
 
 ## Phase 0: Detect Project and Workflow Mode
 
-**Run detection script:**
-```bash
-python .claude/skills/common/select_project.py
-```
+Run `python .claude/skills/common/select_project.py`
 
-**If output contains `"action": "select_project"`:** Ask user to select from listed projects, then re-run:
-```bash
-python .claude/skills/common/select_project.py <selected_project>
-```
+If output has `"projects"` list: use AskUserQuestion to let user select, then re-run with selected project.
 
-**Parse JSON output for:**
-- `mode`: "traditional" or "workspace"
-- `project`: Project name
-- `paths.*`: backlog, issues_dir, completed
+Parse JSON for: `mode`, `project`, `paths.*` (backlog, issues_dir, completed)
 
-**Display:** "Working on: {project} ({mode} mode)"
+Display: "Working on: {project} ({mode} mode)"
 
-**Use `paths.*` throughout** instead of hardcoded paths.
+Use `paths.*` throughout instead of hardcoded paths.
 
 ---
 
