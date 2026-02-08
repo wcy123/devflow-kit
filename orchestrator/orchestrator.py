@@ -929,6 +929,130 @@ class OrchestratorShell(cmd.Cmd):
 
         print(f"Session {session_id} archived (history preserved)")
 
+    def do_talk(self, args: str):
+        """Start interactive conversation with a session.
+
+        Enter a focused mode where you talk directly to the session
+        without typing 'send' for each prompt. Type 'bye' to exit.
+
+        Usage: talk <session>
+
+        Example:
+            orchestrator> talk morphizen-042
+            [Attached to morphizen-042]
+            morphizen-042> implement the feature
+            ... response ...
+            morphizen-042> run tests
+            ... response ...
+            morphizen-042> bye
+            [Detached from morphizen-042]
+            orchestrator>
+        """
+        session_id = args.strip()
+
+        if not session_id:
+            print("Usage: talk <session>")
+            return
+
+        if session_id not in self.sessions:
+            print(f"Error: Session '{session_id}' not found")
+            return
+
+        session = self.sessions[session_id]
+
+        if session.archived:
+            print(f"Error: Session {session_id} is archived")
+            return
+
+        # Enter talk mode
+        print(f"[Attached to {session_id}]")
+        print("Type 'bye' to detach\n")
+
+        old_prompt = self.prompt
+        self.prompt = f"{session_id}> "
+
+        while True:
+            try:
+                # Check for completed processes before prompting
+                self._check_all_sessions()
+
+                # Get user input
+                line = input(self.prompt).strip()
+
+                # Exit command
+                if line.lower() in ('bye', 'exit', 'quit'):
+                    break
+
+                # Empty line - skip
+                if not line:
+                    continue
+
+                # Check if session is busy
+                state = session.get_state()
+                if state == 'RUNNING':
+                    print(f"Session is busy. Wait or type 'stop' to cancel.")
+                    continue
+
+                # Send the prompt
+                self._send_prompt_internal(session_id, line)
+
+            except EOFError:
+                # Ctrl+D - exit talk mode
+                print()
+                break
+            except KeyboardInterrupt:
+                # Ctrl+C - just show new prompt
+                print()
+                continue
+
+        # Restore prompt
+        self.prompt = old_prompt
+        print(f"\n[Detached from {session_id}]")
+
+    def _send_prompt_internal(self, session_id: str, prompt: str):
+        """Internal helper to send prompt without parsing session_id from args.
+
+        Args:
+            session_id: Session identifier
+            prompt: Prompt text to send
+        """
+        session = self.sessions[session_id]
+
+        # Build Claude command
+        cmd = ['claude', '-p', prompt, '--output-format', 'json']
+
+        # Resume existing session if not first prompt
+        if session.claude_session_id:
+            cmd.extend(['--resume', session.claude_session_id])
+
+        # Setup output file
+        workspace_base = self._get_workspace_base(session_id)
+        output_file = os.path.join(workspace_base, '.output.json')
+
+        # Spawn process
+        try:
+            with open(output_file, 'w') as f:
+                proc = subprocess.Popen(
+                    cmd,
+                    cwd=session.working_dir,
+                    stdout=f,
+                    stderr=subprocess.STDOUT
+                )
+        except Exception as e:
+            print(f"Error: Failed to spawn process: {e}")
+            return
+
+        # Update session state
+        session.process = proc
+        session.current_prompt = prompt
+        session.output_file = output_file
+        session.process_start_time = time.time()
+
+        # Save session
+        self._save_session(session)
+
+        print(f"Working... (PID {proc.pid})")
+
     def do_config(self, args: str):
         """Get or set configuration values.
 
