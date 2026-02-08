@@ -31,15 +31,17 @@ Parse JSON for: `mode`, `project`, `paths.*`
 
 Display: "Working on: {project} ({mode} mode)"
 
-**Mode affects Phase 4:**
-- **Traditional:** Work in current dir, create feature branch here
-- **Workspace:** Clone to `workspace/issues/{project}-{issue_num}/`, work there
+**Mode affects later phases:**
+- **Traditional:** Need Phase 1 sync, work in current dir, create feature branch here
+- **Workspace:** Skip Phase 1 (will clone fresh), clone to `workspace/issues/{project}-{issue_num}/`, work there
 
 ---
 
-## Phase 1: Pre-Selection Sync
+## Phase 1: Pre-Selection Sync (Traditional Mode Only)
 
-Ensure on main branch with no uncommitted changes, then sync local main with origin/main via `git pull origin main`.
+**Skip this phase if workspace mode.**
+
+Traditional mode only: Ensure on main branch with no uncommitted changes, then sync local main with origin/main via `git pull origin main`.
 
 ---
 
